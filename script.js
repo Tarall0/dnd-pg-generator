@@ -154,40 +154,49 @@ function generatePg() {
             const onespellsn = classInfo[classpg].spellsupperday;
             const spellspg = [];
             const upspellpg = [];
+            const addedSpells = new Set();
     
-            for (let i = 0; i < zerospellsn; i++) {
+            // Function to get a random spell  checking the set addedSpells
+            const getRandomSpell = () => {
                 const spellKeys = Object.keys(spellslv0);
-                const randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                let randomSpellKey;
+
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedSpells.has(randomSpellKey)); // Keep looking until unique key is not find 
+    
+                addedSpells.add(randomSpellKey); // Add the spell key to the set
+                return randomSpellKey;
+            };
+    
+            // Get lvl0 spells
+            for (let i = 0; i < zerospellsn; i++) {
+                const randomSpellKey = getRandomSpell();
                 const randomSpell = spellslv0[randomSpellKey];
                 spellspg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
             }
     
+            // Get lvl1 Spells
             for (let j = 0; j < onespellsn; j++) {
-                const spellKeys = Object.keys(spellslv0);
-                const randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                const randomSpellKey = getRandomSpell();
                 const randomSpell = spellslv0[randomSpellKey];
                 upspellpg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
             }
     
-            // Clear any previous spells displayed in the DOM
             const spellsContainer = document.getElementById("spellsContainer");
             spellsContainer.innerHTML = ""; // Clear previous content
     
-            // Create separate containers for level 0 and level 1 spells
+            // Create separate containers with different headers and ul for level 0 and level 1 spells
             const lvl0Container = document.createElement("div");
             const lvl1Container = document.createElement("div");
-    
-            // Create headers for the lists
             const lvl0Header = document.createElement("h3");
             lvl0Header.textContent = "Incantesimi lvl 0";
             const lvl1Header = document.createElement("h3");
             lvl1Header.textContent = "Incantesimi lvl 1";
-    
-            // Create a new list (ul) element to display the spells
             const lvl0List = document.createElement("ul");
             const lvl1List = document.createElement("ul");
     
-            // Iterate through the selected spells and create list items (li) for each spell
+            // Foreach to add each spell as li element
             spellspg.forEach((spell) => {
                 const spellItem = document.createElement("li");
     
@@ -200,23 +209,21 @@ function generatePg() {
             upspellpg.forEach((spell) => {
                 const spellItem = document.createElement("li");
     
-                // Display the spell name, description, and group
+                // display the spell name, description, and group
                 spellItem.textContent = `Name: ${spell.name}, Description: ${spell.description}, Group: ${spell.group}`;
     
                 lvl1List.appendChild(spellItem);
             });
     
-            // Append the lists to their respective containers
             lvl0Container.appendChild(lvl0Header);
             lvl0Container.appendChild(lvl0List);
             lvl1Container.appendChild(lvl1Header);
             lvl1Container.appendChild(lvl1List);
-    
-            // Append the containers to the spells container in the DOM
             spellsContainer.appendChild(lvl0Container);
             spellsContainer.appendChild(lvl1Container);
             break;
     }
+    
     
     
 
