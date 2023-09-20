@@ -11,14 +11,14 @@ const raceInfo = {
 
 // Define an object to store class information
 const classInfo = {
-    "Warlock": { lifeRange: [1, 4] },
-    "Mage": { lifeRange: [1, 4] },
-    "Bard": { lifeRange: [1, 6] },
-    "Thief": { lifeRange: [1, 6] },
-    "Druid": { lifeRange: [1, 8] },
-    "Warrior": { lifeRange: [1, 10] },
-    "Paladin": { lifeRange: [1, 10] },
-    "Barbarian": { lifeRange: [1, 12] },
+    "Warlock": { lifeRange: [1, 4], alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"] },
+    "Mage": { lifeRange: [1, 4], alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"] },
+    "Bard": { lifeRange: [1, 6], alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"] },
+    "Thief": { lifeRange: [1, 6], alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"]},
+    "Druid": { lifeRange: [1, 8], alignment: ["Neutrale Buono", "Legale Neutrale", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio"] },
+    "Warrior": { lifeRange: [1, 10], alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"]},
+    "Paladin": { lifeRange: [1, 10], alignment: ["Legale buono"] },
+    "Barbarian": { lifeRange: [1, 12], alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"]},
 };
 
 // Function to calculate random life points based on class information
@@ -34,6 +34,14 @@ function generatePg() {
     const races = Object.keys(raceInfo);
     const classpg = classespg[Math.floor(Math.random() * classespg.length)];
     const racepg = races[Math.floor(Math.random() * races.length)];
+    const possibleAlignments = classInfo[classpg].alignment;
+
+    // Randomly choose an alignment
+    const randomAlignmentIndex = Math.floor(Math.random() * possibleAlignments.length);
+    const randomAlignment = possibleAlignments[randomAlignmentIndex];
+
+    // Set the chosen alignment in the HTML
+    document.getElementById("alignment").textContent = randomAlignment;
 
     // Set the class and race in the HTML
     document.getElementById("classPg").textContent = classpg;
@@ -46,17 +54,13 @@ function generatePg() {
     document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
 }
 
-// Function to increment the click count
+// Increment the click count
 function incrementClickCount() {
     clicks++;
     document.getElementById("clickCount").textContent = clicks;
 }
 
-// Initialize click count
 let clicks = 0;
-
-
-// Get the button element
 const button = document.getElementById("clicker");
 
 // Add a click event listener to the button
