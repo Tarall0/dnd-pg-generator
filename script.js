@@ -11,14 +11,121 @@ const raceInfo = {
 
 // Define an object to store class information
 const classInfo = {
-    "Warlock": { lifeRange: [1, 4], alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"] },
-    "Mage": { lifeRange: [1, 4], alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"] },
-    "Bard": { lifeRange: [1, 6], alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"] },
-    "Thief": { lifeRange: [1, 6], alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"]},
-    "Druid": { lifeRange: [1, 8], alignment: ["Neutrale Buono", "Legale Neutrale", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio"] },
-    "Warrior": { lifeRange: [1, 10], alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"]},
-    "Paladin": { lifeRange: [1, 10], alignment: ["Legale buono"] },
-    "Barbarian": { lifeRange: [1, 12], alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"]},
+    "Warlock": { 
+        lifeRange: [1, 4], 
+        alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+    "Mage": { 
+        lifeRange: [1, 4], 
+        alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
+        spellsperday: 3,
+        spellsupperday: 1,
+    },
+    "Bard": { 
+        lifeRange: [1, 6], 
+        alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+    "Thief": { 
+        lifeRange: [1, 6], 
+        alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+    "Druid": { 
+        lifeRange: [1, 8], 
+        alignment: ["Neutrale Buono", "Legale Neutrale", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+    "Warrior": { 
+        lifeRange: [1, 10], 
+        alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+    "Paladin": { 
+        lifeRange: [1, 10], 
+        alignment: ["Legale buono"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+    "Barbarian": { 
+        lifeRange: [1, 12], 
+        alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
+        spellsperday: 5,
+        spellsupperday: 3,
+    },
+};
+
+const spellslv0 = {
+    "Resistenza": {
+        description: "Il soggetto ottiene bonus di +1 ai tiri salvezza",
+        group: "Abiurazione",
+    },
+    "Frastornare": {
+        description: "Una creatura umanoide con 4 Life Points o meno perde l'azione successiva",
+        group:"Ammaliamento",
+    },
+    "Individuazione del magico": {
+        description: "Individua incantesimi e oggetti magici nel raggio di 18m",
+        group: "Divinazione",
+    },
+    "Fiotto acido": {
+        description: "Sfera che infligge 1d3 danni da acido",
+        group: "Evocazione",
+    },
+    "Suono fantasma": {
+        description: "Suoni illusori",
+        group: "Illusione",
+    },
+    "Lampo": {
+        description: "Abbaglia una creatura (-1 ai tiri per colpire)",
+        group: "Invocazione",
+    },
+    "Luce": {
+        description: "L'oggetto risplende come una torcia",
+        group: "Invocazione",
+    },
+    "Luci danzanti": {
+        description: "Crea torce illusorie o altre luci",
+        group: "Invocazione",
+    },
+    "Raggio di gelo": {
+        description: "Raggio che infligge 1d3 danni da freddo",
+        group: "Invocazione",
+    },
+    "Tocco di affaticamento": {
+        description: "Attacco di contatto, rende affaticato il bersaglio",
+        group: "Necromanzia",
+    },
+    "Aprire/Chiudere": {
+        description: "Apre o chiude oggetti piccoli e leggeri",
+        group: "Trasmutazione",
+    },
+    "Mano magica": {
+        description: "Telecinesi fino a 2,5KG",
+        group: "Trasmutazione",
+    },
+    "Messaggio": {
+        description: "Conversazione sussurrata a distanza",
+        group: "Trasmutazione",
+    },
+    "Riparare": {
+        description: "Effettua riparazioni minori su un oggetto",
+        group: "Trasmutazione",
+    },
+    "Prestidigitazione": {
+        description: "Effettua trucchi minori",
+        group: "Universale",
+    },
+    "Sigillo arcano": {
+        description: "Trascrive una runa personale (visibile o invisibile)",
+        group: "Universale",
+    },
 };
 
 // Function to calculate random life points based on class information
@@ -39,6 +146,79 @@ function generatePg() {
     // Randomly choose an alignment
     const randomAlignmentIndex = Math.floor(Math.random() * possibleAlignments.length);
     const randomAlignment = possibleAlignments[randomAlignmentIndex];
+
+    switch (classpg) {
+        case "Mage":
+        case "Warlock":
+            const zerospellsn = classInfo[classpg].spellsperday;
+            const onespellsn = classInfo[classpg].spellsupperday;
+            const spellspg = [];
+            const upspellpg = [];
+    
+            for (let i = 0; i < zerospellsn; i++) {
+                const spellKeys = Object.keys(spellslv0);
+                const randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                const randomSpell = spellslv0[randomSpellKey];
+                spellspg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
+            }
+    
+            for (let j = 0; j < onespellsn; j++) {
+                const spellKeys = Object.keys(spellslv0);
+                const randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                const randomSpell = spellslv0[randomSpellKey];
+                upspellpg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
+            }
+    
+            // Clear any previous spells displayed in the DOM
+            const spellsContainer = document.getElementById("spellsContainer");
+            spellsContainer.innerHTML = ""; // Clear previous content
+    
+            // Create separate containers for level 0 and level 1 spells
+            const lvl0Container = document.createElement("div");
+            const lvl1Container = document.createElement("div");
+    
+            // Create headers for the lists
+            const lvl0Header = document.createElement("h3");
+            lvl0Header.textContent = "Incantesimi lvl 0";
+            const lvl1Header = document.createElement("h3");
+            lvl1Header.textContent = "Incantesimi lvl 1";
+    
+            // Create a new list (ul) element to display the spells
+            const lvl0List = document.createElement("ul");
+            const lvl1List = document.createElement("ul");
+    
+            // Iterate through the selected spells and create list items (li) for each spell
+            spellspg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+    
+                // Display the spell name, description, and group
+                spellItem.textContent = `Name: ${spell.name}, Description: ${spell.description}, Group: ${spell.group}`;
+    
+                lvl0List.appendChild(spellItem);
+            });
+    
+            upspellpg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+    
+                // Display the spell name, description, and group
+                spellItem.textContent = `Name: ${spell.name}, Description: ${spell.description}, Group: ${spell.group}`;
+    
+                lvl1List.appendChild(spellItem);
+            });
+    
+            // Append the lists to their respective containers
+            lvl0Container.appendChild(lvl0Header);
+            lvl0Container.appendChild(lvl0List);
+            lvl1Container.appendChild(lvl1Header);
+            lvl1Container.appendChild(lvl1List);
+    
+            // Append the containers to the spells container in the DOM
+            spellsContainer.appendChild(lvl0Container);
+            spellsContainer.appendChild(lvl1Container);
+            break;
+    }
+    
+    
 
     // Set the chosen alignment in the HTML
     document.getElementById("alignment").textContent = randomAlignment;
