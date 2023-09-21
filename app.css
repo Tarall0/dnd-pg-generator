@@ -22,10 +22,17 @@ html {
     position: relative;
   }
 
-  .navbar button{
+  .navbar .button{
     position: absolute;
     right: 10px;
-    top: 8px;
+    top: 10px;
+    background: #5853bc; 
+    padding: .5em 1em;
+    font-size: 12px;
+    border-radius: 5px;
+    color: #eeeeee;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   button{
@@ -34,6 +41,7 @@ html {
     border-radius: 5px;
     color: #eeeeee;
     border: none;
+    cursor: pointer;
   }
 
   main{

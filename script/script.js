@@ -403,3 +403,4 @@ button.addEventListener("click", () => {
     generatePg();
     incrementClickCount();
 });
+
