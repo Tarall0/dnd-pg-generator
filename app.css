@@ -41,7 +41,7 @@ html {
     padding: 1.5em;
     border-radius: 10px;
     max-width: 990px;
-    width: 90%;
+    width: calc(90% - 3em);
     background: rgb(120, 120, 120, 0.3);
     position: relative;
   }
