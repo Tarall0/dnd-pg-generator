@@ -105,4 +105,8 @@ html {
     main .pg-grid{
         grid-template-columns: auto;
     }
+
+    .spells-container #spellsContainer{
+        grid-template-columns: auto;
+    }
   }
