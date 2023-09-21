@@ -72,11 +72,33 @@ html {
     grid-template-columns: 50% 50%;
     gap: 1em;
     margin: 2em auto;
+   
   }
 
   main .pg-grid > div {
     background-color: #352f44;
     padding: 1em;
+    width: 90%;
+  }
+
+  main .spells-container{
+    background-color: #352f44;
+    padding: 1em;
+
+  }
+
+  .spells-container ul{
+    list-style: none;
+  }
+
+  .spells-container #spellsContainer{
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  #spellsContainer > div {
+    width: 90%;
+    line-height: 1.5;
   }
 
   @media(max-width: 720px){

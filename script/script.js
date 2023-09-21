@@ -351,7 +351,7 @@ function generatePg() {
                 const spellItem = document.createElement("li");
 
                 // Display the spell name, description, and group
-                spellItem.innerHTML = `<b>Name: ${spell.name}</b>, Description: ${spell.description}, Group: ${spell.group}`;
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description} | <i> ${spell.group}</i>`;
 
                 lvl0List.appendChild(spellItem);
             });
@@ -360,7 +360,7 @@ function generatePg() {
                 const spellItem = document.createElement("li");
 
                 // Display the spell name, description, and group
-                spellItem.textContent = `Name: ${spell.name}, Description: ${spell.description}, Group: ${spell.group}`;
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description} | <i> ${spell.group}</i>`;
 
                 lvl1List.appendChild(spellItem);
             });
