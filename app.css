@@ -8,13 +8,13 @@ html {
     height: 100%;
 }
   body {
-    background: #2a2438; 
+    background: #eeeeee; 
     font-family: "Roboto", sans-serif;
-    color: #dbd8e3;
+    color: #222831;
   }
 
   .navbar{
-    background: #5c5470; 
+    background: #393e46; 
     height: 50px;
     width: 100%;
     display: flex;
@@ -29,10 +29,10 @@ html {
   }
 
   button{
-    background: #352f44; 
+    background: #5853bc; 
     padding: 1em 1.5em;
     border-radius: 5px;
-    color: #dbd8e3;
+    color: #eeeeee;
     border: none;
   }
 
@@ -42,8 +42,9 @@ html {
     border-radius: 10px;
     max-width: 990px;
     width: calc(90% - 3em);
-    background: rgb(120, 120, 120, 0.3);
+    background: #e3e1e7;
     position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 
   main h1{
@@ -76,19 +77,23 @@ html {
   }
 
   main .pg-grid > div {
-    background-color: #352f44;
+    background-color: #eeeeee;
     padding: 1em;
     width: 90%;
   }
 
   main .spells-container{
-    background-color: #352f44;
+    background-color: #eeeeee;
     padding: 1em;
 
   }
 
   .spells-container ul{
     list-style: none;
+  }
+
+  .spells-container ul li {
+    margin: .25em;
   }
 
   .spells-container #spellsContainer{
@@ -100,6 +105,11 @@ html {
     width: 90%;
     line-height: 1.5;
   }
+  #spellsContainer > div  > h3{
+    margin: .25em auto;
+  }
+
+
 
   @media(max-width: 720px){
     main .pg-grid{
