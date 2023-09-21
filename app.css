@@ -78,3 +78,9 @@ html {
     background-color: #352f44;
     padding: 1em;
   }
+
+  @media(max-width: 720px){
+    main .pg-grid{
+        grid-template-columns: auto;
+    }
+  }
