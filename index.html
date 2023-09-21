@@ -1,45 +1,56 @@
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>D&D Class generator</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="./app.css">
+        
     </head>
     <body>
-        <h1>Generatore random player</h1>
-        <p>Genera classe razza e statistiche casuali per un personaggio di una campagna DND</p>
-
-        <button id="clicker">
-            Generate
-        </button>
-        
-        <p>
-            Classe: <span id="classPg"></span>
-        </p>
-        <p>
-            Life Points: <span id="life">0</span>
-        </p>
-        <p>
-            Razza: <span id="race"></span>
-        </p>
-        <p>
-            Modificatori di caratteristica: <span id="modifier"></span>
-        </p>
-        <p>
-            Allineamento: <span id="alignment"></span>
-        </p>
-        <div>
-            <div id="spellsContainer">Spells</div>
+        <div class="navbar">
+            <button>Github</button>
         </div>
-       
-        <p>
-            Attempts (<span id="clickCount">0</span>)
-        </p>
+        <main>
+            <h1>Generatore random player</h1>
+            <p class="desc">Genera classe razza e statistiche casuali per un personaggio (lvl1) di una campagna DND</p>
 
-        <script src="./script/script.js"></script>
-        <script src="./script/data.js"></script>
+            <div class="attempts">
+                Attempts (<span id="clickCount">0</span>)
+            </div>
+
+            <div class="button-container">
+                <button id="clicker">
+                    Genera
+                </button>
+            </div>
+            
+            <div class="pg-grid">
+                <div>
+                    Classe: <span id="classPg"></span>
+                </div>
+                <div>
+                    Life Points: <span id="life">0</span>
+                </div>
+                <div>
+                    Razza: <span id="race"></span>
+                </div>
+                <div>
+                    Modificatori di caratteristica: <span id="modifier"></span>
+                </div>
+                <div>
+                    Allineamento: <span id="alignment"></span>
+                </div>
+            
+                
+            </div>
+            <hr>
+            <div>
+                <div id="spellsContainer">Spells</div>
+            </div>
+        </main>
+
+        <script src="./script/script.js"  ></script>
+
     </body>
 </html>
