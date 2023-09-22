@@ -145,6 +145,12 @@ html {
 
     main .pg-grid+.threecol{
       grid-template-columns: auto auto;
+      font-size: 14px;
+      gap: .5em;
+    }
+
+    main .pg-grid+.threecol>div{
+      width: 80%;
     }
 
     .spells-container #spellsContainer{
