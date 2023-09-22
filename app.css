@@ -144,7 +144,7 @@ html {
     }
 
     main .pg-grid+.threecol{
-      grid-template-columns: 40% 40%;
+      grid-template-columns: auto auto;
     }
 
     .spells-container #spellsContainer{
