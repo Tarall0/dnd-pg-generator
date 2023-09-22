@@ -15,17 +15,24 @@ html {
 
   .navbar{
     background: #393e46; 
-    height: 50px;
+    height: 60px;
     width: 100%;
     display: flex;
     justify-content: center;
     position: relative;
   }
 
+  .navbar .logo{
+    color: #eeeeee;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+  }
+
   .navbar .button{
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 15px;
+    top: 15px;
     background: #5853bc; 
     padding: .5em 1em;
     font-size: 12px;

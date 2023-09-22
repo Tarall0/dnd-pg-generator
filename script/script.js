@@ -363,10 +363,53 @@ const druidSpells0 = {
     }
 }
 
+const druidSpells1 = {
+    "Conoscere direzioni": {
+        description: "L'incantatore riesce ad individuare il Nord"
+    },
+    "Creare acqua": {
+        description: "Crea 7.4L per lvl di acqua pura"
+    },
+    "Cura ferite minori": {
+        description: "Cura 1 danno"
+    },
+    "Guida":{
+        description: "+1 a un tiro per colpire, tiro salvezza o una prova di abilità"
+    },
+    "Individuazione del magico": {
+        description: "Individua incantesimi e oggetti magici nel raggio di 18mt"
+    },
+    "Individuazione del veleno": {
+        description: "Individua il veleno in una creatura o in un oggetto"
+    },
+    "Lampo": {
+        description: "Abbaglia una creatura (penalità di -1 ai tiri per colpire)"
+    },
+    "Lettura del magico": {
+        description: "Per leggere pergamene e libri degli incantesimi"
+    },
+    "Luce": {
+        description: "L'oggetto risplende come una torcia"
+    },
+    "Purificare cibo e bevande": {
+        description: "Purifica 27 decimetri cubi per lvl di cibo o acqua"
+    },
+    "Resistenza": {
+        description: "Il soggetto ottiene bonus di +1 ai tiri salvezza"
+    },
+    "Riparare": {
+        description: "Effettua riparazioni minori su un oggetto"
+    },
+    "Virtù": {
+        description: "Il soggetto ottiene 1pf temporaneo"
+    }
+}
+
+
 // Function to calculate random life points based on class information
 function calculateLifePoints(classInfo) {
     const [min, max] = classInfo.lifeRange;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max - min ) + 1) + min;
 }
 
 // Function to generate a pg
@@ -384,6 +427,24 @@ function generatePg() {
 
     const raceModifier = raceInfo[racepg] || {};
 
+    const buttonStats = document.getElementById("stats_dice");
+
+    buttonStats.addEventListener("click", () => {
+        const forza = generatePoints();
+        const int = generatePoints();
+        const dest = generatePoints();
+        const carisma = generatePoints();
+        const sagg = generatePoints();
+        const cost = generatePoints();
+
+        document.getElementById("cost").innerHTML = (cost + (raceModifier.cost || 0)) + ((raceModifier.cost == 0) ? "" : (raceModifier.cost > 0 ? " <span class='plus'> +" + raceModifier.cost + "</span>" : "<span class='minus'> "+ raceModifier.cost +"</span>"));
+        document.getElementById("carisma").innerHTML = (carisma + (raceModifier.carisma || 0)) + ((raceModifier.carisma == 0) ? "" : (raceModifier.carisma > 0 ? "<span class='plus'> +" + raceModifier.carisma + "</span>" : "<span class='minus'> "+ raceModifier.carisma +"</span>") )
+        document.getElementById("destrezza").innerHTML = dest + (raceModifier.dest || 0) + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" + raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
+        document.getElementById("sagg").textContent = sagg + (raceModifier.sagg || 0);
+        document.getElementById("int").innerHTML = int + (raceModifier.int || 0) + ((raceModifier.int == 0) ? "" : (raceModifier.int > 0 ? "<span class='plus'> +" + raceModifier.int+"</span>" : "<span class='minus'> "+raceModifier.int+"</span>"));
+        document.getElementById("forza").innerHTML = forza + (raceModifier.forza || 0) + ((raceModifier.forza == 0) ? "" : (raceModifier.forza > 0 ? "<span class='plus'> +" + raceModifier.forza+"</span>" : "<span class='minus'> "+raceModifier.forza+"</span>"));
+    });
+
     // Stats
     const forza = generatePoints();
     const int = generatePoints();
@@ -397,7 +458,9 @@ function generatePg() {
     switch (classpg) {
         case "Druid":
             const druidzerospells = classInfo[classpg].spellsperday;
+            const druidonespells = classInfo[classpg].spellsupperday;
             const druidspellpg = [];
+            const druidspell1pg = [];
             const addedDruidSpells = new Set();
         
             const getRandomDruidSpell = () => {
@@ -411,11 +474,30 @@ function generatePg() {
                 addedDruidSpells.add(randomSpellKey);
                 return randomSpellKey;
             };
+
+            const getRandomDruidSpellUp = () => {
+                const spellKeys = Object.keys(druidSpells1);
+                let randomSpellKey;
+        
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedDruidSpells.has(randomSpellKey));
+        
+                addedDruidSpells.add(randomSpellKey);
+                return randomSpellKey;
+            }
         
             for (let i = 0; i < druidzerospells; i++) {
                 const randomSpellKey = getRandomDruidSpell();
                 const randomSpell = druidSpells0[randomSpellKey];
                 druidspellpg.push({ name: randomSpellKey, description: randomSpell.description });
+            }
+
+            // Get lvl1 Spells
+            for (let j = 0; j < druidonespells; j++) {
+                const randomSpellKey = getRandomDruidSpellUp();
+                const randomSpell = druidSpells1[randomSpellKey];
+                druidspell1pg.push({ name: randomSpellKey, description: randomSpell.description});
             }
         
             const druidSpellsContainer = document.getElementById("spellsContainer");
@@ -440,7 +522,16 @@ function generatePg() {
         
                 druidlvl0List.appendChild(spellItem);
             });
-        
+
+            druidspell1pg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+            
+                // Display the spell name and description
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
+            
+                druidlvl1List.appendChild(spellItem);
+            });
+
             druidlvl0Container.appendChild(druidlvl0Header);
             druidlvl0Container.appendChild(druidlvl0List);
             druidlvl1Container.appendChild(druidlvl1Header);
@@ -574,6 +665,7 @@ function generatePg() {
     // Set the life points based on class
     document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
 }
+
 
 function generatePoints() {
     const dices = [];
