@@ -102,17 +102,27 @@ html {
     width: 80%;
     margin: .5em auto;
     text-align: center;
-    
+  }
+
+  main .threecol > div label{
+    border-bottom: 2px solid #5853bc;
+    padding: .25em;
+    font-size: 18px;
+    transition: all 300ms linear;
+  }
+
+  main .threecol>div:hover>label{
+    border-bottom: 0;
   }
 
   #forza, #int, #destrezza, #sagg, #cost, #carisma {
     background: #eeeeee;
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     border-radius: 100%;
     display: grid;
     place-content: center;
-    margin: .5em auto;
+    margin: 1em auto;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 
