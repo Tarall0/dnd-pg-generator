@@ -91,11 +91,20 @@ html {
    
   }
 
-  main .pg-grid+.threecol{
-    grid-template-columns: auto auto auto;
+  main .threecol{
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    margin: 2em auto;
+    display: grid;
   }
 
-  main .pg-grid > div {
+  main .threecol > div {
+    background-color: #eeeeee;
+    padding: 1em;
+    width: 80%;
+    margin: .5em auto;
+  }
+
+  main .pg-grid > div{
     background-color: #eeeeee;
     padding: 1em;
     width: 90%;
@@ -150,14 +159,8 @@ html {
         grid-template-columns: auto;
     }
 
-    main .pg-grid+.threecol{
-      grid-template-columns: auto auto;
-      font-size: 14px;
-      gap: .5em;
-    }
-
-    main .pg-grid+.threecol>div{
-      width: 80%;
+    main .threecol{
+      grid-template-columns: 50% 50%;
     }
 
     .spells-container #spellsContainer{
