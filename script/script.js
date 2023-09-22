@@ -80,38 +80,38 @@ const classInfo = {
     "Bard": { 
         lifeRange: [1, 6], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
-        spellsperday: 5,
-        spellsupperday: 3,
+        spellsperday: 2,
+        spellsupperday: 0,
     },
     "Thief": { 
         lifeRange: [1, 6], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
-        spellsperday: 5,
-        spellsupperday: 3,
+        spellsperday: 0,
+        spellsupperday: 0,
     },
     "Druid": { 
         lifeRange: [1, 8], 
         alignment: ["Neutrale Buono", "Legale Neutrale", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio"],
-        spellsperday: 5,
-        spellsupperday: 3,
+        spellsperday: 3,
+        spellsupperday: 1,
     },
     "Warrior": { 
         lifeRange: [1, 10], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
-        spellsperday: 5,
-        spellsupperday: 3,
+        spellsperday: 0,
+        spellsupperday: 0,
     },
     "Paladin": { 
         lifeRange: [1, 10], 
         alignment: ["Legale buono"],
-        spellsperday: 5,
-        spellsupperday: 3,
+        spellsperday: 0,
+        spellsupperday: 0,
     },
     "Barbarian": { 
         lifeRange: [1, 12], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
-        spellsperday: 5,
-        spellsupperday: 3,
+        spellsperday: 0,
+        spellsupperday: 0,
     },
 };
 
@@ -321,6 +321,48 @@ const spellslv1 = {
     },
 };
 
+const druidSpells0 = {
+    "Conoscere direzioni": {
+        description: "L'incantatore riesce ad individuare il Nord"
+    },
+    "Creare acqua": {
+        description: "Crea 7.4L per lvl di acqua pura"
+    },
+    "Cura ferite minori": {
+        description: "Cura 1 danno"
+    },
+    "Guida":{
+        description: "+1 a un tiro per colpire, tiro salvezza o una prova di abilità"
+    },
+    "Individuazione del magico": {
+        description: "Individua incantesimi e oggetti magici nel raggio di 18mt"
+    },
+    "Individuazione del veleno": {
+        description: "Individua il veleno in una creatura o in un oggetto"
+    },
+    "Lampo": {
+        description: "Abbaglia una creatura (penalità di -1 ai tiri per colpire)"
+    },
+    "Lettura del magico": {
+        description: "Per leggere pergamene e libri degli incantesimi"
+    },
+    "Luce": {
+        description: "L'oggetto risplende come una torcia"
+    },
+    "Purificare cibo e bevande": {
+        description: "Purifica 27 decimetri cubi per lvl di cibo o acqua"
+    },
+    "Resistenza": {
+        description: "Il soggetto ottiene bonus di +1 ai tiri salvezza"
+    },
+    "Riparare": {
+        description: "Effettua riparazioni minori su un oggetto"
+    },
+    "Virtù": {
+        description: "Il soggetto ottiene 1pf temporaneo"
+    }
+}
+
 // Function to calculate random life points based on class information
 function calculateLifePoints(classInfo) {
     const [min, max] = classInfo.lifeRange;
@@ -353,6 +395,60 @@ function generatePg() {
 
 
     switch (classpg) {
+        case "Druid":
+            const druidzerospells = classInfo[classpg].spellsperday;
+            const druidspellpg = [];
+            const addedDruidSpells = new Set();
+        
+            const getRandomDruidSpell = () => {
+                const spellKeys = Object.keys(druidSpells0);
+                let randomSpellKey;
+        
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedDruidSpells.has(randomSpellKey));
+        
+                addedDruidSpells.add(randomSpellKey);
+                return randomSpellKey;
+            };
+        
+            for (let i = 0; i < druidzerospells; i++) {
+                const randomSpellKey = getRandomDruidSpell();
+                const randomSpell = druidSpells0[randomSpellKey];
+                druidspellpg.push({ name: randomSpellKey, description: randomSpell.description });
+            }
+        
+            const druidSpellsContainer = document.getElementById("spellsContainer");
+            druidSpellsContainer.innerHTML = "";
+        
+            // Create separate containers with different headers and ul for level 0 and level 1 spells
+            const druidlvl0Container = document.createElement("div");
+            const druidlvl1Container = document.createElement("div");
+            const druidlvl0Header = document.createElement("h3");
+            druidlvl0Header.textContent = "Incantesimi lvl 0";
+            const druidlvl1Header = document.createElement("h3");
+            druidlvl1Header.textContent = "Incantesimi lvl 1";
+            const druidlvl0List = document.createElement("ul");
+            const druidlvl1List = document.createElement("ul");
+        
+            // Foreach to add each spell as li element
+            druidspellpg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+        
+                // Display the spell name, description, and group
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
+        
+                druidlvl0List.appendChild(spellItem);
+            });
+        
+            druidlvl0Container.appendChild(druidlvl0Header);
+            druidlvl0Container.appendChild(druidlvl0List);
+            druidlvl1Container.appendChild(druidlvl1Header);
+            druidlvl1Container.appendChild(druidlvl1List);
+            druidSpellsContainer.appendChild(druidlvl0Container);
+            druidSpellsContainer.appendChild(druidlvl1Container);
+            break;
+        
         case "Mage":
         case "Warlock":
             const zerospellsn = classInfo[classpg].spellsperday;
@@ -445,6 +541,14 @@ function generatePg() {
                 const druidSpells = document.getElementById("spellsContainer");
                 druidSpells.innerHTML = "Non sono previsti incantesimi al lvl 1";
                 break; 
+            case "Warrior":
+            case "Thief":
+            case "Barbarian":
+                const genericSpell = document.getElementById("spellsContainer");
+                genericSpell.innerHTML = "Questa classe non ha incantesimi";
+                break; 
+
+            
 
     }
 
