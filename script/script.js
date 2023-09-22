@@ -364,44 +364,65 @@ const druidSpells0 = {
 }
 
 const druidSpells1 = {
-    "Conoscere direzioni": {
-        description: "L'incantatore riesce ad individuare il Nord"
+    "Bacche benefiche": {
+        description: "2d4 bacche, ognuna cura 1 Life Point (Max 8 Life Points in 24 ore)"
     },
-    "Creare acqua": {
-        description: "Crea 7.4L per lvl di acqua pura"
+    "Calmare animali": {
+        description: "Calma (2d4 + lvl) DV di animali"
     },
-    "Cura ferite minori": {
-        description: "Cura 1 danno"
+    "Charme su animali": {
+        description: "Rende un animale amichevole nei confronti dell'incantatore"
     },
-    "Guida":{
-        description: "+1 a un tiro per colpire, tiro salvezza o una prova di abilità"
+    "Contrastare Elementi":{
+        description: "A proprio agio in un ambiente freddo o caldo"
     },
-    "Individuazione del magico": {
-        description: "Individua incantesimi e oggetti magici nel raggio di 18mt"
+    "Cura ferite leggere": {
+        description: "Cura 1d8 danni + 1 danno per livello (max 5)"
     },
-    "Individuazione del veleno": {
-        description: "Individua il veleno in una creatura o in un oggetto"
+    "Evoca alleato naturale I": {
+        description: "Richiama una creatura che combatte"
     },
-    "Lampo": {
-        description: "Abbaglia una creatura (penalità di -1 ai tiri per colpire)"
+    "Foschia occultante": {
+        description: "La nebbia avvolge l'incantatore"
     },
-    "Lettura del magico": {
-        description: "Per leggere pergamene e libri degli incantesimi"
+    "Individuazione di animali o vegetali": {
+        description: "Individua specie animali o vegetali"
     },
-    "Luce": {
-        description: "L'oggetto risplende come una torcia"
+    "Individuazioni di calappi e trabocchetti": {
+        description: "Rivela trappole naturali o  primitive"
     },
-    "Purificare cibo e bevande": {
-        description: "Purifica 27 decimetri cubi per lvl di cibo o acqua"
+    "Intralciare": {
+        description: "Le piante avviluppano chiunque in un raggio di 12m"
     },
-    "Resistenza": {
-        description: "Il soggetto ottiene bonus di +1 ai tiri salvezza"
+    "Luminescenza": {
+        description: "Delinea oggetti con un alone di luce, cancella <i>sfocatura</i>, <i>occultamento</i> o simili"
     },
-    "Riparare": {
-        description: "Effettua riparazioni minori su un oggetto"
+    "Nascondersi agli animali": {
+        description: "Gli animali non riescono a percepire un soggetto per lvl"
     },
-    "Virtù": {
-        description: "Il soggetto ottiene 1pf temporaneo"
+    "Parlare con gli animali": {
+        description: "L'incantatore può comunicare con gli animali"
+    },
+    "Passare senza tracce": {
+        description: "Un soggetto per livello non lascia tracce dietro di se"
+    },
+    "Passo veloce": {
+        description: "Aumenta la velocità dell'incantatore di 3m"
+    },
+    "Pietra magica": {
+        description: "Tre pietre diventano proiettili +1 e infliggono 1d6+1 danni"
+    },
+    "Produrre fiamma": {
+        description: "1d6 danni +1 danno per lvl, a contatto o lanciata"
+    },
+    "Randello incantato": {
+        description: "Un randello o un bastone ferrato diventano un'arma +1 per 1 minuto per lvl"
+    },
+    "Saltare": {
+        description: "Il soggetto ottiene un bonus alle prove di <i>saltare</i>"
+    },
+    "Zanna naturale": {
+        description: "Un arma naturale del soggetto ottiene +1 di bonus ai tiri per colpire e per i danni"
     }
 }
 
