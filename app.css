@@ -84,6 +84,10 @@ html {
    
   }
 
+  main .pg-grid+.threecol{
+    grid-template-columns: auto auto auto;
+  }
+
   main .pg-grid > div {
     background-color: #eeeeee;
     padding: 1em;
@@ -117,11 +121,23 @@ html {
     margin: .25em auto;
   }
 
+  .minus{
+    color: red;
+  }
+  
+  .plus{
+    color: green;
+  }
+
 
 
   @media(max-width: 720px){
     main .pg-grid{
         grid-template-columns: auto;
+    }
+
+    main .pg-grid+.threecol{
+      grid-template-columns: 40% 40%;
     }
 
     .spells-container #spellsContainer{

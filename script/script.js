@@ -1,11 +1,67 @@
 const raceInfo = {
-    "Human": { modifier: "Nessuno" },
-    "Dwarf": { modifier: "+2 Costituzione, -2 Carisma" },
-    "Elf": { modifier: "+2 Destrezza, -2 Costituzione" },
-    "Gnome": { modifier: "+2 Costituzione, -2 Carisma" },
-    "Half-Elf": { modifier: "Nessuno" },
-    "Half-Orc": { modifier: "+2 Forza, -2 Intelligenza" },
-    "Halfling": { modifier: "+2 Destrezza, -2 Forza" },
+    "Human": { 
+        modifier: "Nessun modificatore",
+        cost: 0, 
+        carisma: 0, 
+        dest: 0, 
+        sagg: 0, 
+        forza: 0, 
+        int: 0
+    },
+    "Dwarf": { 
+        modifier: "+2 Costituzione, -2 Carisma",
+        cost: 2, 
+        carisma: -2, 
+        dest: 0, 
+        sagg: 0, 
+        forza: 0, 
+        int: 0
+     },
+    "Elf": { 
+        modifier: "+2 Destrezza, -2 Costituzione",
+        forza: 0, 
+        int: 0, 
+        carisma: 0, 
+        dest: 2,
+        sagg: 0, 
+        cost: -2
+    },
+    "Gnome": { 
+        modifier: "+2 Costituzione, -2 Carisma",
+        forza: 0, 
+        int: 0, 
+        carisma: -2, 
+        dest: 0,
+        sagg: 0, 
+        cost: 2
+    },
+    "Half-Elf": { 
+        modifier: "Nessun modificatore",
+        cost: 0, 
+        carisma: 0, 
+        dest: 0, 
+        sagg: 0, 
+        forza: 0, 
+        int: 0
+    },
+    "Half-Orc": { 
+        modifier: "+2 Forza, -2 Intelligenza",
+        cost: 0, 
+        carisma: 0, 
+        dest: 0, 
+        sagg: 0, 
+        forza: 2, 
+        int: -2
+     },
+    "Halfling": { 
+        modifier: "+2 Destrezza, -2 Forza",
+        forza: -2, 
+        int: 0, 
+        carisma: 0, 
+        dest: 2, 
+        sagg: 0, 
+        cost: 0
+     },
 };
 
 const classInfo = {
@@ -284,6 +340,24 @@ function generatePg() {
     const randomAlignmentIndex = Math.floor(Math.random() * possibleAlignments.length);
     const randomAlignment = possibleAlignments[randomAlignmentIndex];
 
+    const raceModifier = raceInfo[racepg] || {};
+
+    // Stats
+    const forza = generatePoints();
+    const int = generatePoints();
+    const dest = generatePoints();
+    const carisma = generatePoints();
+    const sagg = generatePoints();
+    const cost = generatePoints();
+
+    document.getElementById("cost").innerHTML = (cost + (raceModifier.cost || 0)) + ((raceModifier.cost == 0) ? "" : (raceModifier.cost > 0 ? " <span class='plus'> +" + raceModifier.cost + "</span>" : "<span class='minus'> "+ raceModifier.cost +"</span>"));
+    document.getElementById("carisma").innerHTML = (carisma + (raceModifier.carisma || 0)) + ((raceModifier.carisma == 0) ? "" : (raceModifier.carisma > 0 ? "<span class='plus'> +" + raceModifier.carisma + "</span>" : "<span class='minus'> "+ raceModifier.carisma +"</span>") )
+    document.getElementById("destrezza").innerHTML = dest + (raceModifier.dest || 0) + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" + raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
+    document.getElementById("sagg").textContent = sagg + (raceModifier.sagg || 0);
+    document.getElementById("int").innerHTML = int + (raceModifier.int || 0) + ((raceModifier.int == 0) ? "" : (raceModifier.int > 0 ? "<span class='plus'> +" + raceModifier.int+"</span>" : "<span class='minus'> "+raceModifier.int+"</span>"));
+    document.getElementById("forza").innerHTML = forza + (raceModifier.forza || 0) + ((raceModifier.forza == 0) ? "" : (raceModifier.forza > 0 ? "<span class='plus'> +" + raceModifier.forza+"</span>" : "<span class='minus'> "+raceModifier.forza+"</span>"));
+    
+
     switch (classpg) {
         case "Mage":
         case "Warlock":
@@ -372,7 +446,15 @@ function generatePg() {
             spellsContainer.appendChild(lvl0Container);
             spellsContainer.appendChild(lvl1Container);
             break;
+
+            case "Paladin":
+                const druidSpells = document.getElementById("spellsContainer");
+                druidSpells.innerHTML = "Non sono previsti incantesimi al lvl 1";
+                break; 
+
     }
+
+    
 
     // Set the chosen alignment in the HTML
     document.getElementById("alignment").textContent = randomAlignment;
@@ -387,6 +469,25 @@ function generatePg() {
     // Set the life points based on class
     document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
 }
+
+function generatePoints() {
+    const dices = [];
+    for (let i = 0; i < 4; i++) {
+      // Generate a random number between 1 and 6 (4d6)
+      const randomNumber = Math.floor(Math.random() * 6) + 1;
+      dices.push(randomNumber);
+    }
+  
+    // Sort the results in descending order
+    dices.sort((a, b) => b - a);
+  
+    // Sum the three highest numbers (index 0, 1, and 2 leaving the lowest value)
+    const stat = dices[0] + dices[1] + dices[2];
+  
+    return stat;
+  }
+  
+  
 
 // Increment the click count
 function incrementClickCount() {
