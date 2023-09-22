@@ -1,5 +1,5 @@
 const raceInfo = {
-    "Human": { 
+    "Umano": { 
         modifier: "Nessun modificatore",
         cost: 0, 
         carisma: 0, 
@@ -8,7 +8,7 @@ const raceInfo = {
         forza: 0, 
         int: 0
     },
-    "Dwarf": { 
+    "Nano": { 
         modifier: "+2 Costituzione, -2 Carisma",
         cost: 2, 
         carisma: -2, 
@@ -17,7 +17,7 @@ const raceInfo = {
         forza: 0, 
         int: 0
      },
-    "Elf": { 
+    "Elfo": { 
         modifier: "+2 Destrezza, -2 Costituzione",
         forza: 0, 
         int: 0, 
@@ -26,7 +26,7 @@ const raceInfo = {
         sagg: 0, 
         cost: -2
     },
-    "Gnome": { 
+    "Gnomo": { 
         modifier: "+2 Costituzione, -2 Carisma",
         forza: 0, 
         int: 0, 
@@ -35,7 +35,7 @@ const raceInfo = {
         sagg: 0, 
         cost: 2
     },
-    "Half-Elf": { 
+    "Mezzelfo": { 
         modifier: "Nessun modificatore",
         cost: 0, 
         carisma: 0, 
@@ -44,7 +44,7 @@ const raceInfo = {
         forza: 0, 
         int: 0
     },
-    "Half-Orc": { 
+    "Mezzorco": { 
         modifier: "+2 Forza, -2 Intelligenza",
         cost: 0, 
         carisma: 0, 
@@ -65,49 +65,49 @@ const raceInfo = {
 };
 
 const classInfo = {
-    "Warlock": { 
+    "Stregone": { 
         lifeRange: [1, 4], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 5,
         spellsupperday: 3,
     },
-    "Mage": { 
+    "Mago": { 
         lifeRange: [1, 4], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 3,
         spellsupperday: 1,
     },
-    "Bard": { 
+    "Bardo": { 
         lifeRange: [1, 6], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 2,
         spellsupperday: 0,
     },
-    "Thief": { 
+    "Ladro": { 
         lifeRange: [1, 6], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 0,
         spellsupperday: 0,
     },
-    "Druid": { 
+    "Druido": { 
         lifeRange: [1, 8], 
         alignment: ["Neutrale Buono", "Legale Neutrale", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio"],
         spellsperday: 3,
         spellsupperday: 1,
     },
-    "Warrior": { 
+    "Guerriero": { 
         lifeRange: [1, 10], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 0,
         spellsupperday: 0,
     },
-    "Paladin": { 
+    "Paladino": { 
         lifeRange: [1, 10], 
         alignment: ["Legale buono"],
         spellsperday: 0,
         spellsupperday: 0,
     },
-    "Barbarian": { 
+    "Barbaro": { 
         lifeRange: [1, 12], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 0,
@@ -426,6 +426,57 @@ const druidSpells1 = {
     }
 }
 
+const bardspells = {
+    "Aprire/chiudere": {
+        description: "Apre o chiude oggetti piccoli o leggeri"
+    },
+    "Conoscere direzioni": {
+        description: "L'incantatore riesce ad individuare il Nord"
+    },
+    "Evoca strumento": {
+        description: "Evoca uno strumento a scelta dell'incantatore"
+    },
+    "Frastornare": {
+        description: "Una creatura umanoide con 4 Life points o meno perde la possima azione"
+    },
+    "Lettura del magico": {
+        description: "Per leggere pergamene e libri degli incantesimi"
+    },
+    "Luce": {
+        description: "L'oggetto risplende come una torcia"
+    },
+    "Individuazione del magico": {
+        description: "Individua incantesimi o oggetti magici nel raggio di 18m"
+    },
+    "Lampo": {
+        description: "Abbaglia una creatura (-1 ai tiri per colpire)"
+    },
+    "Luci danzanti": {
+        description: "Crea torce illusorie e altre luci"
+    },
+    "Mano magica": {
+        description: "Telecinesi fino a 2.5KG"
+    },
+    "Messaggio": {
+        description: "Conversazione sussurrata a distanza"
+    },
+    "Ninna nanna": {
+        description: "Rende il soggetto assonnato; -5 alle prove di Ascoltare e Osservare, -2 ai tiri salvezza sulla volontà contro sonno"
+    },
+    "Prestidigitazione": {
+        description: "Effettua trucchi minori"
+    },
+    "Resistenza": {
+        description: "Il soggetto ottiene bonus di +1 ai tiri salvezza"
+    },
+    "Riparare": {
+        description: "Effettua riparazioni minori"
+    },
+    "Suono fantasma": {
+        description: "Suoni illusori"
+    }
+}
+
 
 // Function to calculate random life points based on class information
 function calculateLifePoints(classInfo) {
@@ -477,7 +528,51 @@ function generatePg() {
 
 
     switch (classpg) {
-        case "Druid":
+        case "Bardo":
+            const bardspellsn = classInfo[classpg].spellsperday;
+            const bardspellspg = [];
+            const addedBardSpells = new Set();
+
+            const getRandomBardSpell = () => {
+                const spellKeys = Object.keys(bardspells);
+                let randomSpellKey;
+
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)]
+                } while (addedBardSpells.has(randomSpellKey));
+
+                addedBardSpells.add(randomSpellKey);
+                return randomSpellKey;
+            }
+
+            for (let i = 0; i<bardspellsn; i++) {
+                const randomBardSpellKey = getRandomBardSpell();
+                const randomSpell = bardspells[randomBardSpellKey];
+                bardspellspg.push({ name: randomBardSpellKey, description: randomSpell.description})
+            }
+
+            const bardSpellsContainer = document.getElementById("spellsContainer");
+            bardSpellsContainer.innerHTML = "";
+            
+            const bardlvl0Container = document.createElement("div");
+            const bardlvl0Header = document.createElement("h3");
+            bardlvl0Header.textContent = "Incantesimi lvl 0"
+            const bardlvl0List = document.createElement("ul")
+
+            bardspellspg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+        
+                // Display the spell name, description, and group
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
+
+                bardlvl0List.appendChild(spellItem);
+            })
+
+            bardlvl0Container.appendChild(bardlvl0Header);
+            bardlvl0Container.appendChild(bardlvl0List);
+            bardSpellsContainer.appendChild(bardlvl0Container);
+            break;
+        case "Druido":
             const druidzerospells = classInfo[classpg].spellsperday;
             const druidonespells = classInfo[classpg].spellsupperday;
             const druidspellpg = [];
@@ -561,8 +656,8 @@ function generatePg() {
             druidSpellsContainer.appendChild(druidlvl1Container);
             break;
         
-        case "Mage":
-        case "Warlock":
+        case "Mago":
+        case "Stregone":
             const zerospellsn = classInfo[classpg].spellsperday;
             const onespellsn = classInfo[classpg].spellsupperday;
             const spellspg = [];
@@ -649,13 +744,13 @@ function generatePg() {
             spellsContainer.appendChild(lvl1Container);
             break;
 
-            case "Paladin":
+            case "Paladino":
                 const druidSpells = document.getElementById("spellsContainer");
                 druidSpells.innerHTML = "Non sono previsti incantesimi al lvl 1";
                 break; 
-            case "Warrior":
-            case "Thief":
-            case "Barbarian":
+            case "Guerriero":
+            case "Ladro":
+            case "Barbaro":
                 const genericSpell = document.getElementById("spellsContainer");
                 genericSpell.innerHTML = "Questa classe non ha incantesimi";
                 break; 
