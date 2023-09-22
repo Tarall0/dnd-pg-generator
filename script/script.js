@@ -349,14 +349,8 @@ function generatePg() {
     const carisma = generatePoints();
     const sagg = generatePoints();
     const cost = generatePoints();
-
-    document.getElementById("cost").innerHTML = (cost + (raceModifier.cost || 0)) + ((raceModifier.cost == 0) ? "" : (raceModifier.cost > 0 ? " <span class='plus'> +" + raceModifier.cost + "</span>" : "<span class='minus'> "+ raceModifier.cost +"</span>"));
-    document.getElementById("carisma").innerHTML = (carisma + (raceModifier.carisma || 0)) + ((raceModifier.carisma == 0) ? "" : (raceModifier.carisma > 0 ? "<span class='plus'> +" + raceModifier.carisma + "</span>" : "<span class='minus'> "+ raceModifier.carisma +"</span>") )
-    document.getElementById("destrezza").innerHTML = dest + (raceModifier.dest || 0) + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" + raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
-    document.getElementById("sagg").textContent = sagg + (raceModifier.sagg || 0);
-    document.getElementById("int").innerHTML = int + (raceModifier.int || 0) + ((raceModifier.int == 0) ? "" : (raceModifier.int > 0 ? "<span class='plus'> +" + raceModifier.int+"</span>" : "<span class='minus'> "+raceModifier.int+"</span>"));
-    document.getElementById("forza").innerHTML = forza + (raceModifier.forza || 0) + ((raceModifier.forza == 0) ? "" : (raceModifier.forza > 0 ? "<span class='plus'> +" + raceModifier.forza+"</span>" : "<span class='minus'> "+raceModifier.forza+"</span>"));
     
+
 
     switch (classpg) {
         case "Mage":
@@ -454,7 +448,14 @@ function generatePg() {
 
     }
 
-    
+    document.getElementById("cost").innerHTML = (cost + (raceModifier.cost || 0)) + ((raceModifier.cost == 0) ? "" : (raceModifier.cost > 0 ? " <span class='plus'> +" + raceModifier.cost + "</span>" : "<span class='minus'> "+ raceModifier.cost +"</span>"));
+    document.getElementById("carisma").innerHTML = (carisma + (raceModifier.carisma || 0)) + ((raceModifier.carisma == 0) ? "" : (raceModifier.carisma > 0 ? "<span class='plus'> +" + raceModifier.carisma + "</span>" : "<span class='minus'> "+ raceModifier.carisma +"</span>") )
+    document.getElementById("destrezza").innerHTML = dest + (raceModifier.dest || 0) + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" + raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
+    document.getElementById("sagg").textContent = sagg + (raceModifier.sagg || 0);
+    document.getElementById("int").innerHTML = int + (raceModifier.int || 0) + ((raceModifier.int == 0) ? "" : (raceModifier.int > 0 ? "<span class='plus'> +" + raceModifier.int+"</span>" : "<span class='minus'> "+raceModifier.int+"</span>"));
+    document.getElementById("forza").innerHTML = forza + (raceModifier.forza || 0) + ((raceModifier.forza == 0) ? "" : (raceModifier.forza > 0 ? "<span class='plus'> +" + raceModifier.forza+"</span>" : "<span class='minus'> "+raceModifier.forza+"</span>"));
+
+    document.getElementById("cla").innerHTML = "10" + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
 
     // Set the chosen alignment in the HTML
     document.getElementById("alignment").textContent = randomAlignment;

@@ -129,6 +129,13 @@ html {
     color: green;
   }
 
+  .footer{
+    width: 100%;
+    margin: 2em auto;
+    text-align: center;
+    font-size: 12px;
+  }
+
 
 
   @media(max-width: 720px){
