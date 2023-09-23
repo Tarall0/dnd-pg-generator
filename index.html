@@ -14,16 +14,27 @@
         </div>
         <main>
             <h1>Generatore random player</h1>
-            <p class="desc">Genera classe razza e statistiche casuali per un personaggio (lvl1) di una campagna DND</p>
-
-            <div class="attempts">
-                Attempts (<span id="clickCount">0</span>)
-            </div>
-
+            <p class="desc">Un semplice Tool per generare un personaggio in poco tempo, ideale per campagne veloci.</p>
             <div class="button-container">
                 <button id="clicker">
                     <i class="fa-solid fa-dice-d20"></i>  Genera
                 </button>
+                <button id="stats_dice">
+                    <i class="fa-solid fa-dice"></i>  Rilancia dadi
+                </button>
+            
+            </div>
+            <div class="info">
+                <p>
+                    Genera classe razza e statistiche casuali per un personaggio (lvl1) di una campagna DND
+                </p>
+                <p>
+                    "Rilancia dadi" provvede ad effettuare un nuovo lancio per le statistiche determinate dal lancio dadi (Punti ferita, Punteggi caratteristica etc)
+                </p>
+            </div>
+
+            <div class="attempts">
+                Attempts (<span id="clickCount">0</span>)
             </div>
             
             <div class="pg-grid">
@@ -48,11 +59,7 @@
                 
             </div>
 
-            <div class="button-container">
-                <button id="stats_dice">
-                    <i class="fa-solid fa-dice"></i>  Rilancia dadi
-                </button>
-            </div>
+            <div class="info">Tieni premuto e trascina per gestire le tue statistiche in base alla classe</div>
 
             <div class="threecol">
                 <div ondragover="allowDrop(event)" ondrop="drop(event, 'forza')"><label> Forza </label> <div id="forza" draggable="true" ondragstart="drag(event)">?</div></div>
