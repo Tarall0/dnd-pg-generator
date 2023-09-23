@@ -82,7 +82,8 @@ html {
   
   main .desc{
     text-align: center;
-    width: 70%;
+    width: 100%;
+    max-width: 300px;
     margin: auto;
   }
 
