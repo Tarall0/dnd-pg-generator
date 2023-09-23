@@ -18,12 +18,14 @@ function createConfetti() {
     confetti.style.width = `${size}px`;
     confetti.style.height = `${size}px`;
 
-    // Set a random horizontal position for the confetti
+    // Set a random horizontal and vertical position for the confetti
     const left = Math.floor(Math.random() * 100);
+    const top = Math.floor(Math.random() * 10);
+    confetti.style.top = `${top}%`;
     confetti.style.left = `${left}%`;
 
     // Set a random animation duration for the falling animation
-    const animationDuration = Math.floor(Math.random() * 6 + 3);
+    const animationDuration = Math.floor(Math.random() * 7 + 3);
     confetti.style.animation = `fall ${animationDuration}s linear`;
 
     // Remove the confetti element after it finishes the animation
