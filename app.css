@@ -232,7 +232,7 @@ html {
 
 .confetti {
     position: absolute;
-    border-radius: 50%;
+    border-radius: 5px;
     will-change: transform, opacity;
     animation-timing-function: ease-in-out; 
 }
