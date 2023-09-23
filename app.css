@@ -213,6 +213,11 @@ html {
 
     main .threecol{
       grid-template-columns: 50% 50%;
+      gap: 0;
+    }
+
+    main .threecol>div{
+      margin: 0 auto;
     }
 
     .spells-container #spellsContainer{

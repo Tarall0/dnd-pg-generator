@@ -761,6 +761,7 @@ function generatePg() {
     }
 
     //  (cost + (raceModifier.cost || 0)) + ((raceModifier.cost == 0) ? "" : (raceModifier.cost > 0 ? " <span class='plus'> +" + raceModifier.cost + "</span>" : "<span class='minus'> "+ raceModifier.cost +"</span>"));
+    document.getElementsByName("label").innerHTML = + ((raceModifier == 0) ? "" : (raceModifier > 0 ? " <span class='plus'> +" + raceModifier + "</span>" : "<span class='minus'> "+ raceModifier +"</span>"));
     document.getElementById("cost").innerHTML = cost;
     document.getElementById("carisma").innerHTML =  carisma;
     document.getElementById("destrezza").innerHTML = dest;
@@ -792,18 +793,13 @@ function generatePoints() {
       const randomNumber = Math.floor(Math.random() * 6) + 1;
       dices.push(randomNumber);
     }
-  
     // Sort the results in descending order
     dices.sort((a, b) => b - a);
-  
     // Sum the three highest numbers (index 0, 1, and 2 leaving the lowest value)
     const stat = dices[0] + dices[1] + dices[2];
-  
     return stat;
   }
   
-  
-
 // Increment the click count
 function incrementClickCount() {
     clicks++;
