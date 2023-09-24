@@ -509,7 +509,12 @@ function generatePg() {
         const sagg = generatePoints();
         const cost = generatePoints();
 
-        document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
+        var checkbox = document.getElementById("pf_checker");
+
+        if(checkbox.checked){
+            document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
+        }
+
         document.getElementById("cost").innerHTML = cost;
         document.getElementById("carisma").innerHTML =  carisma;
         document.getElementById("destrezza").innerHTML = dest;
