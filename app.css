@@ -1,3 +1,23 @@
+:root{
+  --bg: #eeeeee;
+  --fg: #222831;
+  --navbar: #dcdada;
+  --main: #dcdada;
+}
+
+body.dark{
+  --bg: #222831;
+  --fg: #eeeeee;
+  --navbar: #393e46;
+  --main: #393e46;
+}
+
+body {
+  background: var(--bg); 
+  color: var(--fg);
+  transition: all 200ms ease-in;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -7,14 +27,13 @@ html {
     width: 100%;
     height: 100%;
 }
-  body {
-    background: #eeeeee; 
-    font-family: "Roboto", sans-serif;
-    color: #222831;
-  }
+
+body{
+  font-family: "Roboto", sans-serif;
+}
 
   .navbar{
-    background: #393e46; 
+    background: var(--navbar); 
     height: 60px;
     width: 100%;
     display: flex;
@@ -27,7 +46,7 @@ html {
   }
 
   .navbar .logo{
-    color: #eeeeee;
+    color: var(--fg);
     position: absolute;
     top: 10px;
     left: 15px;
@@ -61,7 +80,7 @@ html {
     border-radius: 10px;
     max-width: 990px;
     width: calc(90% - 3em);
-    background: #e3e1e7;
+    background: var(--main);
     position: relative;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
@@ -98,7 +117,7 @@ html {
     position: absolute;
     top: 1em;
     left: 1em;
-    background-color: #eeeeee;
+    background-color: var(--bg);
     padding: .5em;
     border-radius: 10px;
   }
@@ -130,7 +149,7 @@ html {
     width: 80%;
     margin: .5em auto;
     text-align: center;
-    background-color: #eeeeee;
+    background-color: var(--bg);
   }
 
   main .threecol > div label{
@@ -146,17 +165,18 @@ html {
 
   main .info {
     text-align: center;
-    background-color: #393e46;
-    color: #eee;
+    background-color: var(--bg);
+    color: var(--fg);
     width: calc(100% - 2em);
     line-height: 1.5;
     padding: 1em;
     margin: 1em auto;
     max-width: 620px;
+    border-radius: 10px;
   }
 
   #forza, #int, #destrezza, #sagg, #cost, #carisma {
-    background: #eeeeee;
+    background: var(--main);
     width: 42px;
     height: 42px;
     border-radius: 100%;
@@ -167,13 +187,13 @@ html {
   }
 
   main .pg-grid > div{
-    background-color: #eeeeee;
+    background-color: var(--bg);
     padding: 1em;
     width: 90%;
   }
 
   main .spells-container{
-    background-color: #eeeeee;
+    background-color: var(--bg);
     padding: 1em;
 
   }
@@ -212,6 +232,7 @@ html {
     margin: 2em auto;
     text-align: center;
     font-size: 12px;
+    height: 40px;
   }
 
 
@@ -305,4 +326,20 @@ input:checked + .slider:before {
   -webkit-transform: translateX(18px);
   -ms-transform: translateX(18px);
   transform: translateX(18px);
+}
+
+
+#toggle-button{
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  position: absolute;
+  right: 100px;
+  top: 18px;
+}
+
+#toggle-button.fa-moon{
+  transform: rotate(360deg);
 }
