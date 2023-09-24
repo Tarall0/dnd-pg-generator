@@ -108,8 +108,8 @@ body{
   
   main .desc{
     text-align: center;
-    width: 100%;
-    max-width: 300px;
+    width: 90%;
+    max-width: 550px;
     margin: auto;
   }
 
@@ -122,11 +122,17 @@ body{
     border-radius: 10px;
   }
 
+  main .main-button{
+    display: grid;
+    place-content: center;
+    margin: 1em auto;
+  }
+
   main .button-container{
     margin: 1em auto;
     display: grid;
     justify-content: center;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     gap: .5em;
   }
 
