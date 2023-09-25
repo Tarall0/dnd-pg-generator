@@ -80,12 +80,30 @@
             <div class="info">Tieni premuto e trascina per gestire le tue statistiche in base alla classe</div>
 
             <div class="threecol">
-                <div ondragover="allowDrop(event)" ondrop="drop(event, 'forza')"><label> Forza </label> <div id="forza" draggable="true" ondragstart="drag(event)">?</div></div>
-                <div ondragover="allowDrop(event)" ondrop="drop(event, 'int')"><label>Intelligenza</label> <div id="int" draggable="true" ondragstart="drag(event)">?</div></div>
-                <div ondragover="allowDrop(event)" ondrop="drop(event, 'carisma')"><label>Carisma</label> <div id="carisma" draggable="true" ondragstart="drag(event)">?</div></div>
-                <div ondragover="allowDrop(event)" ondrop="drop(event, 'destrezza')"><label>Destrezza</label> <div id="destrezza" draggable="true" ondragstart="drag(event)">?</div></div>
-                <div ondragover="allowDrop(event)" ondrop="drop(event, 'sagg')"><label>Saggezza</label> <div id="sagg" draggable="true" ondragstart="drag(event)">?</div></div>
-                <div ondragover="allowDrop(event)" ondrop="drop(event, 'cost')"><label>Costituzione</label> <div id="cost" draggable="true" ondragstart="drag(event)">?</div></div>
+                <div ondragover="allowDrop(event)" ondrop="drop(event, 'forza')">
+                    <label>Forza <span id="modif_forza"></span> </label> 
+                    <div id="forza" draggable="true" ondragstart="drag(event)">?</div>
+                </div>
+                <div ondragover="allowDrop(event)" ondrop="drop(event, 'int')">
+                    <label>Intelligenza <span id="modif_int"></span> </label>
+                    <div id="int" draggable="true" ondragstart="drag(event)">?</div>
+                </div>
+                <div ondragover="allowDrop(event)" ondrop="drop(event, 'carisma')">
+                    <label>Carisma <span id="modif_carisma"></span> </label> 
+                    <div id="carisma" draggable="true" ondragstart="drag(event)">?</div>
+                </div>
+                <div ondragover="allowDrop(event)" ondrop="drop(event, 'destrezza')">
+                    <label>Destrezza <span id="modif_dest"></span> </label> 
+                    <div id="destrezza" draggable="true" ondragstart="drag(event)">?</div>
+                </div>
+                <div ondragover="allowDrop(event)" ondrop="drop(event, 'sagg')">
+                    <label>Saggezza <span id="modif_sagg"></span> </label> 
+                    <div id="sagg" draggable="true" ondragstart="drag(event)">?</div>
+                </div>
+                <div ondragover="allowDrop(event)" ondrop="drop(event, 'cost')">
+                    <label>Costituzione <span id="modif_cost"></span> </label> 
+                    <div id="cost" draggable="true" ondragstart="drag(event)">?</div>
+                </div>
             </div>
             
         

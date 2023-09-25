@@ -227,10 +227,12 @@ body{
 
   .minus{
     color: red;
+    font-size: small;
   }
   
   .plus{
     color: green;
+    font-size: small;
   }
 
   .footer{
@@ -329,21 +331,23 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(18px);
-  -ms-transform: translateX(18px);
-  transform: translateX(18px);
+  -webkit-transform: translateX(19px);
+  -ms-transform: translateX(19px);
+  transform: translateX(19px);
 }
 
 
 #toggle-button{
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   font-size: 20px;
   cursor: pointer;
   text-align: center;
   position: absolute;
   right: 100px;
-  top: 18px;
+  top: 13px;
+  display: grid;
+  place-content: center;
 }
 
 #toggle-button.fa-moon{

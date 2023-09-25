@@ -765,8 +765,27 @@ function generatePg() {
 
     }
 
-    //  (cost + (raceModifier.cost || 0)) + ((raceModifier.cost == 0) ? "" : (raceModifier.cost > 0 ? " <span class='plus'> +" + raceModifier.cost + "</span>" : "<span class='minus'> "+ raceModifier.cost +"</span>"));
-    document.getElementsByName("label").innerHTML = + ((raceModifier == 0) ? "" : (raceModifier > 0 ? " <span class='plus'> +" + raceModifier + "</span>" : "<span class='minus'> "+ raceModifier +"</span>"));
+    // Function to apply class modifier 
+
+    function updateModifier(attribute, modifier) {
+        const modifSpan = document.getElementById(`modif_${attribute}`);
+        if (modifSpan) {
+            modifSpan.innerHTML = ((modifier == 0) ? "" : (modifier > 0 ? "<span class='plus'> +" + modifier + "</span>" : "<span class='minus'> "+modifier+"</span>"));
+        }
+    }
+
+    const raceModifierForForza = raceModifier['forza'] || 0; 
+    const raceModifierForInt = raceModifier['int'] || 0;     
+    const raceModifierForCarisma = raceModifier['carisma'] || 0;
+    const raceModifierForDestrezza = raceModifier['dest'] || 0;
+    const raceModifierForCost = raceModifier['cost'] || 0;
+
+    updateModifier('forza', raceModifierForForza); 
+    updateModifier('int', raceModifierForInt);     
+    updateModifier('carisma', raceModifierForCarisma); 
+    updateModifier('dest', raceModifierForDestrezza);
+    updateModifier('cost', raceModifierForCost);
+
     document.getElementById("cost").innerHTML = cost;
     document.getElementById("carisma").innerHTML =  carisma;
     document.getElementById("destrezza").innerHTML = dest;
