@@ -259,6 +259,10 @@ body{
       margin: 0 auto;
     }
 
+    main .threecol>div label{
+      font-size: 14px;
+    }
+
     .spells-container #spellsContainer{
         grid-template-columns: auto;
     }
