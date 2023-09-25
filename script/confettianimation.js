@@ -1,16 +1,16 @@
-const confettiButton = document.getElementById("clicker");
+const confettiButton = document.getElementById("clicker"); 
 const confettiContainer = document.getElementById("confettiContainer");
 
 // Function to create confetti elements
 function createConfetti() {
     // Create a new div element for the confetti
     const confetti = document.createElement("div");
-    //add class style
+    // Add a class for styling
     confetti.classList.add("confetti");
 
-    // define an array of colors 
+    // Define an array of colors
     const colors = ["#f5a623", "#2ecc71", "#9b59b6", "#3498db", "#e74c3c"];
-    // Set a random background color for the confetti from array
+    // Set a random background color for the confetti from the array
     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
     // Set a random size for the confetti
@@ -25,8 +25,12 @@ function createConfetti() {
     confetti.style.left = `${left}%`;
 
     // Set a random animation duration for the falling animation
-    const animationDuration = Math.floor(Math.random() * 7 + 3);
+    const animationDuration = Math.floor(Math.random() * 4 + 3);
     confetti.style.animation = `fall ${animationDuration}s linear`;
+
+    // Set a random rotation for the confatti element
+    const rotationAngle = Math.floor(Math.random() * 360); // 0 to 360 degrees
+    confetti.style.transform = `rotate(${rotationAngle}deg)`;
 
     // Remove the confetti element after it finishes the animation
     confetti.addEventListener("animationend", () => {
@@ -39,7 +43,7 @@ function createConfetti() {
 
 // Add a click event listener to the button
 confettiButton.addEventListener("click", () => {
-    // Create a specified number of confetti pieces when the button is clicked
+    // Create a larger number of confetti pieces when the button is clicked for a more realistic effect
     for (let i = 0; i < 150; i++) {
         createConfetti();
     }
