@@ -42,29 +42,58 @@
                     "Rilancia dadi" provvede ad effettuare un nuovo lancio per le statistiche determinate dal lancio dadi (Punti ferita, Punteggi caratteristica etc)
                 </p>
             </div>
+            <hr>
 
             <div class="attempts">
-                Attempts (<span id="clickCount">0</span>)
+                Tentativi (<span id="clickCount">0</span>)
             </div>
+            <div class="head-grid">
+                <div class="basic-info">
+                    <div>
+                        <span id="namePg" class="name">Name</span>, <span id="race">Razza</span>
+                    </div>
+                    <div class="genre">
+                         <span id="sexPg">?</span>
+                    </div>
+                    <div>
+                         <span id="elderly">Anzianità</span>
+                    </div>
+                    <div>
+                        <span id="alignment">Allineamento</span>
+                     </div>
+                </div>
+                <div class="basic-info grid">
+                    <div class="lifepoints">
+                        <i class="fa-regular fa-heart"></i> <span id="life">0</span> <span style="font-size: x-small;">Punti ferita</span>
+                    </div>
+                    <div class="speedmt">
+                        <i class="fa-solid fa-person-running"></i> <span id="speedPg">0m</span><span style="font-size: x-small;"> Velocità</span>
+                    </div>
+                    <div class="agedisplay">
+                        <i class="fa-brands fa-pagelines"> </i><span id="age"> 0</span>
+                    </div>
+                </div>
+            </div>
+                
+                 
+            
             
             <div class="pg-grid">
                 <div>
-                    Classe: <span id="classPg"></span>
+                    Classe: <span id="classPg"></span> 
                 </div>
-                <div>
-                    Punti Ferita: <span id="life">0</span>
-                </div>
-                <div>
-                    Razza: <span id="race"></span>
-                </div>
-                <div>
-                     <span id="modifier"> Modificatori di caratteristica</span>
-                </div>
-                <div>
-                   <span id="alignment">Allineamento</span>
+                <div class="iniziativa">
+                    Tiro Iniziativa: <span id="iniziativa"></span>
+                    
                 </div>
                 <div>
                     Classe Armatura: <span id="cla"></span>
+                    <ul class="armorclass-details">
+                        <li>Bonus. armatura: 0</li>
+                        <li>Bonus scudo: 0</li>
+                        <li>Mod. destrezza: <span id="moddestrezza">0</span></li>
+                        <li>Mod. Taglia: <span id="moddtaglia">0</span></li>
+                    </ul>
                 </div>
                 
             </div>

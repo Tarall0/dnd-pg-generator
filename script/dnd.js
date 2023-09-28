@@ -1,68 +1,594 @@
+let clicks = 0;
+const button = document.getElementById("clicker");
+
+// Function to calculate random life points based on class information
+function calculateLifePoints(classInfo) {
+    const [min, max] = classInfo.lifeRange;
+    return Math.floor(Math.random() * (max - min ) + 1) + min;
+}
+
+// Function to get age of the pg from class age min value to max
+function getRandomAge(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Get elderly level of pg --- 
+function getElderlyLevel(race, age) {
+    const raceInfoEntry = raceInfo[race];
+  
+   if (age < (raceInfoEntry.minAge + (raceInfoEntry.maxAge - raceInfoEntry.minAge) / 5)) {
+        return "Giovane";
+    } else if (age < (raceInfoEntry.minAge + 2 * (raceInfoEntry.maxAge - raceInfoEntry.minAge) / 5)) {
+        return "Mezza età";
+    } else if (age < (raceInfoEntry.minAge + 3 * (raceInfoEntry.maxAge - raceInfoEntry.minAge) / 5)) {
+        return "Anziano";
+    } else {
+        return "Venerabile";
+    }
+  }
+
+// Function to generate a pg
+function generatePg() {
+
+    //buttons 
+    const buttonStats = document.getElementById("stats_dice");
+
+    // Name and gender
+    const sexPg = Math.floor(Math.random() * 2);
+    if (sexPg === 0) {
+        names = femaleNames;
+    } else {
+        names = maleNames;
+    }
+    const randomName = names[Math.floor(Math.random() * names.length)];
+
+    // Get random class and race
+    const classespg = Object.keys(classInfo);
+    const races = Object.keys(raceInfo);
+    const classpg = classespg[Math.floor(Math.random() * classespg.length)];
+    const racepg = races[Math.floor(Math.random() * races.length)];
+    const possibleAlignments = classInfo[classpg].alignment;
+
+    // Random alignment 
+    const randomAlignmentIndex = Math.floor(Math.random() * possibleAlignments.length);
+    const randomAlignment = possibleAlignments[randomAlignmentIndex];
+    const raceModifier = raceInfo[racepg].modifiers || {};
+
+    // Age based on class 
+    const ageMin = raceInfo[racepg].minAge;
+    const ageMax = raceInfo[racepg].maxAge;
+    const agePg = getRandomAge(ageMin, ageMax);
+    const elderly = getElderlyLevel(racepg, agePg);
+
+    // Iniziativa
+    const iniziativa = Math.floor(Math.random() * 20) + 1;
+
+    // Initialize the Stats modifiers
+    const raceModifierForForza = raceModifier['forza'] || 0; 
+    const raceModifierForInt = raceModifier['int'] || 0;     
+    const raceModifierForCarisma = raceModifier['carisma'] || 0;
+    const raceModifierForDestrezza = raceModifier['dest'] || 0;
+    const raceModifierForCost = raceModifier['cost'] || 0;
+
+    // Stats PG
+    const forza = generatePoints();
+    const int = generatePoints();
+    const dest = generatePoints();
+    const carisma = generatePoints();
+    const sagg = generatePoints();
+    const cost = generatePoints();
+
+    buttonStats.addEventListener("click", () => {
+        const forza = generatePoints();
+        const int = generatePoints();
+        const dest = generatePoints();
+        const carisma = generatePoints();
+        const sagg = generatePoints();
+        const cost = generatePoints();
+
+        var checkbox = document.getElementById("pf_checker");
+
+        if(checkbox.checked){
+            document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
+        }
+
+        document.getElementById("cost").innerHTML = cost;
+        document.getElementById("carisma").innerHTML =  carisma;
+        document.getElementById("destrezza").innerHTML = dest;
+        document.getElementById("sagg").textContent = sagg;
+        document.getElementById("int").innerHTML = int;
+        document.getElementById("forza").innerHTML = forza;
+    });
+    
+    switch (classpg) {
+        case "Bardo":
+            const bardspellsn = classInfo[classpg].spellsperday;
+            const bardspellspg = [];
+            const addedBardSpells = new Set();
+
+            const getRandomBardSpell = () => {
+                const spellKeys = Object.keys(bardspells);
+                let randomSpellKey;
+
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)]
+                } while (addedBardSpells.has(randomSpellKey));
+
+                addedBardSpells.add(randomSpellKey);
+                return randomSpellKey;
+            }
+
+            for (let i = 0; i<bardspellsn; i++) {
+                const randomBardSpellKey = getRandomBardSpell();
+                const randomSpell = bardspells[randomBardSpellKey];
+                bardspellspg.push({ name: randomBardSpellKey, description: randomSpell.description})
+            }
+
+            const bardSpellsContainer = document.getElementById("spellsContainer");
+            bardSpellsContainer.innerHTML = "";
+            
+            const bardlvl0Container = document.createElement("div");
+            const bardlvl0Header = document.createElement("h3");
+            bardlvl0Header.textContent = "Incantesimi lvl 0"
+            const bardlvl0List = document.createElement("ul")
+
+            bardspellspg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+        
+                // Display the spell name, description, and group
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
+
+                bardlvl0List.appendChild(spellItem);
+            })
+
+            bardlvl0Container.appendChild(bardlvl0Header);
+            bardlvl0Container.appendChild(bardlvl0List);
+            bardSpellsContainer.appendChild(bardlvl0Container);
+            break;
+        case "Druido":
+            const druidzerospells = classInfo[classpg].spellsperday;
+            const druidonespells = classInfo[classpg].spellsupperday;
+            const druidspellpg = [];
+            const druidspell1pg = [];
+            const addedDruidSpells = new Set();
+        
+            const getRandomDruidSpell = () => {
+                const spellKeys = Object.keys(druidSpells0);
+                let randomSpellKey;
+        
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedDruidSpells.has(randomSpellKey));
+        
+                addedDruidSpells.add(randomSpellKey);
+                return randomSpellKey;
+            };
+
+            const getRandomDruidSpellUp = () => {
+                const spellKeys = Object.keys(druidSpells1);
+                let randomSpellKey;
+        
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedDruidSpells.has(randomSpellKey));
+        
+                addedDruidSpells.add(randomSpellKey);
+                return randomSpellKey;
+            }
+        
+            for (let i = 0; i < druidzerospells; i++) {
+                const randomSpellKey = getRandomDruidSpell();
+                const randomSpell = druidSpells0[randomSpellKey];
+                druidspellpg.push({ name: randomSpellKey, description: randomSpell.description });
+            }
+
+            // Get lvl1 Spells
+            for (let j = 0; j < druidonespells; j++) {
+                const randomSpellKey = getRandomDruidSpellUp();
+                const randomSpell = druidSpells1[randomSpellKey];
+                druidspell1pg.push({ name: randomSpellKey, description: randomSpell.description});
+            }
+        
+            const druidSpellsContainer = document.getElementById("spellsContainer");
+            druidSpellsContainer.innerHTML = "";
+        
+            // Create separate containers with different headers and ul for level 0 and level 1 spells
+            const druidlvl0Container = document.createElement("div");
+            const druidlvl1Container = document.createElement("div");
+            const druidlvl0Header = document.createElement("h3");
+            druidlvl0Header.textContent = "Incantesimi lvl 0";
+            const druidlvl1Header = document.createElement("h3");
+            druidlvl1Header.textContent = "Incantesimi lvl 1";
+            const druidlvl0List = document.createElement("ul");
+            const druidlvl1List = document.createElement("ul");
+        
+            // Foreach to add each spell as li element
+            druidspellpg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+        
+                // Display the spell name, description, and group
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
+        
+                druidlvl0List.appendChild(spellItem);
+            });
+
+            druidspell1pg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+            
+                // Display the spell name and description
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
+            
+                druidlvl1List.appendChild(spellItem);
+            });
+
+            druidlvl0Container.appendChild(druidlvl0Header);
+            druidlvl0Container.appendChild(druidlvl0List);
+            druidlvl1Container.appendChild(druidlvl1Header);
+            druidlvl1Container.appendChild(druidlvl1List);
+            druidSpellsContainer.appendChild(druidlvl0Container);
+            druidSpellsContainer.appendChild(druidlvl1Container);
+            break;
+        
+        case "Mago":
+        case "Stregone":
+            const zerospellsn = classInfo[classpg].spellsperday;
+            const onespellsn = classInfo[classpg].spellsupperday;
+            const spellspg = [];
+            const upspellpg = [];
+            const addedSpells = new Set();
+
+            // Function to get a unique random spell 
+            const getRandomSpellBase = () => {
+                const spellKeys = Object.keys(spellslv0);
+                let randomSpellKey;
+
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedSpells.has(randomSpellKey));
+
+                addedSpells.add(randomSpellKey);
+                return randomSpellKey;
+            };
+
+            // Same function to get a unique random spell but lvl1
+            const getRandomSpellUp = () => {
+                const spellKeys = Object.keys(spellslv1);
+                let randomSpellKey;
+
+                do {
+                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
+                } while (addedSpells.has(randomSpellKey));
+
+                addedSpells.add(randomSpellKey);
+                return randomSpellKey;
+            };
+
+            // Get lvl0 spells
+            for (let i = 0; i < zerospellsn; i++) {
+                const randomSpellKey = getRandomSpellBase();
+                const randomSpell = spellslv0[randomSpellKey];
+                spellspg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
+            }
+
+            // Get lvl1 Spells
+            for (let j = 0; j < onespellsn; j++) {
+                const randomSpellKey = getRandomSpellUp();
+                const randomSpell = spellslv1[randomSpellKey];
+                upspellpg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
+            }
+
+            const spellsContainer = document.getElementById("spellsContainer");
+            spellsContainer.innerHTML = ""; 
+
+            // Create separate containers with different headers and ul for level 0 and level 1 spells
+            const lvl0Container = document.createElement("div");
+            const lvl1Container = document.createElement("div");
+            const lvl0Header = document.createElement("h3");
+            lvl0Header.textContent = "Incantesimi lvl 0";
+            const lvl1Header = document.createElement("h3");
+            lvl1Header.textContent = "Incantesimi lvl 1";
+            const lvl0List = document.createElement("ul");
+            const lvl1List = document.createElement("ul");
+
+            // Foreach to add each spell as li element
+            spellspg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+
+                // Display the spell name, description, and group
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description} | <i> ${spell.group}</i>`;
+
+                lvl0List.appendChild(spellItem);
+            });
+
+            upspellpg.forEach((spell) => {
+                const spellItem = document.createElement("li");
+
+                // Display the spell name, description, and group
+                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description} | <i> ${spell.group}</i>`;
+
+                lvl1List.appendChild(spellItem);
+            });
+
+            lvl0Container.appendChild(lvl0Header);
+            lvl0Container.appendChild(lvl0List);
+            lvl1Container.appendChild(lvl1Header);
+            lvl1Container.appendChild(lvl1List);
+            spellsContainer.appendChild(lvl0Container);
+            spellsContainer.appendChild(lvl1Container);
+            break;
+
+            case "Paladino":
+                const druidSpells = document.getElementById("spellsContainer");
+                druidSpells.innerHTML = "Non sono previsti incantesimi al lvl 1";
+                break; 
+            case "Guerriero":
+            case "Ladro":
+            case "Barbaro":
+                const genericSpell = document.getElementById("spellsContainer");
+                genericSpell.innerHTML = "Questa classe non ha incantesimi";
+                break; 
+
+            
+
+    }
+
+    // Show race modifier assigning bonus or malus, it will be displayed in the span of each stat (if present)
+
+    function updateModifier(attribute, modifier) {
+        const modifSpan = document.getElementById(`modif_${attribute}`);
+        if (modifSpan) {
+            modifSpan.innerHTML = ((modifier == 0) ? "" : (modifier > 0 ? "<span class='plus'> +" + modifier + "</span>" : "<span class='minus'> "+modifier+"</span>"));
+        }
+    }
+
+    // Apply each modifier if present in the DOM
+    updateModifier('forza', raceModifierForForza); 
+    updateModifier('int', raceModifierForInt);     
+    updateModifier('carisma', raceModifierForCarisma); 
+    updateModifier('dest', raceModifierForDestrezza);
+    updateModifier('cost', raceModifierForCost);
+
+    // Assign sorted stats
+    document.getElementById("cost").innerHTML = cost;
+    document.getElementById("carisma").innerHTML =  carisma;
+    document.getElementById("destrezza").innerHTML = dest;
+    document.getElementById("sagg").textContent = sagg;
+    document.getElementById("int").innerHTML = int;
+    document.getElementById("forza").innerHTML = forza;
+
+    document.getElementById("namePg").textContent = randomName;
+    document.getElementById("sexPg").innerHTML = ((sexPg > 0) ? "<i class='fa-solid fa-mars'></i>" : "<i class='fa-solid fa-venus'></i>");
+
+    document.getElementById("age").textContent = " "+agePg + " anni";
+    document.getElementById("elderly").textContent = elderly;
+
+
+
+    // Class Armor
+    document.getElementById("cla").innerHTML = "10" + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>")) + ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>" : "");
+    document.getElementById("moddestrezza").innerHTML = ((raceModifier.dest == 0) ? "0" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"))
+    document.getElementById("moddtaglia").innerHTML = ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>" : "0");
+
+    // Show speed based on class 
+    document.getElementById("speedPg").textContent = raceInfo[racepg].speed;
+
+    // Set the initiative 
+    document.getElementById("iniziativa").innerHTML = iniziativa + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
+    // Set the chosen alignment in the HTML
+    document.getElementById("alignment").textContent = randomAlignment;
+
+    // Set the class and race in the HTML
+    document.getElementById("classPg").textContent = classpg;
+    document.getElementById("race").textContent = racepg;
+
+    // Set the life points based on class
+    document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
+}
+
+
+function generatePoints() {
+    const dices = [];
+    for (let i = 0; i < 4; i++) {
+      // Generate a random number between 1 and 6 (4d6)
+      const randomNumber = Math.floor(Math.random() * 6) + 1;
+      dices.push(randomNumber);
+    }
+    // Sort the results in descending order
+    dices.sort((a, b) => b - a);
+    // Sum the three highest numbers (index 0, 1, and 2 leaving the lowest value)
+    const stat = dices[0] + dices[1] + dices[2];
+    return stat;
+  }
+  
+// Increment the click count
+function incrementClickCount() {
+    clicks++;
+    document.getElementById("clickCount").textContent = clicks;
+}
+
+// Add a click event listener to the button
+button.addEventListener("click", () => {
+    // Generate character sheet and increment click count
+    generatePg();
+    incrementClickCount();
+});
+
+
+
+// Objects 
+
 const raceInfo = {
     "Umano": { 
-        modifier: "Nessun modificatore",
-        cost: 0, 
-        carisma: 0, 
-        dest: 0, 
-        sagg: 0, 
-        forza: 0, 
-        int: 0
+        modifiers: {
+            label: "Nessun modificatore",
+            cost: 0, 
+            carisma: 0, 
+            dest: 0, 
+            sagg: 0, 
+            forza: 0, 
+            int: 0,
+        },
+        speed: "9m",
+        minAge: 15,
+        maxAge: 90,
+        sex: {
+            male: {
+                weight: 85,
+                height: 1.8,
+            },
+            female: {
+                weight: 70,
+                height: 1.6
+            }
+        }
     },
     "Nano": { 
-        modifier: "+2 Costituzione, -2 Carisma",
-        cost: 2, 
-        carisma: -2, 
-        dest: 0, 
-        sagg: 0, 
-        forza: 0, 
-        int: 0
+        modifiers: {
+            label: "+2 Costituzione, -2 Carisma",
+            cost: 2, 
+            carisma: -2, 
+            dest: 0, 
+            sagg: 0, 
+            forza: 0, 
+            int: 0,
+        },
+        speed: "6m",
+        minAge: 40,
+        maxAge: 350,
+        sex: {
+            male: {
+                weight: 60,
+                height: 1.2,
+            },
+            female: {
+                weight: 55,
+                height: 1.1
+            }
+        }
      },
     "Elfo": { 
-        modifier: "+2 Destrezza, -2 Costituzione",
-        forza: 0, 
-        int: 0, 
-        carisma: 0, 
-        dest: 2,
-        sagg: 0, 
-        cost: -2
+        modifiers: {
+            label: "+2 Destrezza, -2 Costituzione",
+            cost: 0, 
+            carisma: 0, 
+            dest: 2, 
+            sagg: 0, 
+            forza: 0, 
+            int: -2,
+        },
+        speed: "9m",
+        minAge: 111,
+        maxAge: 750,
+        sex: {
+            male: {
+                weight: 75,
+                height: 1.8,
+            },
+            female: {
+                weight: 65,
+                height: 1.7
+            }
+        }
     },
     "Gnomo": { 
-        modifier: "+2 Costituzione, -2 Carisma",
-        forza: 0, 
-        int: 0, 
-        carisma: -2, 
-        dest: 0,
-        sagg: 0, 
-        cost: 2
+        modifiers: {
+            label: "+2 Costituzione, -2 Carisma",
+            cost: 2, 
+            carisma: -2, 
+            dest: 0, 
+            sagg: 0, 
+            forza: 0, 
+            int: 0,
+        },
+        speed: "6m",
+        minAge: 20,
+        maxAge: 400,
+        sex: {
+            male: {
+                weight: 40,
+                height: 1.0,
+            },
+            female: {
+                weight: 35,
+                height: 0.9
+            }
+        }
     },
     "Mezzelfo": { 
-        modifier: "Nessun modificatore",
-        cost: 0, 
-        carisma: 0, 
-        dest: 0, 
-        sagg: 0, 
-        forza: 0, 
-        int: 0
+        modifiers: {
+            label: "Nessun modificatore",
+            cost: 0, 
+            carisma: 0, 
+            dest: 0, 
+            sagg: 0, 
+            forza: 0, 
+            int: 0,
+        },
+        speed: "9m",
+        minAge: 15,
+        maxAge: 180,
+        sex: {
+            male: {
+                weight: 80,
+                height: 1.9,
+            },
+            female: {
+                weight: 70,
+                height: 1.7
+            }
+        }
     },
     "Mezzorco": { 
-        modifier: "+2 Forza, -2 Intelligenza",
-        cost: 0, 
-        carisma: 0, 
-        dest: 0, 
-        sagg: 0, 
-        forza: 2, 
-        int: -2
+        modifiers: {
+            label: "+2 Forza, -2 Intelligenza",
+            cost: 0, 
+            carisma: 0, 
+            dest: 0, 
+            sagg: 0, 
+            forza: 2, 
+            int: -2,
+        },
+        speed: "9m",
+        minAge: 14,
+        maxAge: 75,
+        sex: {
+            male: {
+                weight: 90,
+                height: 1.7,
+            },
+            female: {
+                weight: 80,
+                height: 1.6
+            }
+        }
      },
     "Halfling": { 
-        modifier: "+2 Destrezza, -2 Forza",
-        forza: -2, 
-        int: 0, 
-        carisma: 0, 
-        dest: 2, 
-        sagg: 0, 
-        cost: 0
+        modifiers: {
+            label: "+2 Destrezza, -2 Forza",
+            cost: 0, 
+            carisma: 0, 
+            dest: 2, 
+            sagg: 0, 
+            forza: -2, 
+            int: 0,
+        },
+        speed: "6m",
+        minAge: 20,
+        maxAge: 250,
+        sex: {
+            male: {
+                weight: 30,
+                height: 0.9,
+            },
+            female: {
+                weight: 25,
+                height: 0.8
+            }
+        }
      },
 };
+
+
 
 const classInfo = {
     "Stregone": { 
@@ -478,364 +1004,5 @@ const bardspells = {
 }
 
 
-// Function to calculate random life points based on class information
-function calculateLifePoints(classInfo) {
-    const [min, max] = classInfo.lifeRange;
-    return Math.floor(Math.random() * (max - min ) + 1) + min;
-}
-
-// Function to generate a pg
-function generatePg() {
-    // Get random class and race
-    const classespg = Object.keys(classInfo);
-    const races = Object.keys(raceInfo);
-    const classpg = classespg[Math.floor(Math.random() * classespg.length)];
-    const racepg = races[Math.floor(Math.random() * races.length)];
-    const possibleAlignments = classInfo[classpg].alignment;
-
-    // Random alignment 
-    const randomAlignmentIndex = Math.floor(Math.random() * possibleAlignments.length);
-    const randomAlignment = possibleAlignments[randomAlignmentIndex];
-
-    const raceModifier = raceInfo[racepg] || {};
-
-    const buttonStats = document.getElementById("stats_dice");
-
-    buttonStats.addEventListener("click", () => {
-        const forza = generatePoints();
-        const int = generatePoints();
-        const dest = generatePoints();
-        const carisma = generatePoints();
-        const sagg = generatePoints();
-        const cost = generatePoints();
-
-        var checkbox = document.getElementById("pf_checker");
-
-        if(checkbox.checked){
-            document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
-        }
-
-        document.getElementById("cost").innerHTML = cost;
-        document.getElementById("carisma").innerHTML =  carisma;
-        document.getElementById("destrezza").innerHTML = dest;
-        document.getElementById("sagg").textContent = sagg;
-        document.getElementById("int").innerHTML = int;
-        document.getElementById("forza").innerHTML = forza;
-    });
-
-    // Stats
-    const forza = generatePoints();
-    const int = generatePoints();
-    const dest = generatePoints();
-    const carisma = generatePoints();
-    const sagg = generatePoints();
-    const cost = generatePoints();
-    
-
-
-    switch (classpg) {
-        case "Bardo":
-            const bardspellsn = classInfo[classpg].spellsperday;
-            const bardspellspg = [];
-            const addedBardSpells = new Set();
-
-            const getRandomBardSpell = () => {
-                const spellKeys = Object.keys(bardspells);
-                let randomSpellKey;
-
-                do {
-                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)]
-                } while (addedBardSpells.has(randomSpellKey));
-
-                addedBardSpells.add(randomSpellKey);
-                return randomSpellKey;
-            }
-
-            for (let i = 0; i<bardspellsn; i++) {
-                const randomBardSpellKey = getRandomBardSpell();
-                const randomSpell = bardspells[randomBardSpellKey];
-                bardspellspg.push({ name: randomBardSpellKey, description: randomSpell.description})
-            }
-
-            const bardSpellsContainer = document.getElementById("spellsContainer");
-            bardSpellsContainer.innerHTML = "";
-            
-            const bardlvl0Container = document.createElement("div");
-            const bardlvl0Header = document.createElement("h3");
-            bardlvl0Header.textContent = "Incantesimi lvl 0"
-            const bardlvl0List = document.createElement("ul")
-
-            bardspellspg.forEach((spell) => {
-                const spellItem = document.createElement("li");
-        
-                // Display the spell name, description, and group
-                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
-
-                bardlvl0List.appendChild(spellItem);
-            })
-
-            bardlvl0Container.appendChild(bardlvl0Header);
-            bardlvl0Container.appendChild(bardlvl0List);
-            bardSpellsContainer.appendChild(bardlvl0Container);
-            break;
-        case "Druido":
-            const druidzerospells = classInfo[classpg].spellsperday;
-            const druidonespells = classInfo[classpg].spellsupperday;
-            const druidspellpg = [];
-            const druidspell1pg = [];
-            const addedDruidSpells = new Set();
-        
-            const getRandomDruidSpell = () => {
-                const spellKeys = Object.keys(druidSpells0);
-                let randomSpellKey;
-        
-                do {
-                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
-                } while (addedDruidSpells.has(randomSpellKey));
-        
-                addedDruidSpells.add(randomSpellKey);
-                return randomSpellKey;
-            };
-
-            const getRandomDruidSpellUp = () => {
-                const spellKeys = Object.keys(druidSpells1);
-                let randomSpellKey;
-        
-                do {
-                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
-                } while (addedDruidSpells.has(randomSpellKey));
-        
-                addedDruidSpells.add(randomSpellKey);
-                return randomSpellKey;
-            }
-        
-            for (let i = 0; i < druidzerospells; i++) {
-                const randomSpellKey = getRandomDruidSpell();
-                const randomSpell = druidSpells0[randomSpellKey];
-                druidspellpg.push({ name: randomSpellKey, description: randomSpell.description });
-            }
-
-            // Get lvl1 Spells
-            for (let j = 0; j < druidonespells; j++) {
-                const randomSpellKey = getRandomDruidSpellUp();
-                const randomSpell = druidSpells1[randomSpellKey];
-                druidspell1pg.push({ name: randomSpellKey, description: randomSpell.description});
-            }
-        
-            const druidSpellsContainer = document.getElementById("spellsContainer");
-            druidSpellsContainer.innerHTML = "";
-        
-            // Create separate containers with different headers and ul for level 0 and level 1 spells
-            const druidlvl0Container = document.createElement("div");
-            const druidlvl1Container = document.createElement("div");
-            const druidlvl0Header = document.createElement("h3");
-            druidlvl0Header.textContent = "Incantesimi lvl 0";
-            const druidlvl1Header = document.createElement("h3");
-            druidlvl1Header.textContent = "Incantesimi lvl 1";
-            const druidlvl0List = document.createElement("ul");
-            const druidlvl1List = document.createElement("ul");
-        
-            // Foreach to add each spell as li element
-            druidspellpg.forEach((spell) => {
-                const spellItem = document.createElement("li");
-        
-                // Display the spell name, description, and group
-                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
-        
-                druidlvl0List.appendChild(spellItem);
-            });
-
-            druidspell1pg.forEach((spell) => {
-                const spellItem = document.createElement("li");
-            
-                // Display the spell name and description
-                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description}`;
-            
-                druidlvl1List.appendChild(spellItem);
-            });
-
-            druidlvl0Container.appendChild(druidlvl0Header);
-            druidlvl0Container.appendChild(druidlvl0List);
-            druidlvl1Container.appendChild(druidlvl1Header);
-            druidlvl1Container.appendChild(druidlvl1List);
-            druidSpellsContainer.appendChild(druidlvl0Container);
-            druidSpellsContainer.appendChild(druidlvl1Container);
-            break;
-        
-        case "Mago":
-        case "Stregone":
-            const zerospellsn = classInfo[classpg].spellsperday;
-            const onespellsn = classInfo[classpg].spellsupperday;
-            const spellspg = [];
-            const upspellpg = [];
-            const addedSpells = new Set();
-
-            // Function to get a unique random spell 
-            const getRandomSpellBase = () => {
-                const spellKeys = Object.keys(spellslv0);
-                let randomSpellKey;
-
-                do {
-                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
-                } while (addedSpells.has(randomSpellKey));
-
-                addedSpells.add(randomSpellKey);
-                return randomSpellKey;
-            };
-
-            // Same function to get a unique random spell but lvl1
-            const getRandomSpellUp = () => {
-                const spellKeys = Object.keys(spellslv1);
-                let randomSpellKey;
-
-                do {
-                    randomSpellKey = spellKeys[Math.floor(Math.random() * spellKeys.length)];
-                } while (addedSpells.has(randomSpellKey));
-
-                addedSpells.add(randomSpellKey);
-                return randomSpellKey;
-            };
-
-            // Get lvl0 spells
-            for (let i = 0; i < zerospellsn; i++) {
-                const randomSpellKey = getRandomSpellBase();
-                const randomSpell = spellslv0[randomSpellKey];
-                spellspg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
-            }
-
-            // Get lvl1 Spells
-            for (let j = 0; j < onespellsn; j++) {
-                const randomSpellKey = getRandomSpellUp();
-                const randomSpell = spellslv1[randomSpellKey];
-                upspellpg.push({ name: randomSpellKey, description: randomSpell.description, group: randomSpell.group });
-            }
-
-            const spellsContainer = document.getElementById("spellsContainer");
-            spellsContainer.innerHTML = ""; 
-
-            // Create separate containers with different headers and ul for level 0 and level 1 spells
-            const lvl0Container = document.createElement("div");
-            const lvl1Container = document.createElement("div");
-            const lvl0Header = document.createElement("h3");
-            lvl0Header.textContent = "Incantesimi lvl 0";
-            const lvl1Header = document.createElement("h3");
-            lvl1Header.textContent = "Incantesimi lvl 1";
-            const lvl0List = document.createElement("ul");
-            const lvl1List = document.createElement("ul");
-
-            // Foreach to add each spell as li element
-            spellspg.forEach((spell) => {
-                const spellItem = document.createElement("li");
-
-                // Display the spell name, description, and group
-                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description} | <i> ${spell.group}</i>`;
-
-                lvl0List.appendChild(spellItem);
-            });
-
-            upspellpg.forEach((spell) => {
-                const spellItem = document.createElement("li");
-
-                // Display the spell name, description, and group
-                spellItem.innerHTML = `<b>${spell.name}</b>: ${spell.description} | <i> ${spell.group}</i>`;
-
-                lvl1List.appendChild(spellItem);
-            });
-
-            lvl0Container.appendChild(lvl0Header);
-            lvl0Container.appendChild(lvl0List);
-            lvl1Container.appendChild(lvl1Header);
-            lvl1Container.appendChild(lvl1List);
-            spellsContainer.appendChild(lvl0Container);
-            spellsContainer.appendChild(lvl1Container);
-            break;
-
-            case "Paladino":
-                const druidSpells = document.getElementById("spellsContainer");
-                druidSpells.innerHTML = "Non sono previsti incantesimi al lvl 1";
-                break; 
-            case "Guerriero":
-            case "Ladro":
-            case "Barbaro":
-                const genericSpell = document.getElementById("spellsContainer");
-                genericSpell.innerHTML = "Questa classe non ha incantesimi";
-                break; 
-
-            
-
-    }
-
-    // Function to apply class modifier 
-
-    function updateModifier(attribute, modifier) {
-        const modifSpan = document.getElementById(`modif_${attribute}`);
-        if (modifSpan) {
-            modifSpan.innerHTML = ((modifier == 0) ? "" : (modifier > 0 ? "<span class='plus'> +" + modifier + "</span>" : "<span class='minus'> "+modifier+"</span>"));
-        }
-    }
-
-    const raceModifierForForza = raceModifier['forza'] || 0; 
-    const raceModifierForInt = raceModifier['int'] || 0;     
-    const raceModifierForCarisma = raceModifier['carisma'] || 0;
-    const raceModifierForDestrezza = raceModifier['dest'] || 0;
-    const raceModifierForCost = raceModifier['cost'] || 0;
-
-    updateModifier('forza', raceModifierForForza); 
-    updateModifier('int', raceModifierForInt);     
-    updateModifier('carisma', raceModifierForCarisma); 
-    updateModifier('dest', raceModifierForDestrezza);
-    updateModifier('cost', raceModifierForCost);
-
-    document.getElementById("cost").innerHTML = cost;
-    document.getElementById("carisma").innerHTML =  carisma;
-    document.getElementById("destrezza").innerHTML = dest;
-    document.getElementById("sagg").textContent = sagg;
-    document.getElementById("int").innerHTML = int;
-    document.getElementById("forza").innerHTML = forza;
-
-    document.getElementById("cla").innerHTML = "10" + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
-
-    // Set the chosen alignment in the HTML
-    document.getElementById("alignment").textContent = randomAlignment;
-
-    // Set the class and race in the HTML
-    document.getElementById("classPg").textContent = classpg;
-    document.getElementById("race").textContent = racepg;
-
-    // Set the race modifier based on race
-    document.getElementById("modifier").textContent = raceInfo[racepg].modifier;
-
-    // Set the life points based on class
-    document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
-}
-
-
-function generatePoints() {
-    const dices = [];
-    for (let i = 0; i < 4; i++) {
-      // Generate a random number between 1 and 6 (4d6)
-      const randomNumber = Math.floor(Math.random() * 6) + 1;
-      dices.push(randomNumber);
-    }
-    // Sort the results in descending order
-    dices.sort((a, b) => b - a);
-    // Sum the three highest numbers (index 0, 1, and 2 leaving the lowest value)
-    const stat = dices[0] + dices[1] + dices[2];
-    return stat;
-  }
-  
-// Increment the click count
-function incrementClickCount() {
-    clicks++;
-    document.getElementById("clickCount").textContent = clicks;
-}
-
-let clicks = 0;
-const button = document.getElementById("clicker");
-
-// Add a click event listener to the button
-button.addEventListener("click", () => {
-    // Generate character sheet and increment click count
-    generatePg();
-    incrementClickCount();
-});
+const femaleNames = ["Alice", "Eve","Grace", "Hannah", "Ivy"];
+const maleNames = ["Aron"];

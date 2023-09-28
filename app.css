@@ -3,6 +3,7 @@
   --fg: #222831;
   --navbar: #dcdada;
   --main: #dcdada;
+  --darktone: #555555;
 }
 
 body.dark{
@@ -255,6 +256,48 @@ body{
     text-decoration: none;
   }
 
+  hr{
+    width: 90%;
+    margin: 2em auto;
+    border: 1px solid var(--darktone);
+  }
+
+  .head-grid{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 1em;
+    width: 90%;
+    place-content: center;
+    margin: 1em auto;
+  }
+
+  .basic-info{
+    background-color: var(--bg);
+    display: grid;
+    padding: 1em;
+    border-radius: 1em;
+    position: relative;
+    margin: 1em auto;
+    width: 80%;
+  }
+
+  .basic-info .genre{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  .basic-info + .grid{
+    grid-template-columns: 33% 33% 33%;
+    place-items: center;
+    height: fit-content;
+  }
+
+  .basic-info .name{
+    font-size: 24px;
+  }
+
+
 
 
   @media(max-width: 720px){
@@ -278,6 +321,15 @@ body{
     .spells-container #spellsContainer{
         grid-template-columns: auto;
     }
+
+    .head-grid{
+      grid-template-columns: 1fr;
+    }
+
+    .head-grid>div{
+      width: 90%;
+    }
+   
   }
 
   @keyframes fall {
@@ -435,4 +487,22 @@ input:checked + .slider:before {
 
 .policy li{
   margin-left: 1.5em;
+}
+
+.iniziativa{
+  position: relative;
+}
+
+.armor{
+  background-color: var(--navbar);
+}
+.armorclass-details {
+  list-style: none;
+  font-size: small;
+  color: darkgray;
+  margin: .25em;
+}
+
+.armorclass-details li{
+  margin: 5px;
 }
