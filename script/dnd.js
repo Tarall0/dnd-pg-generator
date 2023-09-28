@@ -1004,5 +1004,7 @@ const bardspells = {
 }
 
 
+const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso"]
+
 const femaleNames = ["Alice", "Eve","Grace", "Hannah", "Ivy"];
 const maleNames = ["Aron"];
