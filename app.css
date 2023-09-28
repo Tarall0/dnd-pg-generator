@@ -329,6 +329,10 @@ body{
     .head-grid>div{
       width: 80%;
     }
+
+    .head-grid .grid{
+      min-width: 300px;
+    }
    
   }
 
