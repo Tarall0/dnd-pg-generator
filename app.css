@@ -52,17 +52,23 @@ body{
     left: 15px;
   }
 
+  .navbar .logo a{
+    color: var(--fg);
+    text-decoration: none;
+  }
+
   .navbar .button{
     position: absolute;
     right: 15px;
     top: 15px;
     background: #5853bc; 
     padding: .5em 1em;
-    font-size: 12px;
+    font-size: 11px;
     border-radius: 5px;
     color: #eeeeee;
     text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 
   button{
@@ -72,6 +78,7 @@ body{
     color: #eeeeee;
     border: none;
     cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 
   main{
@@ -243,6 +250,11 @@ body{
     height: 40px;
   }
 
+  .footer a{
+    color: var(--fg);
+    text-decoration: none;
+  }
+
 
 
   @media(max-width: 720px){
@@ -311,6 +323,7 @@ body{
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 35px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .slider:before {
@@ -324,6 +337,7 @@ body{
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 100%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 input:checked + .slider {
@@ -331,7 +345,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px ;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 input:checked + .slider:before {
@@ -356,4 +370,69 @@ input:checked + .slider:before {
 
 #toggle-button.fa-moon{
   transform: rotate(360deg);
+}
+
+#cookie-alert {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--navbar);
+  color: var(--fg);
+  max-width: 420px;
+  border-radius: 1em;
+  text-align: center;
+  padding: 10px;
+  display: none;
+  z-index: 420;
+  width: 95%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  animation: cookiesAnimation 0.5s ease-in-out forwards;
+
+}
+
+#cookie-alert .title{
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+#cookie-alert p{
+  padding: .25em;
+  line-height: 1.5;
+}
+#cookie-alert button {
+  display: inline-block;
+  margin: 4px 2px;
+  
+}
+
+#cookie-alert a{
+  color: #645ecf;
+  
+}
+
+@keyframes cookiesAnimation {
+  
+  0%{
+    transform: translate(-50%, 100%);
+  }
+
+  100%{
+    transform: translate(-50%, 0);
+  }
+}
+
+.policy {
+  max-width: 620px;
+  padding: 2em;
+  width: calc(100% - 4em);
+  line-height: 1.5;
+}
+
+.policy p{
+  margin: .5em;
+}
+
+.policy li{
+  margin-left: 1.5em;
 }
