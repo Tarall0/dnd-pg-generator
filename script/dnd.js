@@ -115,6 +115,19 @@ function generatePg() {
     const negPersonality = small_negative[Math.floor(Math.random() * small_negative.length)];
     const randomTraits = getRandomTraits(traits);
 
+    const rerollPers = document.getElementById("resetPersonality");
+
+    rerollPers.addEventListener("click", () => {
+        const personality = small_personality[Math.floor(Math.random() * small_personality.length)];
+        const negPersonality = small_negative[Math.floor(Math.random() * small_negative.length)];
+        const randomTraits = getRandomTraits(traits);
+
+        document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
+        document.getElementById("traits").innerHTML = randomTraits;
+    })
+
+   
+
     // Initial coins 
 
     const diceCount = classInfo[classpg].coinsDices;
