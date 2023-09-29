@@ -277,8 +277,31 @@ body{
     padding: 1em;
     border-radius: 1em;
     position: relative;
-    margin: 1em auto;
+    margin: .5em auto;
     width: 80%;
+  }
+
+  .wallet{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    place-items: center;
+    height: fit-content;
+    padding-top: 1em;
+  }
+
+  .basic-info .gold {
+    color:#FFD700;
+    text-shadow: 1px 1px black;
+  }
+
+  .basic-info .silver {
+    color:#b7b7b7;
+    text-shadow: 1px 1px black;
+  }
+
+  .basic-info .copper {
+    color:#b44c02;
+    text-shadow: 1px 1px black;
   }
 
   .basic-info .genre{

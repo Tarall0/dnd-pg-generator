@@ -27,6 +27,37 @@ function getElderlyLevel(race, age) {
     }
   }
 
+  function generateCoins(characterClass, diceCount) {
+    const coinTypes = ["gold", "silver", "copper"];
+  
+    const coins = {};
+  
+    if (diceCount !== undefined) {
+      for (const coin of coinTypes) {
+        const totalCoins = (Math.floor(Math.random() * 4 * diceCount) + 1) * 10;
+        coins[coin] = totalCoins;
+        updateCoinDisplay(coins);
+      }
+    } else {
+      console.log("Character class not found.");
+    }
+  
+    return coins;
+  }
+
+  function updateCoinDisplay(coins) {
+    for (const coin in coins) {
+      if (coins.hasOwnProperty(coin)) {
+        const coinValue = coins[coin];
+        const coinElement = document.getElementById(coin);
+        if (coinElement) {
+          coinElement.textContent = coinValue;
+        }
+      }
+    }
+  }
+
+
   function getRandomTraits(traits) {
     const count = 3;
     const randomTraits = [];
@@ -83,6 +114,13 @@ function generatePg() {
     const personality = small_personality[Math.floor(Math.random() * small_personality.length)];
     const negPersonality = small_negative[Math.floor(Math.random() * small_negative.length)];
     const randomTraits = getRandomTraits(traits);
+
+    // Initial coins 
+
+    const diceCount = classInfo[classpg].coinsDices;
+
+    const coins = generateCoins(classpg, diceCount);
+    
 
 
     // Initialize the Stats modifiers
@@ -649,48 +687,56 @@ const classInfo = {
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 5,
         spellsupperday: 3,
+        coinsDices: 3,
     },
     "Mago": { 
         lifeRange: [1, 4], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 3,
         spellsupperday: 1,
+        coinsDices: 4,
     },
     "Bardo": { 
         lifeRange: [1, 6], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 2,
         spellsupperday: 0,
+        coinsDices: 5,
     },
     "Ladro": { 
         lifeRange: [1, 6], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 0,
         spellsupperday: 0,
+        coinsDices: 4,
     },
     "Druido": { 
         lifeRange: [1, 8], 
         alignment: ["Neutrale Buono", "Legale Neutrale", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio"],
         spellsperday: 3,
         spellsupperday: 1,
+        coinsDices: 2,
     },
     "Guerriero": { 
         lifeRange: [1, 10], 
         alignment: ["Legale Buono", "Legale Neutrale", "Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 0,
         spellsupperday: 0,
+        coinsDices: 5,
     },
     "Paladino": { 
         lifeRange: [1, 10], 
         alignment: ["Legale buono"],
         spellsperday: 0,
         spellsupperday: 0,
+        coinsDices: 5,
     },
     "Barbaro": { 
         lifeRange: [1, 12], 
         alignment: ["Neutrale Buono", "Caotico Buono", "Neutrale", "Caotico Neutrale", "Neutrale Malvagio", "Caotico Malvagio"],
         spellsperday: 0,
         spellsupperday: 0,
+        coinsDices: 2,
     },
 };
 
