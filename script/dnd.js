@@ -27,7 +27,9 @@ function getElderlyLevel(race, age) {
     }
   }
 
-  function generateCoins(characterClass, diceCount) {
+  // Generate coins for pg based on class
+
+function generateCoins(characterClass, diceCount) {
     const coinTypes = ["gold", "silver", "copper"];
   
     const coins = {};
@@ -45,6 +47,8 @@ function getElderlyLevel(race, age) {
     return coins;
   }
 
+  // Update coins to DOM
+
   function updateCoinDisplay(coins) {
     for (const coin in coins) {
       if (coins.hasOwnProperty(coin)) {
@@ -57,7 +61,7 @@ function getElderlyLevel(race, age) {
     }
   }
 
-
+// Get pg 3 random traits 
   function getRandomTraits(traits) {
     const count = 3;
     const randomTraits = [];
@@ -74,6 +78,36 @@ function getElderlyLevel(race, age) {
     return randomTraits.join(", ");
   }
 
+  function calculateRandomHeightAndWeight(race, sex) {
+    const raceData = raceInfo[race];
+  
+    if (!raceData) {
+      return "Invalid race";
+    }
+  
+    const sexData = raceData.sex[sex];
+  
+    if (!sexData) {
+      return "Invalid sex";
+    }
+  
+    const averageWeight = sexData.weight;
+    const averageHeight = sexData.height;
+  
+    // Define the range for weight and height adjustments
+    const weightRange = 20; // kg
+    const heightRange = 0.2; // meters
+  
+    // Generate random weight and height within the specified range
+    const randomWeight = averageWeight + (Math.random() - 0.5) * 2 * weightRange;
+    const randomHeight = averageHeight + (Math.random() - 0.5) * 2 * heightRange;
+  
+    return {
+      randomWeight: Math.max(0, randomWeight), // Ensure weight is non-negative
+      randomHeight: Math.max(0, randomHeight), // Ensure height is non-negative
+    };
+  }
+
 // Function to generate a pg
 function generatePg() {
 
@@ -82,10 +116,13 @@ function generatePg() {
 
     // Name and gender
     const sexPg = Math.floor(Math.random() * 2);
+    let sexLable;
     if (sexPg === 0) {
         names = femaleNames;
+        sexLable = "female";
     } else {
         names = maleNames;
+        sexLable = "male";
     }
     const randomName = names[Math.floor(Math.random() * names.length)];
 
@@ -126,7 +163,12 @@ function generatePg() {
         document.getElementById("traits").innerHTML = randomTraits;
     })
 
-   
+
+
+    const bodyPg = calculateRandomHeightAndWeight(racepg, sexLable);
+    document.getElementById("weight").innerHTML = bodyPg.randomWeight.toFixed(2) + "kg";
+    document.getElementById("height").innerHTML = bodyPg.randomHeight.toFixed(2) + "mt";
+
 
     // Initial coins 
 
@@ -470,6 +512,8 @@ function generatePg() {
     document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
 
     document.getElementById("traits").innerHTML = randomTraits;
+
+    document.getElementById("eyes").innerHTML = eyes_colors[Math.floor(Math.random() * eyes_colors.length)];
 }
 
 function calculateValues(number) {
