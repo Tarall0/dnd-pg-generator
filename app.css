@@ -297,6 +297,42 @@ body{
     font-size: 24px;
   }
 
+  .deathsaves-container{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    gap: .5em;
+  }
+
+  .deathsaves-container>div{
+    background-color: var(--bg);
+    padding: 1em;
+    border-radius: 1em;
+  }
+
+  .deathsaves-container>div h4{
+    text-align: center;
+    font-weight: 500;
+    margin: .25em auto;
+  }
+
+  .deathsaves-container>div p{
+    font-size: x-small;
+  }
+
+  .personality{
+    border-radius: 1em;
+  }
+
+  #traits {
+    font-size: small;
+    color: var(--darktone)
+  }
+
+  .personality p{
+    line-height: 1.5;
+    font-size: small;
+    margin: .25em;
+  }
 
 
 

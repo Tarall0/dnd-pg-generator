@@ -27,6 +27,22 @@ function getElderlyLevel(race, age) {
     }
   }
 
+  function getRandomTraits(traits) {
+    const count = 3;
+    const randomTraits = [];
+    const usedIndexes = [];
+  
+    while (randomTraits.length < count) {
+      const randomIndex = Math.floor(Math.random() * traits.length); // Corrected this line
+  
+      if (!usedIndexes.includes(randomIndex)) {
+        randomTraits.push(traits[randomIndex]);
+        usedIndexes.push(randomIndex);
+      }
+    }
+    return randomTraits.join(", ");
+  }
+
 // Function to generate a pg
 function generatePg() {
 
@@ -62,6 +78,12 @@ function generatePg() {
 
     // Iniziativa
     const iniziativa = Math.floor(Math.random() * 20) + 1;
+
+    // PErsonality
+    const personality = small_personality[Math.floor(Math.random() * small_personality.length)];
+    const negPersonality = small_negative[Math.floor(Math.random() * small_negative.length)];
+    const randomTraits = getRandomTraits(traits);
+
 
     // Initialize the Stats modifiers
     const raceModifierForForza = raceModifier['forza'] || 0; 
@@ -361,6 +383,7 @@ function generatePg() {
 
     document.getElementById("age").textContent = " "+agePg + " anni";
     document.getElementById("elderly").textContent = elderly;
+    
 
 
 
@@ -374,7 +397,7 @@ function generatePg() {
 
     // Set the initiative 
     document.getElementById("iniziativa").innerHTML = iniziativa + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
-    // Set the chosen alignment in the HTML
+    // Set the chosen alignment
     document.getElementById("alignment").textContent = randomAlignment;
 
     // Set the class and race in the HTML
@@ -383,7 +406,37 @@ function generatePg() {
 
     // Set the life points based on class
     document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
+
+    // const test = parseInt( document.getElementById("sagg").innerText);
+    // const tempermod = calculateValues(test);
+
+    // //Death saves 
+    // document.getElementById("temper").innerHTML = raceModifier.cost;
+    // document.getElementById("reflexes").innerHTML = raceModifier.dest;
+    // document.getElementById("will").innerHTML = raceModifier.sagg + "+" + tempermod;
+
+    
+    document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
+
+    document.getElementById("traits").innerHTML = randomTraits;
 }
+
+function calculateValues(number) {
+    let value;
+
+    for(let i = 0; i < number; i++){
+        if (number > 10) {
+            value= +0.5;
+          } else if (number < 10) {
+            value=+ -0.5;
+          } else {
+            value=+ 0; // If the number is exactly 10, count remains unchanged
+          }
+          return value;
+    }
+  }
+
+  
 
 
 function generatePoints() {
@@ -1003,8 +1056,35 @@ const bardspells = {
     }
 }
 
+const eyes_colors = [  "Blu", "Verdi", "Gialli", "Rossi", "Grigi", "Neri", "Marroni"];
 
-const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso"]
+
+const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso", "Pragmatico", "Intraprendente"]
+
+const small_personality = [
+    "Devo aver fatto un favore a un dio o qualcosa del genere, perché sono stranamente fortunato! Il cibo salta sempre fuori quando ho fame, le tempeste di solito si liberano quando ho bisogno di viaggiare, e spesso trovo cose utili e piccole monete proprio quando mi servono.",
+    "Ho letto tutti i libri dell'enorme biblioteca di mio padre - due volte!",
+    "Sono cresciuta in una grande città e mi considero molto esperta di strada. Parlo velocemente, cammino velocemente e nessuno ha la meglio su di me.",
+    "Lavoravo in una cucina e amo cucinare per i miei amici e la mia famiglia.",
+    "Ho un talento per la medicina. All'età di 7 anni ero il miglior guaritore e medico di campagna del mio villaggio. A 12 anni la gente veniva da lontano per chiedere il mio aiuto.",
+    "Ho un accento insolito e uso costantemente slang e colloquialismi, anche in situazioni formali.",
+    "Parlo con me stesso, con le piante e con gli animali con la stessa libertà con cui parlo con gli altri umanoidi. Spesso le persone pensano che io sia strano perché ho avuto un'infanzia solitaria e nessuno mi ha insegnato i 'normali' comportamenti sociali, ma non me ne preoccupo.",
+    "Chiamo tutti con dei nomignoli: tesoro, capo, dolcezza, ragazzo, tesoro etc. È una cosa che ho imparato da mio nonno/padre.",
+    "Sono cresciuto in una famiglia religiosa. Non pronuncerei mai il nome di una divinità invano e insisto affinché anche gli altri si astengano dal farlo.",
+    "Non mi piacciono i bambini. Ma i bambini mi amano. Questo mi lascia perplesso.",
+]
+
+const small_negative = [
+    "Nonostante la mia bontà d'animo, ho un problemino con l'alcol. Quando entro in una taverna mi lascio trasportare da alcol e ciò che la città ha da offrire (uomini o donne, quello che preferisci)",
+    "Non sono una cattiva persona, ma ho imparato ad essere egoista per sopravvivere ai pericoli del mondo",
+    "Ho un grande potere dentro di me, ma devo imparare a controllarlo",
+    "Mi piace stare al centro dell'attenzione... un po' troppo. ",
+    "Una po' una testa calda, una volta ho scatenato una rissa perchè un uomo mi stava fissando... peccato fosse cieco!",
+    "Diffido di maghi e stregoni, ho subito un incidente da piccol* che mi ha segnato in questo.",
+    "Non sempre riesco a dire la cosa giusta da dire... questo mi può mettere nei guai.",
+    "Nascondo un segreto, oscuro forse e da tanto tempo. Questo mi rende restio a fidarmi e ad interagire con gli altri."
+
+]
 
 const femaleNames = ["Alice", "Eve","Grace", "Hannah", "Ivy"];
 const maleNames = ["Aron"];
