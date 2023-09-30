@@ -109,6 +109,16 @@ function calculateRandomHeightAndWeight(race, sex) {
     };
   }
 
+// Calculate stats value to got the actual modifier based on the chosen number for that stat 
+  function calculateModifier(stat) {
+    if (typeof stat !== 'number' || isNaN(stat)) {
+      throw new Error('Invalid input: stat must be a number');
+    }
+    // Calculate the modifier
+    const modifier = Math.floor((stat - 10) / 2);
+    return modifier;
+  }
+
 // Function to generate a pg
 function generatePg() {
 
@@ -215,6 +225,39 @@ function generatePg() {
         document.getElementById("int").innerHTML = int;
         document.getElementById("forza").innerHTML = forza;
     });
+
+    const applyStats = document.getElementById("apply_stats");
+
+    applyStats.addEventListener("click", () => {
+        const forzaValue = parseInt(document.getElementById("forza").innerHTML);
+        const forza = forzaValue + raceModifierForForza;
+        const intValue = parseInt(document.getElementById("int").innerHTML)
+        const int = intValue + raceModifierForInt;
+        const destValue = parseInt(document.getElementById("destrezza").innerHTML);
+        const dest = destValue + raceModifierForDestrezza;
+        const carismaValue = parseInt(document.getElementById("carisma").innerHTML);
+        const carisma = carismaValue + raceModifierForCarisma;
+        const saggValue = parseInt(document.getElementById("sagg").innerHTML)
+        const sagg = saggValue;
+        const costValue = parseInt(document.getElementById("cost").innerHTML);
+        const cost = costValue + raceModifierForCost;
+
+        const forzaModifier = calculateModifier(forza);
+        const intModifier = calculateModifier(int);
+        const destModifier = calculateModifier(dest);
+        const carismaModifier = calculateModifier(carisma);
+        const saggModifier = calculateModifier(sagg);
+        const costModifier = calculateModifier(cost);
+
+        document.getElementById("forza_applied").innerHTML = (forzaModifier > 0 ? "+" +forzaModifier : forzaModifier);
+        document.getElementById("int_applied").innerHTML = (intModifier > 0 ? "+" +intModifier : intModifier);
+        document.getElementById("destrezza_applied").innerHTML = (destModifier > 0 ? "+" +destModifier : destModifier);
+        document.getElementById("carisma_applied").innerHTML = (carismaModifier > 0 ? "+" +carismaModifier : carismaModifier);
+        document.getElementById("sagg_applied").innerHTML = (saggModifier > 0 ? "+" +saggModifier : saggModifier);
+        document.getElementById("cost_applied").innerHTML = (costModifier > 0 ? "+" +costModifier : costModifier);
+
+        /// class modifier needs to be considered when defining the stats 
+    })
     
     switch (classpg) {
         case "Bardo":
@@ -457,7 +500,7 @@ function generatePg() {
         }
     }
 
-    // Apply each modifier if present in the DOM
+    // Apply each class modifier if present in the DOM
     updateModifier('forza', raceModifierForForza); 
     updateModifier('int', raceModifierForInt);     
     updateModifier('carisma', raceModifierForCarisma); 
@@ -471,6 +514,9 @@ function generatePg() {
     document.getElementById("sagg").textContent = sagg;
     document.getElementById("int").innerHTML = int;
     document.getElementById("forza").innerHTML = forza;
+
+
+
 
     document.getElementById("namePg").textContent = randomName;
     document.getElementById("sexPg").innerHTML = ((sexPg > 0) ? "<i class='fa-solid fa-mars'></i>" : "<i class='fa-solid fa-venus'></i>");
@@ -618,12 +664,12 @@ const raceInfo = {
     "Elfo": { 
         modifiers: {
             label: "+2 Destrezza, -2 Costituzione",
-            cost: 0, 
+            cost: -2, 
             carisma: 0, 
             dest: 2, 
             sagg: 0, 
             forza: 0, 
-            int: -2,
+            int: 0,
         },
         speed: "9m",
         minAge: 111,
