@@ -256,6 +256,10 @@ function generatePg() {
         document.getElementById("sagg_applied").innerHTML = (saggModifier > 0 ? "+" +saggModifier : saggModifier);
         document.getElementById("cost_applied").innerHTML = (costModifier > 0 ? "+" +costModifier : costModifier);
 
+
+        // CA update dest modifier value 
+        document.getElementById("moddestrezza").innerHTML = ((destModifier == 0) ? "0" : (destModifier > 0 ? "<span class='plus'> +" +destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"))
+
         /// class modifier needs to be considered when defining the stats 
     })
     
