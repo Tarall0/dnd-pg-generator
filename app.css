@@ -289,6 +289,10 @@ body{
     padding-top: 1em;
   }
 
+  .bodyspecs>div{
+    margin: .25em;
+
+  }
   .basic-info .gold {
     color:#FFD700;
     text-shadow: 1px 1px black;

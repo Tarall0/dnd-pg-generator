@@ -78,7 +78,8 @@ function generateCoins(characterClass, diceCount) {
     return randomTraits.join(", ");
   }
 
-  function calculateRandomHeightAndWeight(race, sex) {
+  // Body pg carateristics 
+function calculateRandomHeightAndWeight(race, sex) {
     const raceData = raceInfo[race];
   
     if (!raceData) {
@@ -95,8 +96,8 @@ function generateCoins(characterClass, diceCount) {
     const averageHeight = sexData.height;
   
     // Define the range for weight and height adjustments
-    const weightRange = 20; // kg
-    const heightRange = 0.2; // meters
+    const weightRange = 30; // kg
+    const heightRange = 0.3; // meters
   
     // Generate random weight and height within the specified range
     const randomWeight = averageWeight + (Math.random() - 0.5) * 2 * weightRange;
@@ -124,7 +125,7 @@ function generatePg() {
         names = maleNames;
         sexLable = "male";
     }
-    const randomName = names[Math.floor(Math.random() * names.length)];
+    const randomName = names[Math.floor(Math.random() * names.length)] +  " " + SecondNames[Math.floor(Math.random() * SecondNames.length)];
 
     // Get random class and race
     const classespg = Object.keys(classInfo);
@@ -1190,4 +1191,30 @@ const small_negative = [
 ]
 
 const femaleNames = ["Alice", "Eve","Grace", "Hannah", "Ivy"];
-const maleNames = ["Aron"];
+
+const maleNames = [
+    "Basun",
+    "Nhuhlum",
+    "Grunkern",
+    "Darkel",
+    "Glizaf",
+    "Ir",
+    "Emmen",
+    "Dihvaor-Zon",
+    "Rordolvec",
+    "Zeizar",
+    "Rumen",
+]
+
+
+const SecondNames = [
+    "Snakewoods",
+    "Sezuvrakt",
+    "Necthut",
+    "Velmentu",
+    "Vonovi",
+    "Mysts",
+    "Pandaul",
+    "Rapidcast",
+    "Void"
+]
