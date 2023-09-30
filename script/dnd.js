@@ -258,7 +258,9 @@ function generatePg() {
 
 
         // CA update dest modifier value 
-        document.getElementById("moddestrezza").innerHTML = ((destModifier == 0) ? "0" : (destModifier > 0 ? "<span class='plus'> +" +destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"))
+        document.getElementById("moddestrezza").innerHTML = ((destModifier == 0) ? "0" : (destModifier > 0 ? "<span class='plus'> +"+destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"))
+        document.getElementById("cla").innerHTML = "10" + ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>"  : "") + ((destModifier == 0) ? "0" : (destModifier > 0 ? "<span class='plus'> +"+destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"));
+        console.log(raceInfo[racepg].speed)
 
         /// class modifier needs to be considered when defining the stats 
     })
