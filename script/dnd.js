@@ -127,7 +127,7 @@ function calculateRandomHeightAndWeight(race, sex) {
     
     const godElement = document.getElementById("god");
     godElement.innerHTML = `
-      <div class='symbol'><img src='${randomGod.symbol}'></div>
+      <div class='symbol'><img src='${randomGod.symbol}' id='godsymb'></div>
       <div class='god_desc'>
         <p class='god'>${randomGodName}<span class='domains'> - ${randomGod.domains}</span></p>
         <p><i class="fa-solid fa-scale-balanced"></i> ${randomGod.alignment}</p>
@@ -137,7 +137,8 @@ function calculateRandomHeightAndWeight(race, sex) {
       <p></p>
       <button id='changegod'>Cambia Divinità</button>
     `;
-  
+
+    document.getElementById("godsymb").style = "height: 100%;";
     const changegod = document.getElementById("changegod");
     if (changegod) {
       changegod.addEventListener("click", displayRandomGod);
@@ -1246,49 +1247,134 @@ const gods = {
         alignment: "Neutrale",
         domains: "Dio della Conoscena. dell'Inganno e della Magia.",
         armor: "La sua arma preferita è il bastone ferrato",
-        symbol: "./images/boccob.png"
+        symbol: "./images/gods/boccob.png"
     },
     "Correllon Larethian": {
         description: "Il dio degli elfi Correllon Larethian è conosciuto come <b>Il Creatore degli Elfi</b>, <b>Il Protettore</b>, <b>Il Protettore e conservatore della Vita</b>, <b>Il Signore di Tutti gli Elfi</b>. Il creatore patrono della razza elfica e governa tutto ciò che gli elfi apprezzano maggiormente: la magia, la musica, l'arte, l'artigianato, la poesia e l'arte della guerra. Venerato da elfi, mezzelfi e bardi.",
         alignment: "Caotico neutrale",
         domains: "Dio del Bene, Caos, Guerra e Protezione",
         armor: "La sua arma preferita è la spada lunga",
-        symbol: "./images/correllon.png",
+        symbol: "./images/gods/correllon.png",
     },
     "Ehlonna": {
         description: "La dea delle terre boschive. Il titolo con cui viene più spesso nominata è <b>Ehlonna delle Foreste</b>. Ehlonna veglia su tutti coloro che vivono nelle foreste, amano le terre boschive o che vi trascorrono la loro esistenza. Questi la raffigurano a volte come un'elfa, a volte come un'umana. Particolarmente vicina agli elfi, gnomi, mezzelfi e halfling. Venerata anche da druidi e ranger.",
         alignment: "Neutrale buono",
         domains: "Dea degli Animali, del Bene, del Sole e del Vegetale",
         armor: "La sua arma preferita è la spada lunga",
-        symbol: "./images/ehlonna.png",
+        symbol: "./images/gods/ehlonna.png",
     },
     "Erythnul": {
         description: "Il dio del massacro. Il suo titolo è <b>Il Molteplice</b>. Erythnul gode del panico e del massacro che diffonde. Nelle terre civilizzate i suoi fedeli formano piccoli culti criminali in suo onore. Nelle terre selvagge, viene adorato apertamente.",
         alignment: "Caotico Malvagio",
         domains: "Dio del Caos, Guerra, dell'Inganno e del Male",
         armor: "La sua arma preferita è una morning star con una testa di pietra",
-        symbol: "./images/erythnul.png",
+        symbol: "./images/gods/erythnul.png",
     },
     "Fharlanghn": {
         description: "Il dio delle strade. Il suo titolo è <b>L'Abiuratore dell'Orizzonte</b>. Lo venerano principalmente i bardi, gli avventurieri erranti e i mercanti.",
         alignment: "Neutrale",
         domains: "Dio della Fortuna, Protezione, del Viaggio",
         armor: "La sua arma preferita è il bastone ferrato",
-        symbol: "./images/fharlanghn-symbol.png",
+        symbol: "./images/gods/fharlanghn-symbol.png",
     },
     "Garl Glittergold": {
         description: "Il dio delgli gnomi. Conosciuto come <b>Il'Burlone</b>, <b>L'Attento Protettore</b>, <b>La Gemma Senza Prezzo</b> e <b>L'Arguto</b>. Fu Garl Glittergold a scoprire gli gnomi e a introdurli nel mondo, e da allora è sempre stato il loro protettore. Veglia sull'umorismo, l'arguzia la lavorazione delle gemme e la creazione di gioielli.",
         alignment: "Neutrale buono",
         domains: "Dio del Bene, l'Inganno, Protezione",
         armor: "La sua arma preferita è l'ascia da battaglia.",
-        symbol: "./images/glittergoldlol.png",
-    }
+        symbol: "./images/gods/glittergold.png",
+    },
+    "Heironeous": {
+        description: "Il dio del valore. Ha il titolo di <b>Invincibile</b>. Promuove la giustizzia, il valore, la cavalleria e l'onore. Adorato da monaci, guerrieri e paladini. Il suo più acerrimo nemico è il fratellastro Hextor",
+        alignment: "Legale buono",
+        domains: "Dio del Bene, la Guerra, la Legge",
+        armor: "La sua arma preferita è la spada lunga.",
+        symbol: "./images/gods/heironeous-symbol.png",
+    },
+    "Hextor": {
+        description: "Il dio della Tirannia. Chiamato <b>Campione del Male</b>, <b>Araldo degli Inferi</b>, <b>Flagello della Battaglia</b>. Hextor è il dio a sei braccia della guerra, del conflitto e della distruzione. Tra i suoi feneli annovera guerrieri e monaci malvagi. Incita i suoi fedeli a commettere atti malvagi e in particolar modo a muovere contro i fedeli del fratellastro Heroneous, ovunque si trovino.",
+        alignment: "Legale Malvagio",
+        domains: "Dio del Male, Distruzione, Legge, Guerra",
+        armor: "La sua arma preferita è il mazzafrusto.",
+        symbol: "./images/gods/hextor.png",
+    },
+    "Kord": {
+        description: "Il dio della Forza. Conosciuto come <b>Il Lottatore</b>. Kord protegge gli atleti, specialmente i lottatori a mani nude, e tra i suoi fedeli vi sono guerrieri buoni, barbari e ladri.",
+        alignment: "Caotico Buono",
+        domains: "Dio del Bene, Caos, Fortuna, Forza",
+        armor: "La sua arma preferita è lo spadone.",
+        symbol: "./images/gods/kord.png",
+    },
+    "Moradin": {
+        description: "Il dio dei nani. Viene chiamato <b>Lo Spirito Forgiatore</b>, <b>Il Padre dei Nani</b>, <b>Il Padre di Tutti</b>, e <b>Il Creatore</b>. Moradin creò i primi nani forgiandoli dal metallo e dalle gemme, dando loro il soffio della vita. Protegge le arti e le scienze dei nani: laborazione del ferro e dei metalli, ingegneria e guerra.",
+        alignment: "Legale Buono",
+        domains: "Dio del Bene, Legge, Protezione, Terra",
+        armor: "La sua arma preferita è il martello da guerra.",
+        symbol: "./images/gods/moradin.png",
+    },
+    "Nerull": {
+        description: "Il dio della Morte. Viene chiamato <b>Il Mietitore</b>, <b>Il Nemico di Ogni Bene</b>, <b>Colui che odia la Vita</b>, <b>Il Cupo Re</b> e <b>Il Mietitore della carne</b>. Nerull governa su coloro che provocano i mali peggiori in nome del profitto o del divertimento. Tra i suoi fedeli annovera necromanti malvagi e ladri, che lo raffigurano come una figura semischeletrica e incappucciata.",
+        alignment: "Neutrale Malvagio",
+        domains: "Dio del Male, Inganno, Morte",
+        armor: "La sua arma preferita è la falce.",
+        symbol: "./images/gods/nerull.png",
+    },
+    "Obad-Hai": {
+        description: "Il dio della Natura. Conosciuto come <b>Lo Shalm</b>. Obad-Hai governa sulla natura e sulle terre selvagge ed è amico di tutti coloro che vivono in armonia con il mondo della natura. Qualche volta è venerato da barbari ranger e druidi. Dal momento che Obad-Hai aderisce strettamente alla neutralità, si trova a rivaleggiare spesso con Ehlonna. Obad-Hai suona spesso uno Shalm.",
+        alignment: "Neutrale",
+        domains: "Dio dell'Acqua, dell'Aria, del Fuoco, della Terra e del mondo Animale e Vegetale",
+        armor: "La sua arma preferita è il bastone ferrato.",
+        symbol: "./images/gods/obadhai.png",
+    },
+    "Olidammara": {
+        description: "Il dio dei ladri. Viene chiamato <b>Il Ladro Ridente</b>. Ama il vino, le donne e le canzoni. Un vagabondo, un burlone e un maestro dei travestimenti. In suo onore esistono pochi templi ma vengono invocati molti brindisi. Ladri e bardi sono, naturalmente, i suoi principali fedeli.",
+        alignment: "Caotico Neutrale",
+        domains: "Dio del Caos, Fortuna, Inganno",
+        armor: "La sua arma preferita è lo stocco.",
+        symbol: "./images/gods/olidammara.png",
+    },
+    "Pelor": {
+        description: "Il dio del sole Pelor. Viene chiamato <b>Lo splendente</b>. Il creatore di molte cose buone, un soccorritore di coloro che si trovano in pericolo, un avversario di tutto ciò che è malvagio. La divinità più comunemente venerata tra gli umani e i suoi sacerdoti sono bene accetti ovunque si rechino. Ranger e bardi sono tra i suoi fedeli.",
+        alignment: "Neutrale Buono",
+        domains: "Dio del Sole, del Bene, della Forza, della Guarigione",
+        armor: "La sua arma preferita è la mazza.",
+        symbol: "./images/gods/pelor.png",
+    },
+    "St. Cuthbert": {
+        description: "Il dio del castigo. Conosciuto come <b>St. Cuthbert del randello</b>. Esige vendetta e punizione su coloro che infrangono la legge, e poichè le creature malvagie violano la legge più spesso di quelle buone, St. Cuthbert predilige il bene al male, anche se di per sè non è di allineamento buono. (I suoi chierici non possono essere malvagi).",
+        alignment: "Legale Neutrale",
+        domains: "Dio della Distruzione, della Legge, della Forza, Protezione",
+        armor: "La sua arma preferita è la mazza.",
+        symbol: "./images/gods/stcuthbert.png",
+    },
+    "Vecna": {
+        description: "Il dio dei segreti. Viene chiamato <b>Il Signore Mutilato</b>, <b>Il Sussurrato</b> e <b>Il Maestro di tutto ciò che è Segreto e Nascosto</b>. Governa su tutto ciò che non deve essere conosciuto e che la gente desidera mantenere segreto. Generalmente appare nella forma di lich privo di una mano e dell'occhio sinistro, persi nel corso di una lotta contro il suo infido luogotenente, Kas.",
+        alignment: "Neutrale Malvagio",
+        domains: "Dio della Conoscenza, della Magia, del Male",
+        armor: "La sua arma preferita è il pugnale",
+        symbol: "./images/gods/vecna.png",
+    },
+    "Wee Jas": {
+        description: "La dea della morte e della magia. Viene chiamata <b>Dea Stregona</b>, <b>Strega di Rubino</b> e <b>Dama di Acciaio</b>, <b>Guardiana della Morte</b>. Wee Jas è una divinità pretenziosa e inquietante che esige obbedienza completa dai suoi fedeli. I suoi templi sono pochi e nascosti, ma annovera molti servitori tra maghi e stregoni potenti (specialmente necromanti).",
+        alignment: "Legale Neutrale",
+        domains: "Dea della Legge, della Magia, della Morte",
+        armor: "La sua arma preferita è il pugnale",
+        symbol: "./images/gods/weejas.png",
+    },
+    "Yondalla": {
+        description: "La dea degli halfling. Viene chiamata <b>La Protettrice</b>, <b>La Provvidente</b> e <b>La Matriarca che Nutre</b>, <b>La Benedetta</b>. Yondalla è la creatrice e la protrettrice della razza halfling. Difende l'armonia della razza halfling e conduce una lotta accanita contro i loro nemici. I suoi fedeli sperano di condurre una vita prospera e sicura sotto la sua guida",
+        alignment: "Legale buona",
+        domains: "Dea della Legge, del Bene, della Protezione",
+        armor: "La sua arma preferita è la spada corta",
+        symbol: "./images/gods/yondalla.png",
+    },
+
 }
 
 const eyes_colors = [  "Blu", "Verdi", "Gialli", "Rossi", "Grigi", "Neri", "Marroni"];
 
 
-const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso", "Pragmatico", "Intraprendente"]
+const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso", "Pragmatico", "Intraprendente", ""]
 
 const small_personality = [
     "Devo aver fatto un favore a un dio o qualcosa del genere, perché sono stranamente fortunato! Il cibo salta sempre fuori quando ho fame, le tempeste di solito si liberano quando ho bisogno di viaggiare, e spesso trovo cose utili e piccole monete proprio quando mi servono.",
@@ -1343,3 +1429,4 @@ const SecondNames = [
     "Rapidcast",
     "Void"
 ]
+
