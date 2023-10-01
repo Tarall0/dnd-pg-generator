@@ -174,18 +174,26 @@ function generatePg() {
         document.getElementById("traits").innerHTML = randomTraits;
     })
 
+    // Pg god
+    
+    // Get a random god name from the object in array godNames
+    const godNames = Object.keys(gods);
+    const randomGodName = godNames[Math.floor(Math.random() * godNames.length)];
+    const randomGod = gods[randomGodName];
+    document.getElementById("god").innerHTML = "<div class='symbol'><img src='"+randomGod.symbol+"'></div><div class='god_desc'><p class='god'>"+randomGodName +
+     "<span class='domains'> - "+randomGod.domains+"</span</p><p>"+ randomGod.description + "</p><p>"+randomGod.armor+" </div>"+"<button>Rigenera</button>";
 
 
+    // Body weight and height 
     const bodyPg = calculateRandomHeightAndWeight(racepg, sexLable);
     document.getElementById("weight").innerHTML = bodyPg.randomWeight.toFixed(2) + "kg";
     document.getElementById("height").innerHTML = bodyPg.randomHeight.toFixed(2) + "mt";
 
 
     // Initial coins 
-
     const diceCount = classInfo[classpg].coinsDices;
-
     const coins = generateCoins(classpg, diceCount);
+    console.log("conins generated > "+coins);
     
 
 
@@ -257,10 +265,10 @@ function generatePg() {
         document.getElementById("cost_applied").innerHTML = (costModifier > 0 ? "+" +costModifier : costModifier);
 
 
-        // CA update dest modifier value 
-        document.getElementById("moddestrezza").innerHTML = ((destModifier == 0) ? "0" : (destModifier > 0 ? "<span class='plus'> +"+destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"))
+        // Update values with modifier
+        document.getElementById("moddestrezza").innerHTML = ((destModifier == 0) ? "+0" : (destModifier > 0 ? "<span class='plus'> +"+destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"))
         document.getElementById("cla").innerHTML = "10" + ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>"  : "") + ((destModifier == 0) ? "0" : (destModifier > 0 ? "<span class='plus'> +"+destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"));
-        console.log(raceInfo[racepg].speed)
+        document.getElementById("iniziativa").innerHTML = iniziativa + ((destModifier == 0) ? "+0" : (destModifier > 0 ? "<span class='plus'> +" +destModifier + "</span>" : "<span class='minus'> "+ destModifier+"</span>"));
 
         /// class modifier needs to be considered when defining the stats 
     })
@@ -1209,6 +1217,51 @@ const bardspells = {
     },
     "Suono fantasma": {
         description: "Suoni illusori"
+    }
+}
+
+const gods = {
+    "Boccob":{
+        description: "Dio della magia. I suoi titoli includono <b>L'Indifferente</b>, <b>Il Signore di Ogni Magia</b> e <b>L'Arcimago delle Divinità</b>. Boccob è una divinità distante che non ha alcuna ambizione particolare nel mondo dei mortali",
+        alignment: "Neutrale",
+        domains: "Dio della Conoscena. dell'Inganno e della Magia.",
+        armor: "La sua arma preferita è il bastone ferrato",
+        symbol: "./images/boccob.png"
+    },
+    "Correllon Larethian": {
+        description: "Il dio degli elfi Correllon Larethian è conosciuto come <b>Il Creatore degli Elfi</b>, <b>Il Protettore</b>, <b>Il Protettore e conservatore della Vita</b>, <b>Il Signore di Tutti gli Elfi</b>. Il creatore patrono della razza elfica e governa tutto ciò che gli elfi apprezzano maggiormente: la magia, la musica, l'arte, l'artigianato, la poesia e l'arte della guerra. Venerato da elfi, mezzelfi e bardi.",
+        alignment: "Caotico neutrale",
+        domains: "Dio del Bene, Caos, Guerra e Protezione",
+        armor: "La sua arma preferita è la spada lunga",
+        symbol: "./images/correllon.png",
+    },
+    "Ehlonna": {
+        description: "La dea delle terre boschive. Il titolo con cui viene più spesso nominata è <b>Ehlonna delle Foreste</b>. Ehlonna veglia su tutti coloro che vivono nelle foreste, amano le terre boschive o che vi trascorrono la loro esistenza. Questi la raffigurano a volte come un'elfa, a volte come un'umana. Particolarmente vicina agli elfi, gnomi, mezzelfi e halfling. Venerata anche da druidi e ranger.",
+        alignment: "Neutrale buono",
+        domains: "Dea degli Animali, del Bene, del Sole e del Vegetale",
+        armor: "La sua arma preferita è la spada lunga",
+        symbol: "./images/ehlonna.png",
+    },
+    "Erythnul": {
+        description: "Il dio del massacro. Il suo titolo è <b>Il Molteplice</b>. Erythnul gode del panico e del massacro che diffonde. Nelle terre civilizzate i suoi fedeli formano piccoli culti criminali in suo onore. Nelle terre selvagge, viene adorato apertamente.",
+        alignment: "Caotico Malvagio",
+        domains: "Dio del Caos, Guerra, dell'Inganno e del Male",
+        armor: "La sua arma preferita è una morning star con una testa di pietra",
+        symbol: "./images/erythnul.png",
+    },
+    "Fharlanghn": {
+        description: "Il dio delle strade. Il suo titolo è <b>L'Abiuratore dell'Orizzonte</b>. Lo venerano principalmente i bardi, gli avventurieri erranti e i mercanti.",
+        alignment: "Neutrale",
+        domains: "Dio della Fortuna, Protezione, del Viaggio",
+        armor: "La sua arma preferita è il bastone ferrato",
+        symbol: "./images/fharlanghn-symbol.png",
+    },
+    "Garl Glittergold": {
+        description: "Il dio delgli gnomi. Conosciuto come <b>Il'Burlone</b>, <b>L'Attento Protettore</b>, <b>La Gemma Senza Prezzo</b> e <b>L'Arguto</b>. Fu Garl Glittergold a scoprire gli gnomi e a introdurli nel mondo, e da allora è sempre stato il loro protettore. Veglia sull'umorismo, l'arguzia la lavorazione delle gemme e la creazione di gioielli.",
+        alignment: "Neutrale buono",
+        domains: "Dio del Bene, l'Inganno, Protezione",
+        armor: "La sua arma preferita è l'ascia da battaglia.",
+        symbol: "./images/glittergoldlol.png",
     }
 }
 

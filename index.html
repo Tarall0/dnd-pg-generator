@@ -50,16 +50,16 @@
             <div class="head-grid">
                 <div class="basic-info">
                     <div>
-                        <span id="namePg" class="name">Name</span>, <span id="race">Razza</span>
+                        <span id="namePg" class="name">Name</span>
                     </div>
                     <div class="genre">
                          <span id="sexPg">?</span>
                     </div>
                     <div>
-                         <span id="elderly">Anzianità</span>
+                        <i class="fa-regular fa-star"></i> <span id="race">Razza</span> - <span id="elderly">Anzianità</span>
                     </div>
                     <div>
-                        <span id="alignment">Allineamento</span>
+                        <i class="fa-solid fa-scale-balanced"></i> <span id="alignment">Allineamento</span>
                      </div>
                      <div class="wallet">
                         <div>
@@ -105,7 +105,7 @@
             <div class="pg-grid">
                 
                 <div>
-                    Classe: <span id="classPg"></span> 
+                     Classe: <span id="classPg"></span> 
                 </div>
                 <div class="iniziativa">
                     Iniziativa: <span id="iniziativa"></span>
@@ -118,7 +118,7 @@
                     Lotta
                 </div>
                 <div>
-                    Classe Armatura: <span id="cla"></span>
+                    <i class="fa-solid fa-shield"></i> Classe Armatura: <span id="cla"></span>
                     <ul class="armorclass-details">
                         <li>Bonus. armatura: 0</li>
                         <li>Bonus scudo: 0</li>
@@ -129,7 +129,7 @@
 
                 <div class="personality">
                     <button id="resetPersonality"><i class="fa-solid fa-arrows-rotate"></i></button>
-                    <h4>Personalità</h4>
+                    <h4><i class="fa-solid fa-clipboard-user"></i> Personalità</h4>
                     <p id="traits"></p>
                 <span id="personality"></span>
                 </div>
@@ -159,7 +159,7 @@
             <div class="info"><p>Tieni premuto e trascina per gestire le tue statistiche in base alla classe, clicca il pulsante Applica quando hai fatto</p></div>
             <div class="button-container">
                 <button id="apply_stats">
-                    <i class="fa-solid fa-dice"></i>  Applica
+                    <i class="fa-solid fa-check"></i>  Applica
                 </button>
             </div>
 
@@ -193,6 +193,18 @@
                     <label>Costituzione <span id="modif_cost"></span> </label> 
                     <div id="cost" draggable="true" ondragstart="drag(event)">?</div>
                     <span id="cost_applied"></span>
+                </div>
+            </div>
+            <div class="religion">
+                <h3><i class="fa-solid fa-atom"></i> Religione</h3>
+                <div id="god">
+                    God
+                </div>
+            </div>
+        
+            <div class="equipment">
+                <div id="ì">
+                    Equipaggiamento
                 </div>
             </div>
             
