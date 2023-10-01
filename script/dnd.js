@@ -102,11 +102,10 @@ function calculateRandomHeightAndWeight(race, sex) {
     // Generate random weight and height within the specified range
     const randomWeight = averageWeight + (Math.random() - 0.5) * 2 * weightRange;
     const randomHeight = averageHeight + (Math.random() - 0.5) * 2 * heightRange;
+
+    document.getElementById("weight").innerHTML = randomWeight.toFixed(2) + "kg";
+    document.getElementById("height").innerHTML = randomHeight.toFixed(2) + "mt";
   
-    return {
-      randomWeight: Math.max(0, randomWeight), // Ensure weight is non-negative
-      randomHeight: Math.max(0, randomHeight), // Ensure height is non-negative
-    };
   }
 
 // Calculate stats value to got the actual modifier based on the chosen number for that stat 
@@ -145,12 +144,109 @@ function calculateRandomHeightAndWeight(race, sex) {
     }
   }
 
+  function createBackpack() {
+    const backPack = document.getElementById("backpack");
+    backPack.innerHTML = `
+    <h3>Seleziona un'arma base per il tuo personaggio </h3>
+        <form id="armorForm">
+            <div class="select_armor">
+                <label>
+                    <input type="checkbox" name="armi" value="pugnale"> Pugnale
+                </label>
+                <label>
+                    <input type="checkbox" name="armi" value="spadacorta"> Spada corta
+                </label>
+                <label>
+                    <input type="checkbox" name="armi" value="spadalunga"> Spada lunga
+                </label>
+                <label>
+                    <input type="checkbox" name="armi" value="falcetto"> Falcetto
+                </label>
+            </div>
+            <div class="buttons"><button id="basicArmor"> Continua </button></div>
+        </form>
+        
+    `;
+
+    const armi = {
+        "pugnale": {
+            name: "Pugnale",
+            cost: "2",
+            damage: "1d4",
+            critic: "x2",
+            range: " - ",
+            weight: "0.5Kg",
+            type: "Perforante, Tagliente",
+        },
+        "falcetto": {
+            name: "Falcetto",
+            cost: "6",
+            damage: "1d6",
+            critic: "x2",
+            range: " - ",
+            weight: "1Kg",
+            type: "Tagliente",
+        },
+        "spadacorta": {
+            name: "Spada Corta",
+            cost: "",
+            damage: "",
+            critic: "",
+            range: "",
+            weight: "",
+            type: "",
+        },
+        "spadalunga": {
+            name: "Spada Lunga",
+            cost: "",
+            damage: "",
+            critic: "",
+            range: "",
+            weight: "",
+            type: "",
+        }
+    };
+
+    document.getElementById('armorForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting traditionally
+
+        // Get all selected checkboxes
+        const checkboxes = document.querySelectorAll('input[name="armi"]:checked');
+
+        // Create an array to store selected items
+        const selectedItems = [];
+
+        // Iterate through selected checkboxes and add corresponding items from the 'armi' object
+        checkboxes.forEach(function(checkbox) {
+            const itemName = checkbox.value;
+            if (armi[itemName]) {
+                selectedItems.push(armi[itemName]);
+            }
+        });
+
+        // Display the selected items in the backpack
+        backPack.innerHTML = "<h3>Arma Principale</h3>";
+        selectedItems.forEach(function(item) {
+            backPack.innerHTML += `
+            <div class="item">
+            <span class="item_name">${item.name}</span>
+            <span class="worth"><i class="fa-solid fa-coins gold"></i> ${item.cost}</span>
+                <ul>
+                    <li>Danno: ${item.damage}</li>
+                    <li>Range: ${item.range}</li>
+                    <li>Critico: ${item.critic}</li>
+                    <li>Peso: ${item.weight}</li>
+                    <li>${item.type}</li>
+                </ul>
+            </div>`;
+        });
+    });
+}
+
+
+
 // Function to generate a pg
-function generatePg() {
-
-    //buttons 
-    const buttonStats = document.getElementById("stats_dice");
-
+function generatePg() { 
     // Name and gender
     const sexPg = Math.floor(Math.random() * 2);
     let sexLable;
@@ -162,6 +258,8 @@ function generatePg() {
         sexLable = "male";
     }
     const randomName = names[Math.floor(Math.random() * names.length)] +  " " + SecondNames[Math.floor(Math.random() * SecondNames.length)];
+    document.getElementById("namePg").textContent = randomName;
+    document.getElementById("sexPg").innerHTML = ((sexPg > 0) ? "<i class='fa-solid fa-mars'></i>" : "<i class='fa-solid fa-venus'></i>");
 
     // Get random class and race
     const classespg = Object.keys(classInfo);
@@ -202,21 +300,16 @@ function generatePg() {
 
     // Pg god
     displayRandomGod();
-
-
     // Body weight and height 
-    const bodyPg = calculateRandomHeightAndWeight(racepg, sexLable);
-    document.getElementById("weight").innerHTML = bodyPg.randomWeight.toFixed(2) + "kg";
-    document.getElementById("height").innerHTML = bodyPg.randomHeight.toFixed(2) + "mt";
-
-
+    calculateRandomHeightAndWeight(racepg, sexLable);
     // Initial coins 
     const diceCount = classInfo[classpg].coinsDices;
     generateCoins(classpg, diceCount);
+
+    //backpack 
+    createBackpack();
     
     
-
-
     // Initialize the Stats modifiers
     const raceModifierForForza = raceModifier['forza'] || 0; 
     const raceModifierForInt = raceModifier['int'] || 0;     
@@ -232,6 +325,8 @@ function generatePg() {
     const sagg = generatePoints();
     const cost = generatePoints();
 
+    // Reroll stats
+    const buttonStats = document.getElementById("stats_dice");
     buttonStats.addEventListener("click", () => {
         const forza = generatePoints();
         const int = generatePoints();
@@ -240,8 +335,8 @@ function generatePg() {
         const sagg = generatePoints();
         const cost = generatePoints();
 
+        // Reroll stats and life dice if selected
         var checkbox = document.getElementById("pf_checker");
-
         if(checkbox.checked){
             document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
         }
@@ -254,8 +349,8 @@ function generatePg() {
         document.getElementById("forza").innerHTML = forza;
     });
 
+    // Apply stats once managed
     const applyStats = document.getElementById("apply_stats");
-
     applyStats.addEventListener("click", () => {
         const forzaValue = parseInt(document.getElementById("forza").innerHTML);
         const forza = forzaValue + raceModifierForForza;
@@ -302,7 +397,7 @@ function generatePg() {
         }
     }
 
-    // Apply each class modifier if present in the DOM
+    // Insert each class modifier if present 
     updateModifier('forza', raceModifierForForza); 
     updateModifier('int', raceModifierForInt);     
     updateModifier('carisma', raceModifierForCarisma); 
@@ -316,12 +411,6 @@ function generatePg() {
     document.getElementById("sagg").textContent = sagg;
     document.getElementById("int").innerHTML = int;
     document.getElementById("forza").innerHTML = forza;
-
-
-
-
-    document.getElementById("namePg").textContent = randomName;
-    document.getElementById("sexPg").innerHTML = ((sexPg > 0) ? "<i class='fa-solid fa-mars'></i>" : "<i class='fa-solid fa-venus'></i>");
 
     document.getElementById("age").textContent = " "+agePg + " anni";
     document.getElementById("elderly").textContent = elderly;
@@ -349,14 +438,8 @@ function generatePg() {
     // Set the life points based on class
     document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
 
-    // const test = parseInt( document.getElementById("sagg").innerText);
-    // const tempermod = calculateValues(test);
-
-    // //Death saves 
-    // document.getElementById("temper").innerHTML = raceModifier.cost;
-    // document.getElementById("reflexes").innerHTML = raceModifier.dest;
-    // document.getElementById("will").innerHTML = raceModifier.sagg + "+" + tempermod;
-
+   
+    //
     
     document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
 
@@ -597,24 +680,6 @@ function generatePg() {
     }
 
 }
-
-function calculateValues(number) {
-    let value;
-
-    for(let i = 0; i < number; i++){
-        if (number > 10) {
-            value= +0.5;
-          } else if (number < 10) {
-            value=+ -0.5;
-          } else {
-            value=+ 0; // If the number is exactly 10, count remains unchanged
-          }
-          return value;
-    }
-  }
-
-  
-
 
 function generatePoints() {
     const dices = [];
