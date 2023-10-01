@@ -628,6 +628,7 @@ input:checked + .slider:before {
   margin: 1em auto;
 }
 
+
 .symbol img{
   max-width: 100% !important;
 max-height: 100% !important;

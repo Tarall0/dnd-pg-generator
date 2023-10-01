@@ -119,6 +119,31 @@ function calculateRandomHeightAndWeight(race, sex) {
     return modifier;
   }
 
+  // Get random Gods for pg
+  function displayRandomGod() {
+    const godNames = Object.keys(gods);
+    const randomGodName = godNames[Math.floor(Math.random() * godNames.length)];
+    const randomGod = gods[randomGodName];
+    
+    const godElement = document.getElementById("god");
+    godElement.innerHTML = `
+      <div class='symbol'><img src='${randomGod.symbol}'></div>
+      <div class='god_desc'>
+        <p class='god'>${randomGodName}<span class='domains'> - ${randomGod.domains}</span></p>
+        <p><i class="fa-solid fa-scale-balanced"></i> ${randomGod.alignment}</p>
+        <p>${randomGod.description}</p>
+        <p>${randomGod.armor}</p>
+      </div>
+      <p></p>
+      <button id='changegod'>Cambia Divinità</button>
+    `;
+  
+    const changegod = document.getElementById("changegod");
+    if (changegod) {
+      changegod.addEventListener("click", displayRandomGod);
+    }
+  }
+
 // Function to generate a pg
 function generatePg() {
 
@@ -175,13 +200,7 @@ function generatePg() {
     })
 
     // Pg god
-    
-    // Get a random god name from the object in array godNames
-    const godNames = Object.keys(gods);
-    const randomGodName = godNames[Math.floor(Math.random() * godNames.length)];
-    const randomGod = gods[randomGodName];
-    document.getElementById("god").innerHTML = "<div class='symbol'><img src='"+randomGod.symbol+"'></div><div class='god_desc'><p class='god'>"+randomGodName +
-     "<span class='domains'> - "+randomGod.domains+"</span</p><p>"+ randomGod.description + "</p><p>"+randomGod.armor+" </div>"+"<button>Rigenera</button>";
+    displayRandomGod();
 
 
     // Body weight and height 
@@ -192,8 +211,8 @@ function generatePg() {
 
     // Initial coins 
     const diceCount = classInfo[classpg].coinsDices;
-    const coins = generateCoins(classpg, diceCount);
-    console.log("conins generated > "+coins);
+    generateCoins(classpg, diceCount);
+    
     
 
 
@@ -273,6 +292,79 @@ function generatePg() {
         /// class modifier needs to be considered when defining the stats 
     })
     
+    // Show race modifier assigning bonus or malus, it will be displayed in the span of each stat (if present)
+
+    function updateModifier(attribute, modifier) {
+        const modifSpan = document.getElementById(`modif_${attribute}`);
+        if (modifSpan) {
+            modifSpan.innerHTML = ((modifier == 0) ? "" : (modifier > 0 ? "<span class='plus'> +" + modifier + "</span>" : "<span class='minus'> "+modifier+"</span>"));
+        }
+    }
+
+    // Apply each class modifier if present in the DOM
+    updateModifier('forza', raceModifierForForza); 
+    updateModifier('int', raceModifierForInt);     
+    updateModifier('carisma', raceModifierForCarisma); 
+    updateModifier('dest', raceModifierForDestrezza);
+    updateModifier('cost', raceModifierForCost);
+
+    // Assign sorted stats
+    document.getElementById("cost").innerHTML = cost;
+    document.getElementById("carisma").innerHTML =  carisma;
+    document.getElementById("destrezza").innerHTML = dest;
+    document.getElementById("sagg").textContent = sagg;
+    document.getElementById("int").innerHTML = int;
+    document.getElementById("forza").innerHTML = forza;
+
+
+
+
+    document.getElementById("namePg").textContent = randomName;
+    document.getElementById("sexPg").innerHTML = ((sexPg > 0) ? "<i class='fa-solid fa-mars'></i>" : "<i class='fa-solid fa-venus'></i>");
+
+    document.getElementById("age").textContent = " "+agePg + " anni";
+    document.getElementById("elderly").textContent = elderly;
+    
+
+
+
+    // Class Armor
+    document.getElementById("cla").innerHTML = "10" + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>")) + ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>" : "");
+    document.getElementById("moddestrezza").innerHTML = ((raceModifier.dest == 0) ? "0" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"))
+    document.getElementById("moddtaglia").innerHTML = ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>" : "0");
+
+    // Show speed based on class 
+    document.getElementById("speedPg").textContent = raceInfo[racepg].speed;
+
+    // Set the initiative 
+    document.getElementById("iniziativa").innerHTML = iniziativa + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
+    // Set the chosen alignment
+    document.getElementById("alignment").textContent = randomAlignment;
+
+    // Set the class and race in the HTML
+    document.getElementById("classPg").textContent = classpg;
+    document.getElementById("race").textContent = racepg;
+
+    // Set the life points based on class
+    document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
+
+    // const test = parseInt( document.getElementById("sagg").innerText);
+    // const tempermod = calculateValues(test);
+
+    // //Death saves 
+    // document.getElementById("temper").innerHTML = raceModifier.cost;
+    // document.getElementById("reflexes").innerHTML = raceModifier.dest;
+    // document.getElementById("will").innerHTML = raceModifier.sagg + "+" + tempermod;
+
+    
+    document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
+
+    document.getElementById("traits").innerHTML = randomTraits;
+
+    document.getElementById("eyes").innerHTML = eyes_colors[Math.floor(Math.random() * eyes_colors.length)];
+
+    // Manages different classes assigning spell (if in class)
+
     switch (classpg) {
         case "Bardo":
             const bardspellsn = classInfo[classpg].spellsperday;
@@ -302,7 +394,7 @@ function generatePg() {
             
             const bardlvl0Container = document.createElement("div");
             const bardlvl0Header = document.createElement("h3");
-            bardlvl0Header.textContent = "Incantesimi lvl 0"
+            bardlvl0Header.innerHTML = "<i class='fa-solid fa-wand-sparkles'></i> Incantesimi lvl 0"
             const bardlvl0List = document.createElement("ul")
 
             bardspellspg.forEach((spell) => {
@@ -369,9 +461,9 @@ function generatePg() {
             const druidlvl0Container = document.createElement("div");
             const druidlvl1Container = document.createElement("div");
             const druidlvl0Header = document.createElement("h3");
-            druidlvl0Header.textContent = "Incantesimi lvl 0";
+            druidlvl0Header.innerHTML = "<i class='fa-solid fa-wand-sparkles'></i> Incantesimi lvl 0"
             const druidlvl1Header = document.createElement("h3");
-            druidlvl1Header.textContent = "Incantesimi lvl 1";
+            druidlvl1Header.innerHTML = "<i class='fa-solid fa-wand-sparkles'></i> Incantesimi lvl 1"
             const druidlvl0List = document.createElement("ul");
             const druidlvl1List = document.createElement("ul");
         
@@ -457,9 +549,9 @@ function generatePg() {
             const lvl0Container = document.createElement("div");
             const lvl1Container = document.createElement("div");
             const lvl0Header = document.createElement("h3");
-            lvl0Header.textContent = "Incantesimi lvl 0";
+            lvl0Header.innerHTML = "<i class='fa-solid fa-wand-sparkles'></i> Incantesimi lvl 0"
             const lvl1Header = document.createElement("h3");
-            lvl1Header.textContent = "Incantesimi lvl 1";
+            lvl1Header.innerHTML = "<i class='fa-solid fa-wand-sparkles'></i> Incantesimi lvl 1"
             const lvl0List = document.createElement("ul");
             const lvl1List = document.createElement("ul");
 
@@ -499,82 +591,10 @@ function generatePg() {
             case "Barbaro":
                 const genericSpell = document.getElementById("spellsContainer");
                 genericSpell.innerHTML = "Questa classe non ha incantesimi";
-                break; 
-
-            
+                break;  
 
     }
 
-    // Show race modifier assigning bonus or malus, it will be displayed in the span of each stat (if present)
-
-    function updateModifier(attribute, modifier) {
-        const modifSpan = document.getElementById(`modif_${attribute}`);
-        if (modifSpan) {
-            modifSpan.innerHTML = ((modifier == 0) ? "" : (modifier > 0 ? "<span class='plus'> +" + modifier + "</span>" : "<span class='minus'> "+modifier+"</span>"));
-        }
-    }
-
-    // Apply each class modifier if present in the DOM
-    updateModifier('forza', raceModifierForForza); 
-    updateModifier('int', raceModifierForInt);     
-    updateModifier('carisma', raceModifierForCarisma); 
-    updateModifier('dest', raceModifierForDestrezza);
-    updateModifier('cost', raceModifierForCost);
-
-    // Assign sorted stats
-    document.getElementById("cost").innerHTML = cost;
-    document.getElementById("carisma").innerHTML =  carisma;
-    document.getElementById("destrezza").innerHTML = dest;
-    document.getElementById("sagg").textContent = sagg;
-    document.getElementById("int").innerHTML = int;
-    document.getElementById("forza").innerHTML = forza;
-
-
-
-
-    document.getElementById("namePg").textContent = randomName;
-    document.getElementById("sexPg").innerHTML = ((sexPg > 0) ? "<i class='fa-solid fa-mars'></i>" : "<i class='fa-solid fa-venus'></i>");
-
-    document.getElementById("age").textContent = " "+agePg + " anni";
-    document.getElementById("elderly").textContent = elderly;
-    
-
-
-
-    // Class Armor
-    document.getElementById("cla").innerHTML = "10" + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>")) + ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>" : "");
-    document.getElementById("moddestrezza").innerHTML = ((raceModifier.dest == 0) ? "0" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"))
-    document.getElementById("moddtaglia").innerHTML = ((raceInfo[racepg].speed === "6m") ? "<span class='plus'> +1 </span>" : "0");
-
-    // Show speed based on class 
-    document.getElementById("speedPg").textContent = raceInfo[racepg].speed;
-
-    // Set the initiative 
-    document.getElementById("iniziativa").innerHTML = iniziativa + ((raceModifier.dest == 0) ? "" : (raceModifier.dest > 0 ? "<span class='plus'> +" +raceModifier.dest + "</span>" : "<span class='minus'> "+ raceModifier.dest+"</span>"));
-    // Set the chosen alignment
-    document.getElementById("alignment").textContent = randomAlignment;
-
-    // Set the class and race in the HTML
-    document.getElementById("classPg").textContent = classpg;
-    document.getElementById("race").textContent = racepg;
-
-    // Set the life points based on class
-    document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
-
-    // const test = parseInt( document.getElementById("sagg").innerText);
-    // const tempermod = calculateValues(test);
-
-    // //Death saves 
-    // document.getElementById("temper").innerHTML = raceModifier.cost;
-    // document.getElementById("reflexes").innerHTML = raceModifier.dest;
-    // document.getElementById("will").innerHTML = raceModifier.sagg + "+" + tempermod;
-
-    
-    document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
-
-    document.getElementById("traits").innerHTML = randomTraits;
-
-    document.getElementById("eyes").innerHTML = eyes_colors[Math.floor(Math.random() * eyes_colors.length)];
 }
 
 function calculateValues(number) {
