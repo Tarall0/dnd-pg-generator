@@ -473,9 +473,6 @@ function createBackpack() {
                 <label>
                     <input type="checkbox" name="rangedWeapons" value="balestraleggera"> Balestra Leggera
                 </label>
-                <label>
-                    <input type="checkbox" name="rangedWeapons" value="dardo"> Dardo (10)
-                </label>
             </div>
             <div class="buttons"><button id="rangedArmor"> Continua </button></div>
         </form>
@@ -484,17 +481,17 @@ function createBackpack() {
         document.getElementById('rangedForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            document.getElementById("rangedForm").style.display = "none";
             // Get all selected ranged weapon checkboxes
             const checkboxes = document.querySelectorAll('input[name="rangedWeapons"]:checked');
 
             // Create an array to store selected ranged weapons
             const selectedRangedWeapons = [];
 
-            if (checkboxes.length > 2) {
-                alert("Puoi selezionare al massimo due armi a distanza.");
+            if (checkboxes.length > 1) {
+                alert("Puoi selezionare al massimo 1 arma a distanza.");
                 return;
             }
+            document.getElementById("rangedForm").style.display = "none";
 
             // Iterate through selected checkboxes and add corresponding items from the 'armi' object
             checkboxes.forEach(function(checkbox) {
@@ -1491,7 +1488,7 @@ const gods = {
 const eyes_colors = [  "Blu", "Verdi", "Gialli", "Rossi", "Grigi", "Neri", "Marroni"];
 
 
-const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso", "Pragmatico", "Intraprendente", ""]
+const traits = ["Ambizioso", "Coraggioso", "Determinato", "Avventuroso", "Pragmatico", "Intraprendente", "Empatico", "Creativo", "Paziente", "Ottimista", "Altruista", "Responsabile", "Flessibile", "Generoso", "Tenace", "Risoluto"]
 
 const small_personality = [
     "Devo aver fatto un favore a un dio o qualcosa del genere, perché sono stranamente fortunato! Il cibo salta sempre fuori quando ho fame, le tempeste di solito si liberano quando ho bisogno di viaggiare, e spesso trovo cose utili e piccole monete proprio quando mi servono.",
@@ -1504,6 +1501,12 @@ const small_personality = [
     "Chiamo tutti con dei nomignoli: tesoro, capo, dolcezza, ragazzo, tesoro etc. È una cosa che ho imparato da mio nonno/padre.",
     "Sono cresciuto in una famiglia religiosa. Non pronuncerei mai il nome di una divinità invano e insisto affinché anche gli altri si astengano dal farlo.",
     "Non mi piacciono i bambini. Ma i bambini mi amano. Questo mi lascia perplesso.",
+    "Sono un grande appassionato di astronomia. Passo le notti a osservare le stelle e posso identificare molte costellazioni e pianeti.",
+    "Ho una collezione segreta di antiche mappe e oggetti misteriosi che ho raccolto nei miei viaggi. Li tengo nascosti in un luogo sicuro, e ogni tanto li studio per cercare indizi su tesori perduti.",
+    "Sono ossessionato dalla storia della mia famiglia e porto sempre con me un albero genealogico dettagliato. So tutto sui miei antenati fino a molti secoli fa.",
+    "Ho una strana ossessione per i puzzle e gli enigmi. Passo ore a risolverli e non posso resistere a un mistero da svelare.",
+    "Ho un amico immaginario che mi accompagna ovunque. Lo considero il mio consulente personale e parlo spesso con lui come se fosse una creatyra reale.",
+    "Ho una profonda connessione con gli animali e spesso mi ritrovo a soccorrere e prendere cura di animali feriti o abbandonati che incontro per strada."
 ]
 
 const small_negative = [
@@ -1514,8 +1517,14 @@ const small_negative = [
     "Una po' una testa calda, una volta ho scatenato una rissa perchè un uomo mi stava fissando... peccato fosse cieco!",
     "Diffido di maghi e stregoni, ho subito un incidente da piccol* che mi ha segnato in questo.",
     "Non sempre riesco a dire la cosa giusta da dire... questo mi può mettere nei guai.",
-    "Nascondo un segreto, oscuro forse e da tanto tempo. Questo mi rende restio a fidarmi e ad interagire con gli altri."
-
+    "Nascondo un segreto, oscuro forse e da tanto tempo. Questo mi rende restio a fidarmi e ad interagire con gli altri.",
+    "Sono affetto da paranoia. Non mi fido di nessuno e credo che ci sia sempre qualcuno che sta cercando di farmi del male.",
+    "Ho una dipendenza da gioco d'azzardo. Non posso resistere a scommettere su qualsiasi cosa, anche quando so che potrebbe portarmi a problemi finanziari.",
+    "Sono ossessionato dalla vendetta. Qualcuno ha fatto del male a una persona cara a me, e ho giurato di far pagare chiunque sia responsabile.",
+    "Sono un perfezionista ossessivo. Non riesco a vedere oltre i dettagli e cerco costantemente di migliorare le cose, anche quando è inutile.",
+    "Ho un temperamento esplosivo. Le piccole provocazioni possono far scatenare in me una rabbia incontrollabile.",
+    "Ho commesso un crimine grave in passato e ora sono in fuga dalle autorità. Vivo costantemente nell'ombra per evitare di essere catturato.",
+    "Sono geloso e possessivo nei confronti delle persone che amo. Questo crea tensioni nelle mie relazioni e mi fa agire in modi irrazionali.",
 ]
 
 const femaleNames = ["Alice", "Eve","Grace", "Hannah", "Ivy"];
@@ -1532,6 +1541,13 @@ const maleNames = [
     "Rordolvec",
     "Zeizar",
     "Rumen",
+    "Theodore",
+    "Gabriel",
+    "Oliver",
+    "Samuel",
+    "Liam",
+    "Felix",
+    "Alexander",
 ]
 
 
@@ -1544,7 +1560,17 @@ const SecondNames = [
     "Mysts",
     "Pandaul",
     "Rapidcast",
-    "Void"
+    "Void",
+    "Blackthorn",
+    "Shadowbane",
+    "Ironheart",
+    "Bloodraven",
+    "Frostblade",
+    "Stormwind",
+    "Nighshade",
+    "Steelhammer",
+    "Thunderstrike",
+    "Fireforge"
 ]
 
 
@@ -1671,3 +1697,7 @@ const armi = {
     },
 };
 
+
+const initial_objects = {
+
+}
