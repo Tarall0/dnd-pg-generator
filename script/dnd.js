@@ -1366,7 +1366,7 @@ const gods = {
     "Boccob":{
         description: "Dio della magia. I suoi titoli includono <b>L'Indifferente</b>, <b>Il Signore di Ogni Magia</b> e <b>L'Arcimago delle Divinità</b>. Boccob è una divinità distante che non ha alcuna ambizione particolare nel mondo dei mortali",
         alignment: "Neutrale",
-        domains: "Dio della Conoscena. dell'Inganno e della Magia.",
+        domains: "Dio della Conoscenza, dell'Inganno e della Magia.",
         armor: "La sua arma preferita è il bastone ferrato",
         symbol: "./images/gods/boccob.png"
     },
