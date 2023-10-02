@@ -320,7 +320,7 @@ function generateSpells(classpg, classInfo) {
     const usedIndexes = [];
   
     while (randomTraits.length < count) {
-      const randomIndex = Math.floor(Math.random() * traits.length); // Corrected this line
+      const randomIndex = Math.floor(Math.random() * traits.length); 
   
       if (!usedIndexes.includes(randomIndex)) {
         randomTraits.push(traits[randomIndex]);
@@ -768,7 +768,6 @@ button.addEventListener("click", () => {
 
 
 // Objects 
-
 const raceInfo = {
     "Umano": { 
         modifiers: {
@@ -1535,7 +1534,27 @@ const small_negative = [
     "Sono geloso e possessivo nei confronti delle persone che amo. Questo crea tensioni nelle mie relazioni e mi fa agire in modi irrazionali.",
 ]
 
-const femaleNames = ["Alice", "Eve","Grace", "Hannah", "Ivy"];
+const femaleNames = [
+    "Alice",
+    "Eve",
+    "Grace",
+    "Hannah",
+    "Ivy",
+    "Aria",
+    "Elara",
+    "Seraphina",
+    "Luna",
+    "Fiona",
+    "Isolde",
+    "Morgana",
+    "Eowyn",
+    "Lyanna",
+    "Athena",
+    "Elowen",
+    "Selene",
+    "Arwen",
+    "Thalia"
+  ];
 
 const maleNames = [
     "Basun",
