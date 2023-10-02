@@ -209,6 +209,7 @@ body{
     background-color: var(--bg);
     padding: 1em;
     margin: 1em auto;
+    position: relative;
   }
 
   .spells-container ul{
@@ -230,6 +231,14 @@ body{
   }
   #spellsContainer > div  > h3{
     margin: .25em auto;
+  }
+
+  #newSpells{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 100%;
+    padding: 1em;
   }
 
   .minus{
@@ -573,12 +582,6 @@ input:checked + .slider:before {
   gap: .5em;
 }
 
-@media (max-width: 620px){
-  .religion #god{
-    grid-template-columns: auto;
-  }
-}
-
 .religion .god{
   font-weight: 600;
   font-size: 1.25rem;
@@ -639,10 +642,11 @@ input:checked + .slider:before {
 }
 
 #backpack .item{
-  margin: .55em;
+  margin: .55em auto;
   padding: 1em;
   border-bottom: 1px solid var(--darktone);
   position: relative;
+  max-width: 750px;
 }
 
 .item .item_name{
@@ -653,11 +657,12 @@ input:checked + .slider:before {
   list-style: none;
   display: grid;
   grid-template-columns: 50% 50%;
+  padding: .5em;
 }
 
 .item li{
   margin: .25em;
-  border-bottom: 2px dotted var(--darktone);
+  border-bottom: 1px solid var(--main);
 }
 
 .item .worth{
@@ -666,3 +671,15 @@ input:checked + .slider:before {
   right: 10px;
 }
 
+.item .category {
+  color: var(--darktone);
+  font-size: small;
+}
+
+
+@media (max-width: 620px){
+  .religion #god, #backpack .select_armor{
+    grid-template-columns: auto;
+  }
+
+}
