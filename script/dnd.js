@@ -391,53 +391,62 @@ function calculateRandomHeightAndWeight(race, sex) {
       changegod.addEventListener("click", displayRandomGod);
     }
   }
-// Create starter backpack for pg 
-  function createBackpack() {
+
+function createBackpack() {
     const backPack = document.getElementById("backpack");
     backPack.innerHTML = `
     <h3>Seleziona un'arma semplice </h3>
-        <form id="armorForm">
+        <form id="meleeForm">
             <div class="select_armor">
                 <label>
-                    <input type="checkbox" name="armi" value="pugnale"> Pugnale
+                    <input type="checkbox" name="meleeWeapons" value="pugnale"> Pugnale
                 </label>
                 <label>
-                    <input type="checkbox" name="armi" value="guantodarmechiodato"> Guanto d’arme chiodato
+                    <input type="checkbox" name="meleeWeapons" value="falcetto"> Falcetto
                 </label>
                 <label>
-                    <input type="checkbox" name="armi" value="mazzaleggera"> Mazza Leggera
+                    <input type="checkbox" name="meleeWeapons" value="randello"> Randello
                 </label>
                 <label>
-                    <input type="checkbox" name="armi" value="falcetto"> Falcetto
+                    <input type="checkbox" name="meleeWeapons" value="mazzaleggera"> Mazza Leggera
                 </label>
                 <label>
-                    <input type="checkbox" name="armi" value="pugnaledamischia"> Pugnale da mischia
+                    <input type="checkbox" name="meleeWeapons" value="lanciacorta"> Lancia Corta
+                </label>
+                <label>
+                    <input type="checkbox" name="meleeWeapons" value="pugnaledamischia"> Pugnale da Mischia
                 </label>
             </div>
-            <div class="buttons"><button id="basicArmor"> Continua </button></div>
+            <div class="buttons"><button id="meleeArmor"> Continua </button></div>
         </form>
         
     `;
-    document.getElementById('armorForm').addEventListener('submit', function(event) {
+
+    document.getElementById('meleeForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the form from submitting traditionally
 
-        // Get all selected checkboxes
-        const checkboxes = document.querySelectorAll('input[name="armi"]:checked');
+        // Get all selected melee weapon checkboxes
+        const checkboxes = document.querySelectorAll('input[name="meleeWeapons"]:checked');
 
-        // Create an array to store selected items
-        const selectedItems = [];
+        // Create an array to store selected melee weapons
+        const selectedMeleeWeapons = [];
+
+        if (checkboxes.length > 2) {
+            alert("Puoi selezionare al massimo due armi per corpo a corpo.");
+            return;
+        }
 
         // Iterate through selected checkboxes and add corresponding items from the 'armi' object
         checkboxes.forEach(function(checkbox) {
             const itemName = checkbox.value;
             if (armi[itemName]) {
-                selectedItems.push(armi[itemName]);
+                selectedMeleeWeapons.push(armi[itemName]);
             }
         });
 
-        // Display the selected items in the backpack
-        backPack.innerHTML = "<h3>Armi Semplici</h3>";
-        selectedItems.forEach(function(item) {
+        // Display the selected melee weapons in the backpack
+        backPack.innerHTML = "<h3>Armi Semplici (Corpo a Corpo)</h3>";
+        selectedMeleeWeapons.forEach(function(item) {
             backPack.innerHTML += `
             <div class="item">
             <span class="item_name">${item.name}</span>
@@ -451,6 +460,67 @@ function calculateRandomHeightAndWeight(race, sex) {
                     <li><i>${item.type}</i></li>
                 </ul>
             </div>`;
+        });
+
+        backPack.innerHTML += `
+        
+        <form id="rangedForm">
+        <h3>Seleziona un'arma a distanza </h3>
+            <div class="select_armor">
+                <label>
+                    <input type="checkbox" name="rangedWeapons" value="arco"> Arco
+                </label>
+                <label>
+                    <input type="checkbox" name="rangedWeapons" value="balestraleggera"> Balestra Leggera
+                </label>
+                <label>
+                    <input type="checkbox" name="rangedWeapons" value="dardo"> Dardo (10)
+                </label>
+            </div>
+            <div class="buttons"><button id="rangedArmor"> Continua </button></div>
+        </form>
+        `;
+
+        document.getElementById('rangedForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            document.getElementById("rangedForm").style.display = "none";
+            // Get all selected ranged weapon checkboxes
+            const checkboxes = document.querySelectorAll('input[name="rangedWeapons"]:checked');
+
+            // Create an array to store selected ranged weapons
+            const selectedRangedWeapons = [];
+
+            if (checkboxes.length > 2) {
+                alert("Puoi selezionare al massimo due armi a distanza.");
+                return;
+            }
+
+            // Iterate through selected checkboxes and add corresponding items from the 'armi' object
+            checkboxes.forEach(function(checkbox) {
+                const itemName = checkbox.value;
+                if (armi[itemName]) {
+                    selectedRangedWeapons.push(armi[itemName]);
+                }
+            });
+
+            // Display the selected ranged weapons in the backpack
+            backPack.innerHTML += "<h3>Armi Semplici (A Distanza)</h3>";
+            selectedRangedWeapons.forEach(function(item) {
+                backPack.innerHTML += `
+                <div class="item">
+                <span class="item_name">${item.name}</span>
+                <span class="worth"><i class="fa-solid fa-coins gold"></i> ${item.cost}</span>
+                <p class="category">${item.category}</p>
+                    <ul>
+                        <li>Danno: ${item.damage}</li>
+                        <li>Range: ${item.range}</li>
+                        <li>Critico: ${item.critic}</li>
+                        <li>Peso: ${item.weight}</li>
+                        <li><i>${item.type}</i></li>
+                    </ul>
+                </div>`;
+            });
         });
     });
 }
@@ -1528,6 +1598,76 @@ const armi = {
         weight: "0.5Kg",
         type: "Perforante",
         category: "Armi da mischia leggere",
-    }
+    },
+    "lanciacorta": {
+        name: "Lancia Corta",
+        cost: "1",
+        damage: "1d6",
+        critic: "x2",
+        range: " 6m ",
+        weight: "1.5Kg",
+        type: "Perforante",
+        category: "Armi da mischia a mano",
+    },
+    "mazzapesante": {
+        name: "Mazza Pesante",
+        cost: "12",
+        damage: "1d8",
+        critic: "x2",
+        range: " - ",
+        weight: "4Kg",
+        type: "Contundente",
+        category: "Armi da mischia a mano",
+    },
+    "morningstar": {
+        name: "Morning Star",
+        cost: "8",
+        damage: "1d8",
+        critic: "x2",
+        range: " - ",
+        weight: "4Kg",
+        type: "Perforante, Contundente",
+        category: "Armi da mischia a mano",
+    },
+    "randello": {
+        name: "Randello",
+        cost: " - ",
+        damage: "1d6",
+        critic: "x2",
+        range: " 3m ",
+        weight: "1.5Kg",
+        type: "Contundente",
+        category: "Armi da mischia a mano",
+    },
+    "arco": {
+        name: "Arco",
+        cost: " 25 ",
+        damage: "1d6",
+        critic: "x2",
+        range: " 24/96m ",
+        weight: "1Kg",
+        type: "Perforante",
+        category: "Armi a distanza semplici",
+    },
+    "dardo": {
+        name: "Dardo (x10)",
+        cost: " 50 ",
+        damage: "1d4",
+        critic: "x2",
+        range: " 6/18m ",
+        weight: "0,125Kg",
+        type: "Perforante",
+        category: "Armi a distanza semplici",
+    },
+    "balestraleggera": {
+        name: "Balestra Leggera",
+        cost: " 25 ",
+        damage: "1d8",
+        critic: "x2",
+        range: " 24/96m ",
+        weight: "2.5Kg",
+        type: "Perforante",
+        category: "Armi a distanza semplici",
+    },
 };
 
