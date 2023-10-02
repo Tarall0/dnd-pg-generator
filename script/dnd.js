@@ -108,6 +108,7 @@ function generateSpells(classpg, classInfo) {
             bardlvl0Container.appendChild(bardlvl0Header);
             bardlvl0Container.appendChild(bardlvl0List);
             bardSpellsContainer.appendChild(bardlvl0Container);
+            document.getElementById("newSpells").style.display = "block";
             break;
         case "Druido":
             const druidzerospells = classInfo[classpg].spellsperday;
@@ -191,6 +192,7 @@ function generateSpells(classpg, classInfo) {
             druidlvl1Container.appendChild(druidlvl1List);
             druidSpellsContainer.appendChild(druidlvl0Container);
             druidSpellsContainer.appendChild(druidlvl1Container);
+            document.getElementById("newSpells").style.display = "block";
             break;
         
         case "Mago":
@@ -279,17 +281,19 @@ function generateSpells(classpg, classInfo) {
             lvl1Container.appendChild(lvl1List);
             spellsContainer.appendChild(lvl0Container);
             spellsContainer.appendChild(lvl1Container);
+            document.getElementById("newSpells").style.display = "block";
             break;
-
             case "Paladino":
-                const druidSpells = document.getElementById("spellsContainer");
-                druidSpells.innerHTML = "Non sono previsti incantesimi al lvl 1";
+                const paladinSpell = document.getElementById("spellsContainer");
+                paladinSpell.innerHTML = "Non sono previsti incantesimi al lvl 1";
+                document.getElementById("newSpells").style.display = "none";
                 break; 
             case "Guerriero":
             case "Ladro":
             case "Barbaro":
                 const genericSpell = document.getElementById("spellsContainer");
                 genericSpell.innerHTML = "Questa classe non ha incantesimi";
+                document.getElementById("newSpells").style.display = "none";
                 break;  
 
     }
@@ -614,9 +618,13 @@ function generatePg() {
 
     // Spells 
     generateSpells(classpg, classInfo);
-    document.getElementById("newSpells").addEventListener("click", () => {
-        generateSpells(classpg, classInfo);
-    })
+    const newSpells = document.getElementById("newSpells")
+    if(newSpells){
+        newSpells.addEventListener("click", () => {
+            generateSpells(classpg, classInfo);
+            console.log("Clicked")
+        })
+    }
     
     
     // Initialize the Stats modifiers
