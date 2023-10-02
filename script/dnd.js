@@ -442,7 +442,7 @@ function calculateRandomHeightAndWeight(race, sex) {
             <div class="item">
             <span class="item_name">${item.name}</span>
             <span class="worth"><i class="fa-solid fa-coins gold"></i> ${item.cost}</span>
-            <span class="category">${item.category}</span>
+            <p class="category">${item.category}</p>
                 <ul>
                     <li>Danno: ${item.damage}</li>
                     <li>Range: ${item.range}</li>
