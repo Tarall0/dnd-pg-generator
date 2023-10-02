@@ -448,7 +448,7 @@ function calculateRandomHeightAndWeight(race, sex) {
                     <li>Range: ${item.range}</li>
                     <li>Critico: ${item.critic}</li>
                     <li>Peso: ${item.weight}</li>
-                    <li>${item.type}</li>
+                    <li><i>${item.type}</i></li>
                 </ul>
             </div>`;
         });
