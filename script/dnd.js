@@ -581,10 +581,6 @@ document.getElementById('rangedArmor').addEventListener('click', function () {
 }
 
 
-// Call the createBackpack function to set up the initial form
-createBackpack();
-
-
 // Function to generate values for pg stats (method 4d6 removed the lowest value, 6 times)
 function generatePoints() {
     const dices = [];
