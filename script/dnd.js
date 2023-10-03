@@ -445,7 +445,6 @@ function createBackpack() {
         // Update the backpack content 
         backPack.innerHTML = "<h3>Armi Semplici (Corpo a Corpo)</h3>";
         selectedMeleeWeapons.forEach(function (item) {
-            // Create and append DOM elements for selected weapons
             const itemElement = document.createElement("div");
             itemElement.classList.add("item");
             itemElement.innerHTML = `
@@ -462,8 +461,8 @@ function createBackpack() {
             `;
             backPack.appendChild(itemElement);
         });
-    // After handling melee weapons, you can proceed with the distance weapons section:
-    backPack.innerHTML += `
+
+        backPack.innerHTML += `
     <div id="rangedForm">
         <h3>Seleziona un'arma a distanza</h3>
             <div class="select_armor">
