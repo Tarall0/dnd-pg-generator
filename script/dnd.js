@@ -399,9 +399,8 @@ function calculateRandomHeightAndWeight(race, sex) {
 function createBackpack() {
     const backPack = document.getElementById("backpack");
     backPack.innerHTML = `
-    <h3>Seleziona un'arma semplice </h3>
-        <form id="meleeForm">
-            <div class="select_armor">
+        <h3>Seleziona un'arma semplice</h3>
+        <div class="select_armor">
                 <label>
                     <input type="checkbox" name="meleeWeapons" value="pugnale"> Pugnale
                 </label>
@@ -421,18 +420,14 @@ function createBackpack() {
                     <input type="checkbox" name="meleeWeapons" value="pugnaledamischia"> Pugnale da Mischia
                 </label>
             </div>
-            <div class="buttons"><button id="meleeArmor"> Continua </button></div>
-        </form>
-        
+        <div class="buttons"><button id="meleeArmor">Continua</button></div>
     `;
 
-    document.getElementById('meleeForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting traditionally
+    const meleeForm = document.getElementById('meleeForm');
 
-        // Get all selected melee weapon checkboxes
+    document.getElementById('meleeArmor').addEventListener('click', function () {
+        // Handle weapon selection here
         const checkboxes = document.querySelectorAll('input[name="meleeWeapons"]:checked');
-
-        // Create an array to store selected melee weapons
         const selectedMeleeWeapons = [];
 
         if (checkboxes.length > 2) {
@@ -440,76 +435,20 @@ function createBackpack() {
             return;
         }
 
-        // Iterate through selected checkboxes and add corresponding items from the 'armi' object
-        checkboxes.forEach(function(checkbox) {
+        checkboxes.forEach(function (checkbox) {
             const itemName = checkbox.value;
             if (armi[itemName]) {
                 selectedMeleeWeapons.push(armi[itemName]);
             }
         });
 
-        // Display the selected melee weapons in the backpack
+        // Update the backpack content 
         backPack.innerHTML = "<h3>Armi Semplici (Corpo a Corpo)</h3>";
-        selectedMeleeWeapons.forEach(function(item) {
-            backPack.innerHTML += `
-            <div class="item">
-            <span class="item_name">${item.name}</span>
-            <span class="worth"><i class="fa-solid fa-coins gold"></i> ${item.cost}</span>
-            <p class="category">${item.category}</p>
-                <ul>
-                    <li>Danno: ${item.damage}</li>
-                    <li>Range: ${item.range}</li>
-                    <li>Critico: ${item.critic}</li>
-                    <li>Peso: ${item.weight}</li>
-                    <li><i>${item.type}</i></li>
-                </ul>
-            </div>`;
-        });
-
-        backPack.innerHTML += `
-        
-        <form id="rangedForm">
-        <h3>Seleziona un'arma a distanza </h3>
-            <div class="select_armor">
-                <label>
-                    <input type="checkbox" name="rangedWeapons" value="arco"> Arco
-                </label>
-                <label>
-                    <input type="checkbox" name="rangedWeapons" value="balestraleggera"> Balestra Leggera
-                </label>
-            </div>
-            <div class="buttons"><button id="rangedArmor"> Continua </button></div>
-        </form>
-        `;
-
-        document.getElementById('rangedForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Get all selected ranged weapon checkboxes
-            const checkboxes = document.querySelectorAll('input[name="rangedWeapons"]:checked');
-
-            // Create an array to store selected ranged weapons
-            const selectedRangedWeapons = [];
-
-            if (checkboxes.length > 1) {
-                alert("Puoi selezionare al massimo 1 arma a distanza.");
-                return;
-            }
-            document.getElementById("rangedForm").style.display = "none";
-
-            // Iterate through selected checkboxes and add corresponding items from the 'armi' object
-            checkboxes.forEach(function(checkbox) {
-                const itemName = checkbox.value;
-                if (armi[itemName]) {
-                    selectedRangedWeapons.push(armi[itemName]);
-                }
-            });
-
-            // Display the selected ranged weapons in the backpack
-            backPack.innerHTML += "<h3>Armi Semplici (A Distanza)</h3>";
-            selectedRangedWeapons.forEach(function(item) {
-                backPack.innerHTML += `
-                <div class="item">
+        selectedMeleeWeapons.forEach(function (item) {
+            // Create and append DOM elements for selected weapons
+            const itemElement = document.createElement("div");
+            itemElement.classList.add("item");
+            itemElement.innerHTML = `
                 <span class="item_name">${item.name}</span>
                 <span class="worth"><i class="fa-solid fa-coins gold"></i> ${item.cost}</span>
                 <p class="category">${item.category}</p>
@@ -520,11 +459,130 @@ function createBackpack() {
                         <li>Peso: ${item.weight}</li>
                         <li><i>${item.type}</i></li>
                     </ul>
-                </div>`;
-            });
+            `;
+            backPack.appendChild(itemElement);
         });
+    // After handling melee weapons, you can proceed with the distance weapons section:
+    backPack.innerHTML += `
+    <div id="rangedForm">
+        <h3>Seleziona un'arma a distanza</h3>
+            <div class="select_armor">
+                <label>
+                    <input type="checkbox" name="rangedWeapons" value="arco"> Arco
+                </label>
+                <label>
+                    <input type="checkbox" name="rangedWeapons" value="balestraleggera"> Balestra Leggera
+                 </label>
+            </div>
+         <div class="buttons"><button id="rangedArmor">Continua</button></div>
+    </div>
+`;
+
+
+
+document.getElementById('rangedArmor').addEventListener('click', function () {
+    // Handle distance weapon selection here
+    const checkboxes = document.querySelectorAll('input[name="rangedWeapons"]:checked');
+    const selectedRangedWeapons = [];
+    const rangedForm = document.getElementById('rangedForm');
+
+    if (checkboxes.length > 1) {
+        alert("Puoi selezionare al massimo 1 arma a distanza.");
+        return;
+    } else {
+        rangedForm.style.display="none";
+    }
+
+    checkboxes.forEach(function (checkbox) {
+        const itemName = checkbox.value;
+        if (armi[itemName]) {
+            selectedRangedWeapons.push(armi[itemName]);
+        }
     });
+
+    // Update the backpack content for selected distance weapons
+    backPack.innerHTML += "<h3>Armi Semplici (A Distanza)</h3>";
+    selectedRangedWeapons.forEach(function (item) {
+        // Create and append DOM elements for selected weapons
+        const itemElement = document.createElement("div");
+        itemElement.classList.add("item");
+        itemElement.innerHTML = `
+        <span class="item_name">${item.name}</span>
+        <span class="worth"><i class="fa-solid fa-coins gold"></i> ${item.cost}</span>
+        <p class="category">${item.category}</p>
+            <ul>
+                <li>Danno: ${item.damage}</li>
+                <li>Range: ${item.range}</li>
+                <li>Critico: ${item.critic}</li>
+                <li>Peso: ${item.weight}</li>
+                <li><i>${item.type}</i></li>
+            </ul>
+        `;
+        backPack.appendChild(itemElement);
+    });
+ 
+    backPack.innerHTML += `
+       <div id="startingArmor">
+       <h3>Seleziona un'armatura leggera</h3>
+            <div class="select_armor">
+                <label>
+                    <input type="radio" name="armorbasic" value="noarmor"> Senza armatura
+                </label>
+                <label>
+                    <input type="radio" name="armorbasic" value="imbottita"> Armatura Imbottita
+                </label>
+                <label>
+                    <input type="radio" name="armorbasic" value="cuoio"> Armatura di Cuoio
+                </label>
+                <label>
+                    <input type="radio" name="armorbasic" value="cuoioborchiato"> Armatura di Cuoio Borchiato
+                </label>
+            </div>
+        <div class="buttons"><button id="starting_armor">Continua</button></div>
+        </div>
+    `;
+
+
+    document.getElementById("starting_armor").addEventListener("click", function () {
+        // Handle armor selection
+        const selectedArmor = document.querySelector('input[name="armorbasic"]:checked');
+        const armors = [];
+        const startingArmorForm = document.getElementById('startingArmor');
+
+
+        if (!selectedArmor) {
+            alert("Devi selezionare un'armatura.");
+            return;
+        }
+        else {
+            startingArmorForm.style.display="none";
+        }
+        const armorName = selectedArmor.value;
+        if(armature[armorName]){
+            armors.push(armature[armorName]);
+        }
+
+        // Update the backpack content fo armor
+        backPack.innerHTML += "<h3>Armature Leggere</h3>";
+        const armorElement = document.createElement("div");
+        armorElement.classList.add("item");
+        armorElement.innerHTML = `
+        <span class="item_name">${armature[armorName].name}</span>
+        <p class="worth"><i class="fa-solid fa-coins gold"></i> ${armature[armorName].prezzo}</p>
+        <ul>
+            <li>Bonus: ${armature[armorName].bonus}</li>
+            <li>Peso: ${armature[armorName].peso}</li>
+        </ul>
+        `;
+        backPack.appendChild(armorElement);
+    });
+});
+});
 }
+
+
+// Call the createBackpack function to set up the initial form
+createBackpack();
 
 
 // Function to generate values for pg stats (method 4d6 removed the lowest value, 6 times)
@@ -1727,6 +1785,50 @@ const armi = {
     },
 };
 
+const armature = {
+    "nessuna":{
+        name: "Nessuna armatura",
+        bonus: "Nessun bonus",
+        peso: "0kg",
+        prezzo: "0",
+        indossare: "1 minuto",
+        togliere: "1 minuto"
+    },
+    "imbottita":{
+        name: "Armatura Imbottita",
+        bonus: "+1",
+        peso: "4kg",
+        prezzo: "5",
+        indossare: "1 minuto",
+        togliere: "1 minuto"
+    },
+    "cuoio":{
+        name: "Armatura di Cuoio",
+        bonus: "+1",
+        peso: "5kg",
+        prezzo: "10",
+        indossare: "1 minuto",
+        togliere: "1 minuto"
+    },
+    "cuoioborchiato":{
+        name: "Armatura di Cuoio Borchiato",
+        bonus: "+2",
+        peso: "6,5kg",
+        prezzo: "45",
+        indossare: "1 minuto",
+        togliere: "1 minuto"
+    },
+   
+}
+
+const scudi = {
+    "scudo": {
+        name: "Scudo",
+        bonus: "+2",
+        peso: "3kg",
+        prezzo: "10",
+    }
+}
 
 const initial_objects = {
 
