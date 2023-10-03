@@ -575,7 +575,11 @@ document.getElementById('rangedArmor').addEventListener('click', function () {
         </ul>
         `;
         backPack.appendChild(armorElement);
+        document.getElementById("modarmatura").innerHTML = ((armature[armorName].bonus == 0) ? "0" : (armature[armorName].bonus  > 0 ? "<span class='plus'> +" +armature[armorName].bonus  + "</span>" : "<span class='minus'> "+ armature[armorName].bonus +"</span>"));
+        document.getElementById("cla").innerHTML += ((armature[armorName].bonus == 0) ? "0" : (armature[armorName].bonus  > 0 ? "<span class='plus'> +" +armature[armorName].bonus  + "</span>" : "<span class='minus'> "+ armature[armorName].bonus +"</span>"));
     });
+
+    
 });
 });
 }
@@ -1792,7 +1796,7 @@ const armature = {
     },
     "imbottita":{
         name: "Armatura Imbottita",
-        bonus: "+1",
+        bonus: "1",
         peso: "4kg",
         prezzo: "5",
         indossare: "1 minuto",
@@ -1800,7 +1804,7 @@ const armature = {
     },
     "cuoio":{
         name: "Armatura di Cuoio",
-        bonus: "+1",
+        bonus: "1",
         peso: "5kg",
         prezzo: "10",
         indossare: "1 minuto",
@@ -1808,7 +1812,7 @@ const armature = {
     },
     "cuoioborchiato":{
         name: "Cuoio Borchiato",
-        bonus: "+2",
+        bonus: "2",
         peso: "6,5kg",
         prezzo: "45",
         indossare: "1 minuto",
@@ -1820,7 +1824,7 @@ const armature = {
 const scudi = {
     "scudo": {
         name: "Scudo",
-        bonus: "+2",
+        bonus: "2",
         peso: "3kg",
         prezzo: "10",
     }
