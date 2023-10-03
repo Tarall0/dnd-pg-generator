@@ -572,6 +572,8 @@ document.getElementById('rangedArmor').addEventListener('click', function () {
         <ul>
             <li>Bonus: ${armature[armorName].bonus}</li>
             <li>Peso: ${armature[armorName].peso}</li>
+            <li>Indossare: ${armature[armorName].indossare}</li>
+            <li>Togliere: ${armature[armorName].togliere}</li>
         </ul>
         `;
         backPack.appendChild(armorElement);
