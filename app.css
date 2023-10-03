@@ -645,9 +645,10 @@ input:checked + .slider:before {
 #backpack .item{
   margin: .55em auto;
   padding: 1em;
-  border-bottom: 1px solid var(--darktone);
   position: relative;
   max-width: 750px;
+  background-color: var(--main);
+  border-radius: .5em;
 }
 
 .item .item_name{
@@ -663,13 +664,16 @@ input:checked + .slider:before {
 
 .item li{
   margin: .25em;
-  border-bottom: 1px solid var(--main);
+  border-bottom: 1px solid var(--darktone);
 }
 
 .item .worth{
   position: absolute;
   top: 10px;
   right: 10px;
+  background-color: var(--bg);
+  border-radius: 10px;
+  padding: 0.5em 1em;
 }
 
 .item .category {

@@ -562,9 +562,10 @@ document.getElementById('rangedArmor').addEventListener('click', function () {
         }
 
         // Update the backpack content fo armor
-        backPack.innerHTML += "<h3>Armature Leggere</h3>";
+        backPack.innerHTML += "<h3>Armatura Iniziale</h3>";
         const armorElement = document.createElement("div");
         armorElement.classList.add("item");
+        armorElement.classList.add("armor");
         armorElement.innerHTML = `
         <span class="item_name">${armature[armorName].name}</span>
         <p class="worth"><i class="fa-solid fa-coins gold"></i> ${armature[armorName].prezzo}</p>
@@ -1781,7 +1782,7 @@ const armi = {
 };
 
 const armature = {
-    "nessuna":{
+    "noarmor":{
         name: "Nessuna armatura",
         bonus: "Nessun bonus",
         peso: "0kg",
@@ -1806,7 +1807,7 @@ const armature = {
         togliere: "1 minuto"
     },
     "cuoioborchiato":{
-        name: "Armatura di Cuoio Borchiato",
+        name: "Cuoio Borchiato",
         bonus: "+2",
         peso: "6,5kg",
         prezzo: "45",
