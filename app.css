@@ -109,7 +109,7 @@ body{
     pointer-events: none;
 }
 
-  h1{
+  main h1{
     text-align: center;
     padding: 1em 0em;
   }
