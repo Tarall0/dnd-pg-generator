@@ -613,6 +613,8 @@ function generatePoints() {
 // Function to generate a pg
 function generatePg() { 
 
+
+    document.getElementsByClassName("main").style = "max-width: 990px;"
     // Display content
     document.getElementById("display_generated").style.display="block";
     // Name and gender

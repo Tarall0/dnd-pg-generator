@@ -86,14 +86,14 @@ body{
     margin: 5em auto 2em auto;
     padding: 1.5em;
     border-radius: 10px;
-    max-width: 990px;
+    max-width: 480px;
     width: calc(90% - 3em);
     background: var(--main);
     position: relative;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 
-  main .settings-box{
+  .settings-box{
     display: grid;
     place-content: center;
     font-size: x-small;
@@ -109,19 +109,19 @@ body{
     pointer-events: none;
 }
 
-  main h1{
+  h1{
     text-align: center;
     padding: 1em 0em;
   }
   
-  main .desc{
+  .desc{
     text-align: center;
     width: 90%;
     max-width: 550px;
     margin: auto;
   }
 
-  main .attempts{
+  .attempts{
     position: absolute;
     top: 1em;
     left: 1em;
@@ -129,13 +129,13 @@ body{
     
   }
 
-  main .main-button{
+  .main-button{
     display: grid;
     place-content: center;
     margin: 1em auto;
   }
 
-  main .button-container{
+  .button-container{
     margin: 1em auto;
     display: grid;
     justify-content: center;
@@ -143,7 +143,7 @@ body{
     gap: .5em;
   }
 
-  main .pg-grid {
+  .pg-grid {
     display: grid;
     grid-template-columns: 50% 50%;
     gap: 1em;
@@ -151,13 +151,13 @@ body{
    
   }
 
-  main .threecol{
+  .threecol{
     grid-template-columns: 33.3% 33.3% 33.3%;
     margin: 2em auto;
     display: grid;
   }
 
-  main .threecol > div {
+  .threecol > div {
     padding: 1em;
     width: 80%;
     margin: .5em auto;
@@ -165,18 +165,18 @@ body{
     background-color: var(--bg);
   }
 
-  main .threecol > div label{
+  .threecol > div label{
     border-bottom: 2px solid #5853bc;
     padding: .25em;
     font-size: 18px;
     transition: all 300ms linear;
   }
 
-  main .threecol>div:hover>label{
+  .threecol>div:hover>label{
     border-bottom: 0;
   }
 
-  main .info {
+  .info {
     text-align: center;
     background-color: var(--bg);
     color: var(--fg);
@@ -199,13 +199,13 @@ body{
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   }
 
-  main .pg-grid > div{
+  .pg-grid > div{
     background-color: var(--bg);
     padding: 1em;
     width: 90%;
   }
 
-  main .spells-container, main .equipment{
+  .spells-container, main .equipment{
     background-color: var(--bg);
     padding: 1em;
     margin: 1em auto;
@@ -359,20 +359,20 @@ body{
 
 
   @media(max-width: 720px){
-    main .pg-grid{
+     .pg-grid{
         grid-template-columns: auto;
     }
 
-    main .threecol{
+    .threecol{
       grid-template-columns: 50% 50%;
       gap: 0;
     }
 
-    main .threecol>div{
+    .threecol>div{
       margin: 0 auto;
     }
 
-    main .threecol>div label{
+    .threecol>div label{
       font-size: 14px;
     }
 
@@ -631,7 +631,7 @@ input:checked + .slider:before {
 }
 
 .select_armor>label{
-  background-color: var(--navbar);
+  background-color: var(--bg);
   padding: 1em;
   color: var(--fg);
   border-radius: .5em;
@@ -647,7 +647,7 @@ input:checked + .slider:before {
   padding: 1em;
   position: relative;
   max-width: 750px;
-  background-color: var(--main);
+  background-color: var(--bg);
   border-radius: .5em;
 }
 
@@ -692,16 +692,21 @@ input:checked + .slider:before {
 #display_generated {
   display: none;
   animation: generatedAnimation .5s linear;
+  background-color: var(--main);
+  max-width: 990px;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 2em auto;
 }
 
 @keyframes generatedAnimation {
   0%{
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateY(-100%);
   }
 
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
