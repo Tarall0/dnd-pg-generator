@@ -731,6 +731,10 @@ function generatePg() {
     // Apply stats once managed
     const applyStats = document.getElementById("apply_stats");
     applyStats.addEventListener("click", () => {
+
+        // disable reroll button 
+        buttonStats.style = "background: var(--darktone); color: var(--bg)";
+        buttonStats.disabled = true;
         const forzaValue = parseInt(document.getElementById("forza").innerHTML);
         const forza = forzaValue + raceModifierForForza;
         const intValue = parseInt(document.getElementById("int").innerHTML)
