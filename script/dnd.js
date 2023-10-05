@@ -612,9 +612,6 @@ function generatePoints() {
 
 // Function to generate a pg
 function generatePg() { 
-
-
-    document.getElementsByClassName("main").style = "max-width: 990px;"
     // Display content
     document.getElementById("display_generated").style.display="block";
     // Name and gender
@@ -808,12 +805,9 @@ function generatePg() {
     document.getElementById("life").textContent = calculateLifePoints(classInfo[classpg]);
 
    
-    //
-    
+    // Generate personality and body traits randomly
     document.getElementById("personality").innerHTML = "<p>"+personality+"</p><p>"+negPersonality+"</p>";
-
     document.getElementById("traits").innerHTML = randomTraits;
-
     document.getElementById("eyes").innerHTML = eyes_colors[Math.floor(Math.random() * eyes_colors.length)];
 }
   
@@ -829,7 +823,6 @@ button.addEventListener("click", () => {
     generatePg();
     incrementClickCount();
 });
-
 
 
 // Objects 
