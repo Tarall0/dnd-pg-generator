@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="navbar">
-            <h1 class="logo"><i class="fa-solid fa-dice-d20"></i> RanD&D</h1>
+            <h1 class="logo"><a href="./index.html"><i class="fa-solid fa-dice-d20"></i> RanD&D</a></h1>
             <div class="menu">
                 <div id="toggle-button" class="fas fa-sun"></div>
                 <a href="https://github.com/Tarall0/dnd-pg-generator" class="button" target="_blank"><i class="fa-brands fa-github"></i> Github</a>
@@ -29,24 +29,27 @@
             <h1>D&D Random Character Generator
             </h1>
             <p class="desc">Un pratico Tool per la generazione rapida di personaggi. Ideale per avventure rapide e campagne avvincenti organizzate all'ultimo momento.</p>
-            <div class="main-button">
-                <button id="clicker">
-                    <i class="fa-solid fa-dice-d20"></i>  Genera Player
-                </button>
-            </div>
-            <div class="info">
-                <p>
-                    Genera un pg con statistiche casuali per un personaggio (lvl1) di una campagna DND 3.5
-                </p>
-                <p>
-                    Vengono generate informazioni sul personaggio casuali, sentiti libero di prendere questi risultati come spunto.
-                </p>
+            <div id="start_section">
+                <div class="main-button">
+                    <button id="clicker">
+                        <i class="fa-solid fa-dice-d20"></i>  Genera Player
+                    </button>
+                </div>
+                <div class="info">
+                    <p>
+                        Genera un pg con statistiche casuali per un personaggio (lvl1) di una campagna DND 3.5
+                    </p>
+                    <p>
+                        Vengono generate informazioni sul personaggio casuali, sentiti libero di prendere questi risultati come spunto.
+                    </p>
+                </div>
+                <div class="attempts">
+                    Tentativi (<span id="clickCount">0</span>)
+                </div>
             </div>
             
 
-            <div class="attempts">
-                Tentativi (<span id="clickCount">0</span>)
-            </div>
+            
 
         </main>
             <div id="display_generated">

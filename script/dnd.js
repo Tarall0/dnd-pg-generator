@@ -614,6 +614,7 @@ function generatePoints() {
 function generatePg() { 
     // Display content
     document.getElementById("display_generated").style.display="block";
+    document.getElementById("start_section").style.display="none";
     // Name and gender
     const sexPg = Math.floor(Math.random() * 2);
     let sexLable;
